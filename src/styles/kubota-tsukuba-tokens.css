@@ -1,6 +1,6 @@
 /* Hallmark · macrostructure: Narrative Workflow · tone: playful utilitarian · anchor hue: cobalt blue
  * audience: period-work candidates · use: verify recruitment and dorm conditions
- * theme: studied-DNA (user-provided completed-design image) · paper: oklch(98% 0.014 90) · display/body: Noto Sans JP
+ * theme: studied-DNA (user-provided completed-design image) · paper: oklch(98% 0.014 90) · display/body: BIZ UDPGothic
  * enrichment: E5 Tier-C generated illustrations · generated: GPT Image · post-processed
  * nav: none (reference-directed) · footer: Ft2 inline rule
  */
@@ -43,8 +43,8 @@
   --kg-color-shadow-soft: oklch(25% 0.04 245 / 0.08);
   --kg-color-transparent: transparent;
 
-  --kg-font-display: "Noto Sans JP", "Yu Gothic", sans-serif;
-  --kg-font-body: "Noto Sans JP", "Yu Gothic", sans-serif;
+  --kg-font-display: "BIZ UDPGothic", "Yu Gothic", sans-serif;
+  --kg-font-body: "BIZ UDPGothic", "Yu Gothic", sans-serif;
 
   --kg-space-3xs: 0.125rem;
   --kg-space-2xs: 0.25rem;
@@ -56,8 +56,8 @@
   --kg-space-2xl: 4rem;
   --kg-space-3xl: 6rem;
 
-  --kg-text-xs: 0.75rem;
-  --kg-text-sm: 0.875rem;
+  --kg-text-xs: 0.8125rem;
+  --kg-text-sm: 0.9375rem;
   --kg-text-base: 1rem;
   --kg-text-md: 1.25rem;
   --kg-text-lg: 1.5625rem;
