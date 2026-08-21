@@ -10,9 +10,9 @@ const bannerImpression = '//i.moshimo.com/af/i/impression?a_id=5765461&p_id=7694
 
 const comparisonRows = [
   ['月の残額', '−1,200円', '126,900円'],
-  ['1年後の貯金', '約18.6万円', '約210万〜250万円（試算）'],
+  ['1年後の貯金', '約18.6万円', '約248万円（試算）'],
   ['家賃', '月7万円を継続', '寮費無料（入寮条件有）'],
-  ['一時金', 'なし', '満期慰労金24万円／祝儀14万円'],
+  ['一時金', 'なし', '満期慰労金 年48万円※出勤率90%以上／祝儀 年28万円※勤務成績・態度を勘案'],
 ];
 
 const comparisonIcons = [
@@ -23,10 +23,10 @@ const comparisonIcons = [
 ];
 
 const assumptions = [
-  ['月収例', '34万円', '20日勤務＋残業25時間の場合'],
+  ['月収例', '34万円', '20日勤務＋残業25時間・昼勤のみの場合'],
   ['手取り率', '78%', '社会保険料・税を約22%として仮定'],
   ['家賃', '0円', '入寮条件を満たす場合の仮定'],
-  ['食費', '一部減る', '食事補助を利用する仮定'],
+  ['食費', '一部減る', '食費補助を利用する仮定'],
 ];
 
 const assumptionIcons = [
@@ -60,7 +60,7 @@ const cautionItems = [
 const careerSteps = [
   ['01', '期間従業員として勤務'],
   ['02', '1年以上勤務した人が対象'],
-  ['03', '推薦・勤務評価'],
+  ['03', '勤務評価'],
   ['04', '筆記・面接試験'],
   ['05', '総合評価で合格'],
   ['06', '正社員'],
@@ -69,11 +69,11 @@ const careerSteps = [
 const careerIcons = careerSteps.map((_, index) => `/images/career-step-${index + 1}-v3.webp`);
 
 const questions = [
-  '正社員登用の推薦は、何を見て決まるのか',
+  '正社員登用の勤務評価は、何を見て決まるのか',
   '筆記試験の科目とレベル',
   '日勤と交替勤務の配属割合／配属はどう決まるのか',
   '寮の光熱費は自己負担か',
-  '満期慰労金・祝儀は、入社1年目に何回受け取れるか',
+  '満期慰労金の「出勤率90%以上」は、有給や欠勤をどう数えるのか',
   '入寮条件・空室・備品・寝具・引越し費用',
 ];
 
@@ -108,7 +108,7 @@ const formFields = [
           <img class="kg-hero__visual kg-hero__visual--art" src="/images/hero-kubota-comparison-v4.png" alt="今の生活を続ける場合と、クボタ筑波で入寮条件を満たして働く場合の1年後のお金を比較する図解" width="1122" height="1402" fetchpriority="high" />
         </div>
 
-        <p class="kg-hero__note">※一定の仮定を置いた試算です。寮費無料には入寮条件があり、手取り率・食費等にも仮定を置いています。</p>
+        <p class="kg-hero__note">※一定の仮定を置いた試算です。寮費無料には入寮条件があり、一時金には出勤率90%以上・勤務成績の勘案という条件があります。手取り率・食費等にも仮定を置いています。</p>
       </header>
 
       <div class="kg-stages">
@@ -117,7 +117,7 @@ const formFields = [
           <p class="kg-section-copy">手取り23万円・家賃7万円・一人暮らしという仮定で、今の仕事を続ける場合と、入寮条件を満たして働く場合を同じ基準で比べています。</p>
           <div class="kg-compare-table" role="table" aria-label="現在の生活とクボタ筑波で働いた場合の比較">
             <div class="kg-compare-table__head" role="row">
-              <span role="columnheader"></span><strong role="columnheader">今の生活を1年続ける</strong><strong role="columnheader">クボタ筑波・入寮条件を満たした場合</strong>
+              <span role="columnheader"></span><strong role="columnheader">今の生活を1年続ける</strong><strong role="columnheader">クボタ筑波・入寮条件と支給条件を満たした場合</strong>
             </div>
             {comparisonRows.map(([label, current, kubota], index) => (
               <div class="kg-compare-table__row" role="row">
@@ -143,9 +143,10 @@ const formFields = [
             <h3>前提（試算の主な仮定）</h3>
             <ul>
               <li>寮費：無料（入寮条件あり）</li>
-              <li>手取り率：78%を想定</li>
-              <li>食費：月約2万円を想定し、寮生活で一部削減</li>
-              <li>水道・光熱費など一部は未確認</li>
+              <li>手取り率：78%を想定（社会保険料・税を約22%と仮定）</li>
+              <li>食費：月22,900円の削減を想定（総務省の食料費45,800円の半分）</li>
+              <li>一時金：満期慰労金 年48万円は出勤率90%以上、祝儀 年28万円は勤務成績・態度の勘案が条件</li>
+              <li>水道・光熱費：寮の自己負担かどうかは募集要項に記載がなく未確認</li>
             </ul>
           </aside>
           <p class="kg-section-copy">前提を変えれば、1年後の数字も変わります。自分の手取り・家賃・入寮可否に置き換えて見ることが大切です。</p>
@@ -153,12 +154,13 @@ const formFields = [
 
         <section class="kg-stage kg-stage--work" aria-labelledby="stage-3-title">
           <header class="kg-stage__head"><span>3</span><h2 id="stage-3-title">では、「きつい」の中身は何か</h2></header>
-          <p class="kg-section-copy">仕事内容と勤務時間は公開情報で確認できますが、実際の工程や勤務形態は配属によって変わる可能性があります。</p>
+          <p class="kg-section-copy">仕事内容は募集要項で確認できますが、勤務時間は3パターンあり、どれになるかは配属によって変わります。</p>
           <figure class="kg-process-figure">
             <img src="/images/factory-processes-v2.webp" alt="組立、塗装、溶接、機械加工、運搬の5工程で働く作業員" width="1800" height="352" loading="lazy" />
             <figcaption>{processes.map(([name, description]) => <span><strong>{name}</strong><small>{description}</small></span>)}</figcaption>
           </figure>
-          <div class="kg-work-notes"><p>日勤8:00〜16:30の勤務例あり</p><p>変則勤務・交替勤務になる可能性あり</p></div>
+          <div class="kg-work-notes"><p>日勤 8:00〜16:30</p><p>変則勤務 早番7:00〜15:30／遅番14:00〜22:30</p><p>交替勤務 日勤8:00〜16:30／夜勤20:00〜4:30</p></div>
+          <p class="kg-warning">※募集要項に「操業条件により上記勤務形態は変動します」と記載があります。「日勤だけを選べる」とは書かれていません。</p>
           <p class="kg-warning">どの工程に配属されるかは、公開情報では確認できませんでした。</p>
         </section>
 
@@ -181,7 +183,7 @@ const formFields = [
 
         <section class="kg-stage kg-stage--career" aria-labelledby="stage-5-title">
           <header class="kg-stage__head"><span>5</span><h2 id="stage-5-title">1年働いた先に「正社員」という道もある</h2></header>
-          <p class="kg-section-copy">期間従業員として働いた後も、条件を満たせば正規転換制度を検討できる案内があります。ただし、推薦や合格が保証されるものではありません。</p>
+          <p class="kg-section-copy">期間従業員として働いた後も、条件を満たせば正規転換制度を検討できる案内があります。ただし、受験や合格が保証されるものではありません。</p>
           <ol class="kg-career-flow">
             {careerSteps.map(([number, label], index) => <li><img src={careerIcons[index]} alt="" width="180" height="180" loading="lazy" /><span>{number}</span><strong>{label}</strong>{index < careerSteps.length - 1 && <i aria-hidden="true">›</i>}</li>)}
           </ol>
@@ -211,7 +213,7 @@ const formFields = [
             </div>
             <div class="kg-form-notes">
               <p><span class="kg-mail-icon" aria-hidden="true"></span><strong>iCloudメールは<br />別のメールアドレス推奨</strong></p>
-              <p><span class="kg-building-icon" aria-hidden="true"></span><strong>送信先は<br />応募受付窓口</strong></p>
+              <p><span class="kg-building-icon" aria-hidden="true"></span><strong>送信先は<br />職業紹介窓口</strong></p>
             </div>
             <img src="/images/guide-woman-v2.webp" alt="スマートフォンで問い合わせフォームを確認する女性" width="484" height="623" loading="lazy" />
           </div>
@@ -231,7 +233,7 @@ const formFields = [
             <div class="kg-final-compare">
               <article><h3>今の生活</h3><p>1年後の貯金</p><strong>約18.6万円</strong></article>
               <b aria-hidden="true">VS</b>
-              <article><h3>クボタ筑波・入寮条件を満たした場合</h3><strong>約210万〜250万円</strong><p>（試算）</p></article>
+              <article><h3>クボタ筑波・入寮条件と支給条件を満たした場合</h3><strong>約248万円</strong><p>（試算）</p></article>
             </div>
           </div>
           <div class="kg-banner-cta">
@@ -240,7 +242,7 @@ const formFields = [
             </a>
             <img class="kg-banner-cta__pixel" src={bannerImpression} alt="" width="1" height="1" loading="lazy" aria-hidden="true" />
           </div>
-          <p class="kg-stage__footnote">※寮費無料には入寮条件あり。月収例・手取り率・生活費には条件や仮定があります。</p>
+          <p class="kg-stage__footnote">※寮費無料には入寮条件あり。一時金には出勤率90%以上・勤務成績の勘案という条件があります。月収例・手取り率・生活費にも条件や仮定があります。</p>
         </section>
       </div>
 
