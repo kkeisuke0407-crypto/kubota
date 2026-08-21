@@ -2,6 +2,7 @@
 import '../styles/kubota-tsukuba-tokens.css';
 import '../styles/kubota-tsukuba.css';
 import SiteFooter from '../components/SiteFooter.astro';
+import Analytics from '../components/Analytics.astro';
 import { site } from '../data/site';
 
 interface Props {
@@ -27,6 +28,7 @@ const { title, description, path, heading, lead, meta } = Astro.props;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap" rel="stylesheet" />
+    <Analytics />
   </head>
   <body class="kubota-guide">
     <a class="kg-skip" href="#main-content">本文へ移動</a>
