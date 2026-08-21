@@ -1,0 +1,9 @@
+:root {
+  --lc-paper: oklch(98.5% 0.01 245); --lc-page: oklch(95.5% 0.018 245); --lc-surface: oklch(99.5% 0.006 90); --lc-surface-blue: oklch(96% 0.027 245); --lc-surface-warm: oklch(97% 0.06 88);
+  --lc-navy: oklch(28% 0.12 258); --lc-blue: oklch(48% 0.18 258); --lc-blue-soft: oklch(78% 0.085 245); --lc-ink: oklch(23% 0.085 258); --lc-muted: oklch(42% 0.045 252); --lc-rule: oklch(78% 0.08 248); --lc-rule-soft: oklch(89% 0.03 248);
+  --lc-yellow: oklch(90% 0.19 98); --lc-yellow-soft: oklch(95% 0.11 96); --lc-orange: oklch(66% 0.235 35); --lc-orange-deep: oklch(52% 0.22 31); --lc-coral-soft: oklch(96% 0.035 24); --lc-focus: oklch(50% 0.22 255); --lc-white: oklch(99% 0.006 90); --lc-shadow: oklch(25% 0.055 252 / 0.16); --lc-shadow-soft: oklch(25% 0.055 252 / 0.08); --lc-transparent: transparent;
+  --lc-display: "Noto Sans JP", "Yu Gothic UI", sans-serif; --lc-body: "Noto Sans JP", "Yu Gothic UI", sans-serif;
+  --lc-1: .25rem; --lc-2: .5rem; --lc-3: .75rem; --lc-4: 1rem; --lc-6: 1.5rem; --lc-8: 2rem; --lc-12: 3rem; --lc-16: 4rem;
+  --lc-xs: .75rem; --lc-sm: .875rem; --lc-base: 1rem; --lc-md: 1.25rem; --lc-lg: 1.5625rem; --lc-xl: 1.953rem; --lc-2xl: 2.441rem; --lc-display-size: clamp(2rem, 8vw, 3.35rem);
+  --lc-radius-sm: .5rem; --lc-radius-md: .75rem; --lc-radius-lg: 1.25rem; --lc-radius-pill: 999px; --lc-ease-out: cubic-bezier(.16,1,.3,1); --lc-dur: 220ms;
+}

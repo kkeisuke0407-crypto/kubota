@@ -1,0 +1,10 @@
+---
+interface Props { href: string; label: string; heading: string; copy?: string; note?: string; final?: boolean; }
+const { href, label, heading, copy, note, final = false } = Astro.props;
+---
+<aside class:list={["lc-cta-panel", { "lc-cta-panel--final": final }]}>
+  <p class="lc-cta-heading">{heading}</p>
+  {copy && <p>{copy}</p>}
+  <a class="lc-cta" href={href} target="_blank" rel="sponsored nofollow noopener"><span>{label}</span><span aria-hidden="true">→</span></a>
+  {note && <p class="lc-cta-note">{note}</p>}
+</aside>

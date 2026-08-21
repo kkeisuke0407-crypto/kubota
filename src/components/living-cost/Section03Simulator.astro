@@ -1,0 +1,18 @@
+---
+import SectionHeader from './SectionHeader.astro';
+---
+<section class="lc-section" aria-labelledby="lc-s3-title">
+  <SectionHeader id="lc-s3-title" number="S3" title="あなたの場合、何ヶ月かかる？" />
+  <h3>［簡易シミュレーター］</h3>
+  <form class="lc-calculator" data-lc-calculator>
+    <label>目標額<input name="target" type="number" inputmode="numeric" min="1" value="500000" /><span>円</span></label><label>毎月の手取り<input name="income" type="number" inputmode="numeric" min="0" value="230000" /><span>円</span></label><label>毎月の家賃<input name="rent" type="number" inputmode="numeric" min="0" value="70000" /><span>円</span></label><label>家賃以外の生活費<input name="living" type="number" inputmode="numeric" min="0" value="148900" /><span>円</span></label>
+    <div class="lc-calc-result" aria-live="polite"><p>今の家計で毎月残る金額</p><strong data-lc-surplus>11,100円</strong><hr /><p data-lc-target-label>50万円まで</p><strong data-lc-months>約3年10ヶ月</strong></div>
+    <button type="submit">自分の数字で計算する →</button><p data-lc-error hidden>毎月残る金額が0円以下のため、目標までの期間を計算できません。</p>
+  </form>
+  <h3 class="lc-marker-title">今回使うモデルケース</h3>
+  <div class="lc-table lc-table--two" role="table"><div role="row"><span>手取り</span><strong>230,000円</strong></div><div role="row"><span>家賃</span><strong>70,000円</strong></div><div role="row"><span>家賃以外の生活費</span><strong>148,900円</strong></div><div class="lc-accent-row" role="row"><span>毎月残る額</span><strong>11,100円</strong></div></div>
+  <p class="lc-small">家賃以外の生活費148,900円は、総務省「家計調査年報」2025年の単身勤労者世帯34歳以下の消費支出179,200円から住居費30,300円を差し引いた数字を使っています。</p>
+  <div class="lc-formula">230,000 − 70,000 − 148,900 ＝ <strong>11,100円</strong></div><p>このままなら、</p>
+  <div class="lc-table lc-table--two" role="table" aria-label="目標額ごとの必要な期間"><div class="lc-th"><span>目標額</span><span>必要な期間</span></div><div><span>30万円</span><strong>28ヶ月</strong></div><div><span>50万円</span><strong>46ヶ月（3年10ヶ月）</strong></div><div><span>80万円</span><strong>73ヶ月（6年1ヶ月）</strong></div></div>
+  <a class="lc-next" href="#lc-s4-title">次へ：家賃だけ0円なら？ <span aria-hidden="true">→</span></a>
+</section>

@@ -1,0 +1,5 @@
+---
+interface Props { id: string; number: string; title: string; }
+const { id, number, title } = Astro.props;
+---
+<header class="lc-section-head"><span aria-hidden="true">{number}</span><h2 id={id}>{title}</h2></header>

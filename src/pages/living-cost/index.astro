@@ -1,0 +1,23 @@
+---
+import '../../styles/living-cost-tokens.css';
+import '../../styles/living-cost.css';
+import Analytics from '../../components/Analytics.astro';
+import Section01Hero from '../../components/living-cost/Section01Hero.astro';
+import Section02Goal from '../../components/living-cost/Section02Goal.astro';
+import Section03Simulator from '../../components/living-cost/Section03Simulator.astro';
+import Section04RentComparison from '../../components/living-cost/Section04RentComparison.astro';
+import Section05DormOffer from '../../components/living-cost/Section05DormOffer.astro';
+import Section06Caveats from '../../components/living-cost/Section06Caveats.astro';
+import Section07DormConditions from '../../components/living-cost/Section07DormConditions.astro';
+import Section08Fit from '../../components/living-cost/Section08Fit.astro';
+import Section09Checklist from '../../components/living-cost/Section09Checklist.astro';
+import Section10Summary from '../../components/living-cost/Section10Summary.astro';
+const affiliateUrl = 'https://af.moshimo.com/af/c/click?a_id=5765461&p_id=7694&pc_id=22266&pl_id=95905';
+---
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" /><meta name="description" content="一人暮らしの初期費用50万円を、今の家計・家賃0円の仮定・寮費無料の募集例で何ヶ月かかるか比較します。" /><title>一人暮らしの初期費用｜50万円まで何ヶ月かかる？</title><link rel="canonical" href="https://kubota.hakobu-family.com/living-cost/" /><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800;900&display=swap" rel="stylesheet" /><Analytics /></head>
+<body class="living-cost-page"><a class="lc-skip" href="#main-content">本文へ移動</a><div class="lc-pr">PR</div><main id="main-content" class="lc-page"><Section01Hero /><Section02Goal /><Section03Simulator /><Section04RentComparison /><Section05DormOffer affiliateUrl={affiliateUrl} /><Section06Caveats /><Section07DormConditions /><Section08Fit /><Section09Checklist affiliateUrl={affiliateUrl} /><Section10Summary affiliateUrl={affiliateUrl} /></main>
+<script is:inline>
+const calculator=document.querySelector('[data-lc-calculator]');
+if(calculator instanceof HTMLFormElement){const formatter=new Intl.NumberFormat('ja-JP');calculator.addEventListener('submit',(event)=>{event.preventDefault();const data=new FormData(calculator);const target=Number(data.get('target'));const income=Number(data.get('income'));const rent=Number(data.get('rent'));const living=Number(data.get('living'));const surplus=income-rent-living;const surplusEl=calculator.querySelector('[data-lc-surplus]');const monthsEl=calculator.querySelector('[data-lc-months]');const targetEl=calculator.querySelector('[data-lc-target-label]');const errorEl=calculator.querySelector('[data-lc-error]');if(!(surplusEl&&monthsEl&&targetEl&&errorEl))return;surplusEl.textContent=`${formatter.format(surplus)}円`;targetEl.textContent=`${formatter.format(target)}円まで`;if(surplus<=0||target<=0){monthsEl.textContent='計算できません';errorEl.hidden=false;return;}const months=Math.ceil(target/surplus);const years=Math.floor(months/12);const rest=months%12;monthsEl.textContent=years>0?`約${years}年${rest}ヶ月`:`約${months}ヶ月`;errorEl.hidden=true;});}
+</script></body></html>
