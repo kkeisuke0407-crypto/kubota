@@ -627,4 +627,4 @@ body.kubota-guide {
 
 .kg-banner-cta a:focus-visible { outline: var(--kg-rule-medium) solid var(--kg-color-focus); outline-offset: var(--kg-space-2xs); }
 .kg-banner-cta img { width: 100%; }
-.kg-banner-cta__pixel { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.kg-banner-cta img.kg-banner-cta__pixel { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
