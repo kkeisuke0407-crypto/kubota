@@ -1,0 +1,54 @@
+---
+import '../styles/kubota-tsukuba-tokens.css';
+import '../styles/kubota-tsukuba.css';
+import SiteFooter from '../components/SiteFooter.astro';
+import { site } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  heading: string;
+  lead?: string;
+  meta?: string;
+}
+
+const { title, description, path, heading, lead, meta } = Astro.props;
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="canonical" href={`${site.url}${path}`} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap" rel="stylesheet" />
+  </head>
+  <body class="kubota-guide">
+    <a class="kg-skip" href="#main-content">本文へ移動</a>
+
+    <main id="main-content" class="kg-page kg-page--doc">
+      <nav class="kg-breadcrumb" aria-label="パンくず">
+        <a href="/">トップページ</a><span aria-hidden="true">›</span><span>{heading}</span>
+      </nav>
+
+      <article class="kg-doc">
+        <header class="kg-doc__head">
+          <h1>{heading}</h1>
+          {lead && <p class="kg-doc__lead">{lead}</p>}
+          {meta && <p class="kg-doc__meta">{meta}</p>}
+        </header>
+
+        <div class="kg-prose">
+          <slot />
+        </div>
+      </article>
+
+      <SiteFooter />
+    </main>
+  </body>
+</html>

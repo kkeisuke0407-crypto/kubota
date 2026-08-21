@@ -1,0 +1,25 @@
+---
+import SubPage from '../../layouts/SubPage.astro';
+import { columns } from '../../data/columns';
+import { site } from '../../data/site';
+---
+
+<SubPage
+  title={`コラム一覧｜${site.name}`}
+  description="期間従業員の寮費・手取り・一時金・交替勤務・正社員登用について、応募前に確認しておきたい点をまとめたコラム一覧です。"
+  path="/column/"
+  heading="コラム"
+  lead="求人票の数字だけでは判断しにくい部分を、確認の観点から整理した記事です。"
+>
+  <ul class="kg-column-list">
+    {columns.map((column) => (
+      <li>
+        <a href={`/column/${column.slug}/`}>
+          <strong>{column.title}</strong>
+          <span>{column.description}</span>
+          <time datetime={column.published}>{column.published.replaceAll('-', '.')}</time>
+        </a>
+      </li>
+    ))}
+  </ul>
+</SubPage>
