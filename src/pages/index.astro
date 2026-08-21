@@ -3,7 +3,9 @@ import '../styles/kubota-tsukuba-tokens.css';
 import '../styles/kubota-tsukuba.css';
 import SiteFooter from '../components/SiteFooter.astro';
 
-const affiliateUrl = 'https://www.3aaa-s.co.jp/kubota-afi2/?cid=c01m0f9d62fj2dn83jy5zf7vmcf&p=pifbkvg6zsvp';
+const affiliateUrl = '//af.moshimo.com/af/c/click?a_id=5765461&p_id=7694&pc_id=22266&pl_id=95905';
+const bannerImage = '//image.moshimo.com/af-img/6249/000000095905.png';
+const bannerImpression = '//i.moshimo.com/af/i/impression?a_id=5765461&p_id=7694&pc_id=22266&pl_id=95905';
 
 const comparisonRows = [
   ['月の残額', '−1,200円', '126,900円'],
@@ -240,7 +242,12 @@ const formFields = [
               <article><h3>クボタ筑波・入寮条件を満たした場合</h3><strong>約210万〜250万円</strong><p>（試算）</p></article>
             </div>
           </div>
-          <a class="kg-cta kg-cta--final" href={affiliateUrl} target="_blank" rel="sponsored nofollow noopener">クボタ筑波の募集要項・入寮条件を確認する<span aria-hidden="true">›</span></a>
+          <div class="kg-banner-cta">
+            <a href={affiliateUrl} target="_blank" rel="sponsored nofollow noopener" referrerpolicy="no-referrer-when-downgrade" attributionsrc>
+              <img src={bannerImage} alt="クボタ筑波の募集要項・入寮条件を確認する" width="1001" height="661" loading="lazy" />
+            </a>
+            <img class="kg-banner-cta__pixel" src={bannerImpression} alt="" width="1" height="1" loading="lazy" aria-hidden="true" />
+          </div>
           <p class="kg-stage__footnote">※寮費無料には入寮条件あり。月収例・手取り率・生活費には条件や仮定があります。</p>
         </section>
       </div>
