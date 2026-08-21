@@ -1,0 +1,31 @@
+---
+import { site } from '../data/site';
+
+interface Props {
+  note?: string;
+}
+
+const { note } = Astro.props;
+---
+
+<footer class="kg-footer">
+  {note && <p class="kg-footer__pr">{note}</p>}
+
+  <section class="kg-footer__info" aria-labelledby="footer-operator">
+    <h2 id="footer-operator">運営者情報</h2>
+    <dl>
+      <div><dt>サイト名</dt><dd>{site.name}</dd></div>
+      <div><dt>運営者</dt><dd>{site.operator}</dd></div>
+      <div><dt>連絡先</dt><dd><a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a></dd></div>
+      <div><dt>事業内容</dt><dd>{site.business}</dd></div>
+    </dl>
+    <p>当サイトはアフィリエイトプログラムを利用しており、リンク経由の応募により広告主から紹介料を受け取る場合があります。掲載内容は各社の公開情報をもとにしていますが、最新かつ正確な条件は応募先の公式情報をご確認ください。</p>
+  </section>
+
+  <nav class="kg-footer__nav" aria-label="サイト内リンク">
+    <a href="/privacy/">プライバシーポリシー</a>
+    <a href="/column/">コラム</a>
+  </nav>
+
+  <p class="kg-footer__copy">© 2026 {site.operator}</p>
+</footer>
