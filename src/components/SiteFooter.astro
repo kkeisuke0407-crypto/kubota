@@ -18,6 +18,7 @@ const { note } = Astro.props;
       <div><dt>運営者</dt><dd>{site.operator}</dd></div>
       <div><dt>連絡先</dt><dd><a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a></dd></div>
       <div><dt>事業内容</dt><dd>{site.business}</dd></div>
+      <div><dt>親サイト</dt><dd><a href={site.parentUrl}>{site.parentName}</a></dd></div>
     </dl>
     <p>当サイトはアフィリエイトプログラムを利用しており、リンク経由の応募により広告主から紹介料を受け取る場合があります。掲載内容は各社の公開情報をもとにしていますが、最新かつ正確な条件は応募先の公式情報をご確認ください。</p>
   </section>
@@ -27,5 +28,5 @@ const { note } = Astro.props;
     <a href="/column/">コラム</a>
   </nav>
 
-  <p class="kg-footer__copy">© 2026 {site.operator}</p>
+  <p class="kg-footer__copy">{site.copyright}</p>
 </footer>
