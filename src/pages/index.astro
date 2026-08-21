@@ -1,0 +1,250 @@
+---
+import '../styles/kubota-tsukuba-tokens.css';
+import '../styles/kubota-tsukuba.css';
+
+const affiliateUrl = 'https://www.3aaa-s.co.jp/kubota-afi2/?cid=c01m0f9d62fj2dn83jy5zf7vmcf&p=pifbkvg6zsvp';
+
+const comparisonRows = [
+  ['月の残額', '−1,200円', '126,900円'],
+  ['1年後の貯金', '約18.6万円', '約210万〜250万円（試算）'],
+  ['家賃', '月7万円を継続', '寮費無料（入寮条件有）'],
+  ['一時金', 'なし', '満期慰労金24万円／祝儀14万円'],
+];
+
+const comparisonIcons = [
+  '/images/metric-wallet-v3.webp',
+  '/images/metric-piggy-v3.webp',
+  '/images/metric-house-v3.webp',
+  '/images/metric-gift-v3.webp',
+];
+
+const assumptions = [
+  ['月収例', '34万円', '20日勤務＋残業25時間の場合'],
+  ['手取り率', '78%', '社会保険料・税を約22%として仮定'],
+  ['家賃', '0円', '入寮条件を満たす場合の仮定'],
+  ['食費', '一部減る', '食事補助を利用する仮定'],
+];
+
+const assumptionIcons = [
+  '/images/assumption-salary-v3.webp',
+  '/images/assumption-calculator-v3.webp',
+  '/images/assumption-dorm-v3.webp',
+  '/images/assumption-meal-v3.webp',
+];
+
+const processes = [
+  ['組立', '部品を順番に取り付ける'],
+  ['塗装', '車体や部品に色をつける'],
+  ['溶接', '金属同士をつなぐ'],
+  ['機械加工', '機械で部品を削る'],
+  ['運搬', '部品や製品を運ぶ'],
+];
+
+const fitItems = [
+  '今の給料だと毎月ほとんど貯金できない',
+  '寮費の固定費を一度下げたい',
+  '1年など期限を決めて、まとまったお金を作りたい',
+  '変則勤務・交替勤務の可能性も含めて条件確認できる',
+];
+
+const cautionItems = [
+  '住み慣れた地域を離れたくない',
+  '体力面が最優先',
+  '交替勤務を許容できない',
+];
+
+const careerSteps = [
+  ['01', '期間従業員として勤務'],
+  ['02', '1年以上勤務した人が対象'],
+  ['03', '推薦・勤務評価'],
+  ['04', '筆記・面接試験'],
+  ['05', '総合評価で合格'],
+  ['06', '正社員'],
+];
+
+const careerIcons = careerSteps.map((_, index) => `/images/career-step-${index + 1}-v3.webp`);
+
+const questions = [
+  '正社員登用の推薦は、何を見て決まるのか',
+  '筆記試験の科目とレベル',
+  '日勤と交替勤務の配属割合／配属はどう決まるのか',
+  '寮の光熱費は自己負担か',
+  '満期慰労金・祝儀は、入社1年目に何回受け取れるか',
+  '入寮条件・空室・備品・寝具・引越し費用',
+];
+
+const formFields = [
+  ['必須', 'お名前'], ['必須', 'フリガナ'], ['必須', '住所（都道府県）'],
+  ['必須', '生年月日'], ['必須', '電話番号'], ['必須', 'メールアドレス'],
+  ['任意', 'ご質問・ご要望など'],
+];
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="クボタ筑波の期間従業員について、1年後のお金、仕事内容、勤務時間、寮、正社員登用まで図解で確認します。" />
+    <title>クボタ筑波の期間工はきつい？1年後のお金まで図解</title>
+    <link rel="canonical" href="https://kubota.hakobu-family.com/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
+  </head>
+  <body class="kubota-guide">
+    <a class="kg-skip" href="#main-content">本文へ移動</a>
+
+    <main id="main-content" class="kg-page">
+      <header class="kg-hero" aria-labelledby="hero-title">
+        <span class="kg-pr">PR</span>
+        <h1 id="hero-title">期間工はきついのか。<br />きつさだけで決める前に、<br />1年後に残る<span>お金</span>まで比べました</h1>
+
+        <div class="kg-hero__scene">
+          <img class="kg-hero__visual" src="/images/hero-future-comparison-v3.webp" alt="今の生活と、工場・寮で働いて貯金を増やす将来を見比べる男性" width="1536" height="1024" fetchpriority="high" />
+          <div class="kg-hero__labels" aria-label="現在の生活とクボタ筑波で働く場合の比較">
+            <p><span>今の生活</span><strong>今の仕事をあと1年続ける</strong></p>
+            <b aria-hidden="true">VS</b>
+            <p><span>将来の選択</span><strong>クボタ筑波で入寮条件を満たす</strong></p>
+          </div>
+          <div class="kg-difference">
+            <p><span>この条件では、</span>1年後に残る<strong>お金</strong>に試算上</p>
+            <b>約192万〜230万円の差</b>
+          </div>
+        </div>
+
+        <p class="kg-hero__note">※一定の仮定を置いた試算です。寮費無料には入寮条件があり、手取り率・食費等にも仮定を置いています。</p>
+      </header>
+
+      <div class="kg-stages">
+        <section class="kg-stage kg-stage--compare" aria-labelledby="stage-1-title">
+          <header class="kg-stage__head"><span>1</span><h2 id="stage-1-title">まず、1年後だけを並べます</h2></header>
+          <p class="kg-section-copy">手取り23万円・家賃7万円・一人暮らしという仮定で、今の仕事を続ける場合と、入寮条件を満たして働く場合を同じ基準で比べています。</p>
+          <div class="kg-compare-table" role="table" aria-label="現在の生活とクボタ筑波で働いた場合の比較">
+            <div class="kg-compare-table__head" role="row">
+              <span role="columnheader"></span><strong role="columnheader">今の生活を1年続ける</strong><strong role="columnheader">クボタ筑波・入寮条件を満たした場合</strong>
+            </div>
+            {comparisonRows.map(([label, current, kubota], index) => (
+              <div class="kg-compare-table__row" role="row">
+                <strong role="rowheader"><img src={comparisonIcons[index]} alt="" width="220" height="220" loading="lazy" />{label}</strong><span role="cell">{current}</span><span role="cell">{kubota}</span>
+              </div>
+            ))}
+          </div>
+          <div class="kg-inline-action">
+            <p><span aria-hidden="true">!</span>右側は生活環境や仕事内容も大きく変わります。数字だけでなく、その点も含めて判断してください。</p>
+            <a class="kg-cta" href={affiliateUrl} target="_blank" rel="sponsored nofollow noopener">募集条件を確認する<span aria-hidden="true">›</span></a>
+          </div>
+        </section>
+
+        <section class="kg-stage kg-stage--reason" aria-labelledby="stage-2-title">
+          <header class="kg-stage__head"><span>2</span><h2 id="stage-2-title">なぜ、こんなに差が出るのか</h2></header>
+          <p class="kg-section-copy">差を大きくしているのは、月収例だけではありません。今回の試算では、家賃と食費の扱いを変えている点も結果に大きく影響します。</p>
+          <div class="kg-assumptions">
+            {assumptions.map(([label, value, note], index) => (
+              <article><img src={assumptionIcons[index]} alt="" width="220" height="220" loading="lazy" /><h3>{label}</h3><strong>{value}</strong><p>{note}</p></article>
+            ))}
+          </div>
+          <aside class="kg-premise">
+            <h3>前提（試算の主な仮定）</h3>
+            <ul>
+              <li>寮費：無料（入寮条件あり）</li>
+              <li>手取り率：78%を想定</li>
+              <li>食費：月約2万円を想定し、寮生活で一部削減</li>
+              <li>水道・光熱費など一部は未確認</li>
+            </ul>
+          </aside>
+          <p class="kg-section-copy">前提を変えれば、1年後の数字も変わります。自分の手取り・家賃・入寮可否に置き換えて見ることが大切です。</p>
+        </section>
+
+        <section class="kg-stage kg-stage--work" aria-labelledby="stage-3-title">
+          <header class="kg-stage__head"><span>3</span><h2 id="stage-3-title">では、「きつい」の中身は何か</h2></header>
+          <p class="kg-section-copy">仕事内容と勤務時間は公開情報で確認できますが、実際の工程や勤務形態は配属によって変わる可能性があります。</p>
+          <figure class="kg-process-figure">
+            <img src="/images/factory-processes-v2.webp" alt="組立、塗装、溶接、機械加工、運搬の5工程で働く作業員" width="1800" height="352" loading="lazy" />
+            <figcaption>{processes.map(([name, description]) => <span><strong>{name}</strong><small>{description}</small></span>)}</figcaption>
+          </figure>
+          <div class="kg-work-notes"><p>日勤8:00〜16:30の勤務例あり</p><p>変則勤務・交替勤務になる可能性あり</p></div>
+          <p class="kg-warning">どの工程に配属されるかは、公開情報では確認できませんでした。</p>
+        </section>
+
+        <section class="kg-stage kg-stage--fit" aria-labelledby="stage-4-title">
+          <header class="kg-stage__head"><span>4</span><h2 id="stage-4-title">「1年でお金を作る仕事」と考えられるか</h2></header>
+          <p class="kg-section-copy">金額だけで決めず、住む場所・働き方・体力面まで含めて、自分が1年続けるイメージを持てるかで考えてください。</p>
+          <div class="kg-fit-grid">
+            <article class="kg-fit-card kg-fit-card--yes">
+              <h3>こんな人に向いているかもしれません</h3>
+              <ul>{fitItems.map((item) => <li>{item}</li>)}</ul>
+              <img src="/images/fit-worker-v2.webp" alt="条件を確認して前向きに検討する男性" width="582" height="648" loading="lazy" />
+            </article>
+            <article class="kg-fit-card kg-fit-card--caution">
+              <h3>こんな人は慎重に</h3>
+              <ul>{cautionItems.map((item) => <li>{item}</li>)}</ul>
+              <img src="/images/cautious-worker-v3.webp" alt="腕を組み慎重に考える男性" width="517" height="650" loading="lazy" />
+            </article>
+          </div>
+        </section>
+
+        <section class="kg-stage kg-stage--career" aria-labelledby="stage-5-title">
+          <header class="kg-stage__head"><span>5</span><h2 id="stage-5-title">1年働いた先に「正社員」という道もある</h2></header>
+          <p class="kg-section-copy">期間従業員として働いた後も、条件を満たせば正規転換制度を検討できる案内があります。ただし、推薦や合格が保証されるものではありません。</p>
+          <ol class="kg-career-flow">
+            {careerSteps.map(([number, label], index) => <li><img src={careerIcons[index]} alt="" width="180" height="180" loading="lazy" /><span>{number}</span><strong>{label}</strong>{index < careerSteps.length - 1 && <i aria-hidden="true">›</i>}</li>)}
+          </ol>
+          <div class="kg-exam-line"><strong>受験機会は3回を予定</strong><span>入社1年後</span><b aria-hidden="true">→</b><span>入社2年後</span><b aria-hidden="true">→</b><span>入社2年6か月後</span></div>
+          <p class="kg-caveat">「予定」であり、必ず3回受けられる保証ではありません。</p>
+        </section>
+
+        <section class="kg-stage kg-stage--questions" aria-labelledby="stage-6-title">
+          <header class="kg-stage__head"><span>6</span><h2 id="stage-6-title">応募する前に、この6つだけ聞いてください</h2></header>
+          <p class="kg-section-copy">勤務形態と入寮条件は、このページの試算結果にも直結します。応募前・面接時に確認できれば、自分の条件で判断しやすくなります。</p>
+          <div class="kg-question-layout">
+            <ol>{questions.map((question, index) => <li><span>{index + 1}</span><p>{question}</p></li>)}</ol>
+            <div class="kg-question-action">
+              <a class="kg-cta" href={affiliateUrl} target="_blank" rel="sponsored nofollow noopener">募集条件を確認する<span aria-hidden="true">›</span></a>
+              <img src="/images/guide-woman-v2.webp" alt="スマートフォンを持って確認事項を案内する女性" width="484" height="623" loading="lazy" />
+            </div>
+          </div>
+        </section>
+
+        <section class="kg-stage kg-stage--form" aria-labelledby="stage-7-title">
+          <header class="kg-stage__head"><span>7</span><h2 id="stage-7-title">問い合わせフォームは、表示上「必須6項目＋任意1項目」でした</h2></header>
+          <p class="kg-section-copy">表示上の必須項目を確認した内容です。送信先や個人情報の扱いも、応募前に画面上の案内を確認してください。</p>
+          <div class="kg-form-layout">
+            <div class="kg-form-preview" aria-label="問い合わせフォームで表示されていた項目">
+              <h3>お問い合わせフォーム</h3>
+              <dl>{formFields.map(([required, label]) => <div><dt class:list={{ optional: required === '任意' }}>{required}</dt><dd>{label}</dd></div>)}</dl>
+            </div>
+            <div class="kg-form-notes">
+              <p><span class="kg-mail-icon" aria-hidden="true"></span><strong>iCloudメールは<br />別のメールアドレス推奨</strong></p>
+              <p><span class="kg-building-icon" aria-hidden="true"></span><strong>送信先は<br />応募受付窓口</strong></p>
+            </div>
+            <img src="/images/guide-woman-v2.webp" alt="スマートフォンで問い合わせフォームを確認する女性" width="484" height="623" loading="lazy" />
+          </div>
+        </section>
+
+        <section class="kg-stage kg-stage--final" aria-labelledby="stage-8-title">
+          <header class="kg-stage__head"><span>8</span><h2 id="stage-8-title">「きついか」だけなら、たぶん答えは出ません</h2></header>
+          <p class="kg-section-copy">この試算は、入寮条件と支給条件を満たした場合の一例です。自分の家賃や働き方に置き換え、納得できる条件かを確認してから判断してください。</p>
+          <div class="kg-final-layout">
+            <figure class="kg-final-ai"><img src="/images/final-life-comparison-v3.webp" alt="今の生活から、工場と寮で働いて貯金を増やす生活への比較" width="1400" height="700" loading="lazy" /></figure>
+            <ul>
+              <li>体力的にきついと感じる人はいる</li>
+              <li>配属先は公開情報だけでは分からない</li>
+              <li>交替勤務になる可能性もある</li>
+              <li>それでも、今の生活で貯金が増えない人は数字を確認する価値がある</li>
+            </ul>
+            <div class="kg-final-compare">
+              <article><h3>今の生活</h3><p>1年後の貯金</p><strong>約18.6万円</strong></article>
+              <b aria-hidden="true">VS</b>
+              <article><h3>クボタ筑波・入寮条件を満たした場合</h3><strong>約210万〜250万円</strong><p>（試算）</p></article>
+            </div>
+          </div>
+          <a class="kg-cta kg-cta--final" href={affiliateUrl} target="_blank" rel="sponsored nofollow noopener">クボタ筑波の募集要項・入寮条件を確認する<span aria-hidden="true">›</span></a>
+          <p class="kg-stage__footnote">※寮費無料には入寮条件あり。月収例・手取り率・生活費には条件や仮定があります。</p>
+        </section>
+      </div>
+
+      <footer class="kg-footer"><p>PR｜公式募集情報・広告主指定LPを2026年8月20日に確認。未確認事項は応募前にご確認ください。</p></footer>
+    </main>
+  </body>
+</html>

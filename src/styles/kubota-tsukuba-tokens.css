@@ -1,0 +1,84 @@
+/* Hallmark · macrostructure: Narrative Workflow · tone: playful utilitarian · anchor hue: cobalt blue
+ * audience: period-work candidates · use: verify recruitment and dorm conditions
+ * theme: studied-DNA (user-provided completed-design image) · paper: oklch(98% 0.014 90) · display/body: Noto Sans JP
+ * enrichment: E5 Tier-C generated illustrations · generated: GPT Image · post-processed
+ * nav: none (reference-directed) · footer: Ft2 inline rule
+ */
+/* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5 */
+
+:root {
+  --kg-color-paper: oklch(98% 0.014 90);
+  --kg-color-paper-2: oklch(96% 0.024 92);
+  --kg-color-surface: oklch(99.2% 0.008 90);
+  --kg-color-surface-blue: oklch(96% 0.035 245);
+  --kg-color-surface-green: oklch(96% 0.042 145);
+  --kg-color-surface-coral: oklch(96% 0.038 25);
+  --kg-color-surface-yellow: oklch(96% 0.085 94);
+  --kg-color-ink: oklch(22% 0.035 245);
+  --kg-color-ink-2: oklch(34% 0.045 242);
+  --kg-color-muted: oklch(43% 0.032 238);
+  --kg-color-rule: oklch(76% 0.055 245);
+  --kg-color-rule-soft: oklch(87% 0.035 244);
+  --kg-color-blue: oklch(46% 0.14 252);
+  --kg-color-blue-deep: oklch(36% 0.125 252);
+  --kg-color-blue-ink: oklch(99% 0.008 90);
+  --kg-color-green: oklch(54% 0.145 150);
+  --kg-color-green-deep: oklch(40% 0.12 150);
+  --kg-color-green-ink: oklch(99% 0.008 90);
+  --kg-color-coral: oklch(62% 0.21 25);
+  --kg-color-coral-deep: oklch(48% 0.19 25);
+  --kg-color-coral-ink: oklch(99% 0.008 90);
+  --kg-color-orange: oklch(68% 0.19 55);
+  --kg-color-orange-deep: oklch(54% 0.18 48);
+  --kg-color-orange-ink: oklch(99% 0.008 90);
+  --kg-color-cta: oklch(62% 0.235 32);
+  --kg-color-cta-deep: oklch(45% 0.19 30);
+  --kg-color-cta-shine: oklch(99% 0.035 92 / 0.88);
+  --kg-color-yellow: oklch(83% 0.16 92);
+  --kg-color-yellow-ink: oklch(26% 0.07 75);
+  --kg-color-success: oklch(52% 0.15 150);
+  --kg-color-error: oklch(57% 0.2 25);
+  --kg-color-focus: oklch(49% 0.2 260);
+  --kg-color-shadow: oklch(25% 0.04 245 / 0.16);
+  --kg-color-shadow-soft: oklch(25% 0.04 245 / 0.08);
+  --kg-color-transparent: transparent;
+
+  --kg-font-display: "Noto Sans JP", "Yu Gothic", sans-serif;
+  --kg-font-body: "Noto Sans JP", "Yu Gothic", sans-serif;
+
+  --kg-space-3xs: 0.125rem;
+  --kg-space-2xs: 0.25rem;
+  --kg-space-xs: 0.5rem;
+  --kg-space-sm: 0.75rem;
+  --kg-space-md: 1rem;
+  --kg-space-lg: 1.5rem;
+  --kg-space-xl: 2.5rem;
+  --kg-space-2xl: 4rem;
+  --kg-space-3xl: 6rem;
+
+  --kg-text-xs: 0.75rem;
+  --kg-text-sm: 0.875rem;
+  --kg-text-base: 1rem;
+  --kg-text-md: 1.25rem;
+  --kg-text-lg: 1.5625rem;
+  --kg-text-xl: 1.953rem;
+  --kg-text-2xl: 2.441rem;
+  --kg-text-display: clamp(1.45rem, 5vw, 2rem);
+
+  --kg-radius-sm: 0.5rem;
+  --kg-radius-md: 0.75rem;
+  --kg-radius-lg: 1.125rem;
+  --kg-radius-pill: 999px;
+  --kg-rule-thin: 1px;
+  --kg-rule-medium: 2px;
+
+  --kg-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --kg-ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --kg-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --kg-dur-micro: 120ms;
+  --kg-dur-short: 220ms;
+  --kg-dur-long: 420ms;
+
+  --kg-z-base: 1;
+  --kg-z-raised: 10;
+}
