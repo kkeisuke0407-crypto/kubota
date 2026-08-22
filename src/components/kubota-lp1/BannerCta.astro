@@ -1,0 +1,13 @@
+---
+import { affiliate } from '../../data/affiliate';
+
+interface Props { alt: string; }
+const { alt } = Astro.props;
+---
+
+<div class="k1-banner">
+  <a href={affiliate.clickUrl} target="_blank" rel="sponsored nofollow noopener" referrerpolicy="no-referrer-when-downgrade" attributionsrc>
+    <img src={affiliate.bannerImage} alt={alt} width={affiliate.bannerWidth} height={affiliate.bannerHeight} loading="lazy" />
+  </a>
+  <img class="k1-banner__pixel" src={affiliate.bannerImpression} alt="" width="1" height="1" loading="lazy" aria-hidden="true" />
+</div>
