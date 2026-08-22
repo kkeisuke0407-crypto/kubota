@@ -1,0 +1,42 @@
+---
+import Cta from './Cta.astro';
+interface Props { affiliateUrl: string }
+const { affiliateUrl } = Astro.props;
+---
+
+<section id="section-09" class="k1-section k1-final" aria-labelledby="k1-s9-title">
+  <header class="k1-heading">
+    <h2 id="k1-s9-title">「きついか」だけなら、<br />たぶん<span>答えは出ません</span></h2>
+  </header>
+  <ul class="k1-check-points">
+    <li>体力的にきついと感じる人はいます。</li>
+    <li>配属される工程も、公開情報だけでは分かりません。</li>
+    <li>交替勤務になる可能性もあります。</li>
+  </ul>
+  <p class="k1-emphasis">それでも、今の生活を1年続けても貯金が増えない人にとって、<strong>住居費を抑えながら収入を得る選択肢は、数字を確認する価値があります。</strong></p>
+
+  <div class="k1-final-summary">
+    <img src="/assets/kubota-lp1/s09/savings-check-v1.png" alt="貯蓄の伸びと確認事項のイメージ" width="1536" height="1024" loading="lazy" />
+    <p><span>今の生活　1年後</span><strong class="k1-green">約18.6万円</strong></p>
+    <p><span>クボタ筑波</span><strong class="k1-orange">約248万円<small>（試算）</small></strong></p>
+    <p><span>差</span><strong class="k1-orange">約230万円</strong></p>
+  </div>
+
+  <div class="k1-prose">
+    <h3>大事なのは、</h3>
+    <p>この数字をそのまま信じることではありません。確認するのは、</p>
+    <ul class="k1-check-list"><li>自分が入寮条件を満たすのか</li><li>勤務形態を受け入れられるのか</li><li>自分の手取り・家賃なら数字がどう変わるのか</li></ul>
+    <p><strong>「約230万円差があるから応募する」ではなく、<span class="k1-orange">「自分にもその差が出るのか」を確認してから決める。</span></strong></p>
+    <p>それで十分です。</p>
+  </div>
+
+  <div class="k1-final-cta">
+    <p><strong>約230万円の差が、<br />自分にも当てはまるか確認する</strong></p>
+    <Cta href={affiliateUrl} label="クボタ筑波の募集要項・入寮条件を確認する" />
+  </div>
+  <ul class="k1-notes">
+    <li>寮費無料は入寮条件あり。</li>
+    <li>月収例は20日勤務＋残業25時間・昼勤のみの場合。</li>
+    <li>満期慰労金は出勤率90%以上、祝儀は勤務成績・態度の勘案が条件です。</li>
+  </ul>
+</section>

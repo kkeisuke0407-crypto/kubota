@@ -1,0 +1,38 @@
+---
+import Cta from './Cta.astro';
+interface Props { affiliateUrl: string }
+const { affiliateUrl } = Astro.props;
+---
+
+<section id="section-02" class="k1-section" aria-labelledby="k1-s2-title">
+  <header class="k1-heading">
+    <h2 id="k1-s2-title">まず、<span>1年後だけ並べます</span></h2>
+    <p>今の生活を変えなかった場合と、1年働いた場合</p>
+  </header>
+  <p>たとえば、<strong>27歳・一人暮らし・手取り23万円・家賃7万円・貯金20万円・毎月ほとんど残らない</strong>という状態だったとします。</p>
+  <p>このモデルで計算すると、</p>
+
+  <div class="k1-table-wrap">
+    <table class="k1-table k1-compare-table">
+      <thead><tr><th></th><th>今の生活を<br />1年続ける</th><th>クボタ筑波で働き、<br />入寮条件を満たした場合</th></tr></thead>
+      <tbody>
+        <tr><th>月の残額</th><td><strong class="k1-green">−1,200円</strong></td><td><strong class="k1-orange">126,900円</strong></td></tr>
+        <tr><th>1年後の貯金</th><td><strong class="k1-green">約18.6万円</strong></td><td><strong class="k1-orange">約248万円</strong><small>試算・条件を満たした場合</small></td></tr>
+        <tr><th>家賃</th><td>月7万円を継続</td><td><strong class="k1-orange">寮費無料</strong><small>入寮条件有</small></td></tr>
+        <tr><th>一時金</th><td>なし</td><td><strong>満期慰労金 年48万円</strong><small>出勤率90%以上</small><strong>祝儀 年28万円</strong><small>勤務成績・態度を勘案</small></td></tr>
+        <tr><th>仕事</th><td>現状の仕事</td><td>トラクタ・エンジンの製造</td></tr>
+        <tr><th>代わりに<br />変わるもの</th><td>—</td><td>住む場所・働き方・人間関係／交替勤務等の可能性</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="k1-number-arrow"><strong>18.6<span>万円</span></strong><i aria-hidden="true"></i><strong>約248<span>万円</span></strong></div>
+  <div class="k1-prose">
+    <p>数字だけなら、大きな差です。でも、<strong>右側には「失うもの」「変わるもの」もあります。</strong></p>
+    <p>だから、「絶対に期間工の方がいい」とは言いません。</p>
+    <p>判断基準はこれです。</p>
+    <p class="k1-emphasis"><strong>約230万円の差より、住む場所・夜勤・仕事の負荷の方が重いか。</strong><br />それとも、<strong>それでも約230万円の差は大きいと思うか。</strong></p>
+    <p>ここで後者なら、次に見るべきなのは「応募するか」ではなく、<strong>自分にもこの条件が当てはまるかどうか</strong>です。</p>
+  </div>
+  <Cta href={affiliateUrl} label="自分にもこの試算が当てはまるか、募集条件を確認する" />
+</section>

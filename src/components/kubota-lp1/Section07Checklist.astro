@@ -1,0 +1,31 @@
+---
+import Cta from './Cta.astro';
+interface Props { affiliateUrl: string }
+const { affiliateUrl } = Astro.props;
+const checks = [
+  ['clipboard', '正社員登用の推薦は、何を見て決まるのか'],
+  ['book', '筆記試験の科目とレベル'],
+  ['sun', 'どの勤務形態（日勤／変則／交替）に配属されるのか、どう決まるのか'],
+  ['home', '入寮条件の中身', '年齢・地域・通勤距離・空室など'],
+  ['light', '寮の光熱費・備品・寝具は自己負担か'],
+  ['heart', '健診結果によって「別途相談」となるのはどんな場合か']
+];
+---
+
+<section id="section-07" class="k1-section" aria-labelledby="k1-s7-title">
+  <header class="k1-heading">
+    <h2 id="k1-s7-title">応募前に、この<span>6つ</span>だけ確認してください</h2>
+    <p>試算の数字より、ここを確認する方が大事です</p>
+  </header>
+  <p>今回調べても分からなかったことがあります。応募前・面接時には、以下を確認してください。</p>
+  <ol class="k1-question-list">
+    {checks.map((item, index) => (
+      <li><span class="k1-question-no">{String(index + 1).padStart(2, '0')}</span><span class="k1-question-icon" aria-hidden="true"></span><p><strong>{item[1]}</strong>{item[2] && <small>{item[2]}</small>}</p></li>
+    ))}
+  </ol>
+  <div class="k1-prose">
+    <p>このうち特に、<strong class="k1-green">勤務形態と入寮条件</strong>は、今回の試算結果を直接変えます。</p>
+    <p>ここが分かれば、自分の条件に置き換えてもう一度計算できます。</p>
+  </div>
+  <Cta href={affiliateUrl} label="自分の条件に当てはまるか、募集条件を確認する" />
+</section>

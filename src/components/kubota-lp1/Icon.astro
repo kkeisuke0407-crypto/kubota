@@ -1,0 +1,13 @@
+---
+interface Props {
+  name: 'check';
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<!-- The raster-first manual permits this single, simple vector check shape. -->
+<svg class:list={['k1-icon', className]} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <path d="m4 13 5 5L20 6"></path>
+</svg>

@@ -1,0 +1,45 @@
+---
+import '../../styles/kubota-lp1.css';
+import Analytics from '../../components/Analytics.astro';
+import Section01Hero from '../../components/kubota-lp1/Section01Hero.astro';
+import Section02Comparison from '../../components/kubota-lp1/Section02Comparison.astro';
+import Section03Math from '../../components/kubota-lp1/Section03Math.astro';
+import Section04Reality from '../../components/kubota-lp1/Section04Reality.astro';
+import Section05Fit from '../../components/kubota-lp1/Section05Fit.astro';
+import Section06Career from '../../components/kubota-lp1/Section06Career.astro';
+import Section07Checklist from '../../components/kubota-lp1/Section07Checklist.astro';
+import Section08Form from '../../components/kubota-lp1/Section08Form.astro';
+import Section09Final from '../../components/kubota-lp1/Section09Final.astro';
+
+const affiliateUrl = 'https://af.moshimo.com/af/c/click?a_id=5765461&p_id=7694&pc_id=22266&pl_id=95905';
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="期間工のきつさだけでなく、今の生活を1年続けた場合とクボタ筑波で働いた場合に残るお金を、条件付きの試算で比較します。" />
+    <title>期間工はきつい？1年後に残るお金まで比較｜クボタ筑波</title>
+    <link rel="canonical" href="https://kubota.hakobu-family.com/kubota-lp1/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <Analytics />
+  </head>
+  <body>
+    <a class="k1-skip" href="#main-content">本文へ移動</a>
+    <span class="k1-pr">PR</span>
+    <main id="main-content" class="k1-page">
+      <Section01Hero />
+      <Section02Comparison affiliateUrl={affiliateUrl} />
+      <Section03Math />
+      <Section04Reality />
+      <Section05Fit />
+      <Section06Career />
+      <Section07Checklist affiliateUrl={affiliateUrl} />
+      <Section08Form />
+      <Section09Final affiliateUrl={affiliateUrl} />
+    </main>
+  </body>
+</html>

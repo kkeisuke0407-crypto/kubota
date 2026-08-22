@@ -1,0 +1,45 @@
+---
+---
+
+<section id="section-08" class="k1-section" aria-labelledby="k1-s8-title">
+  <header class="k1-heading k1-heading--left">
+    <h2 id="k1-s8-title"><span>応募フォーム</span>は、<br />表示上「必須6項目＋任意1項目」</h2>
+  </header>
+  <div class="k1-form-layout">
+    <div class="k1-form-copy">
+      <p>広告主指定LPのフォームを実際に開いて確認しました。</p>
+      <p class="k1-note">※2026年8月20日確認。送信はしていません。</p>
+      <p>表示上の必須項目は、</p>
+      <ol>
+        <li>お名前</li><li>フリガナ</li><li>住所（都道府県）</li><li>生年月日</li><li>電話番号</li><li>メールアドレス</li>
+      </ol>
+      <p>の6項目です。自由記載欄は任意です。</p>
+      <p>個人情報の取り扱いに同意して、<strong>「お問い合わせ送信」</strong>を押す、同一ページ内のフォームになっています。</p>
+    </div>
+    <form class="k1-form-demo" aria-label="応募フォームの表示イメージ" onsubmit="return false">
+      <span>表示イメージ</span>
+      <label>お名前 <em>必須</em><input type="text" placeholder="例）山田 太郎" disabled /></label>
+      <label>フリガナ <em>必須</em><input type="text" placeholder="例）ヤマダ タロウ" disabled /></label>
+      <label>住所（都道府県） <em>必須</em><select disabled><option>選択してください</option></select></label>
+      <label>生年月日 <em>必須</em><input type="text" placeholder="例）1990/01/01" disabled /></label>
+      <label>電話番号 <em>必須</em><input type="tel" placeholder="例）09012345678" disabled /></label>
+      <label>メールアドレス <em>必須</em><input type="email" placeholder="例）example@email.com" disabled /></label>
+      <label>自由記載欄 <small>（任意）</small><textarea placeholder="ご自由にご記入ください" disabled></textarea></label>
+      <label class="k1-consent"><input type="checkbox" disabled /> 個人情報の取り扱いに同意する</label>
+      <button type="button" disabled>お問い合わせ送信</button>
+    </form>
+  </div>
+
+  <aside class="k1-card k1-before-apply">
+    <h3>応募前に知っておきたいこと</h3>
+    <ul>
+      <li><strong>@iCloud.com は「メール未着が多発しているため、それ以外のメールアドレスで応募をお願いしています」</strong>と募集ページに記載</li>
+      <li><strong>雇入れ健康診断</strong>あり</li>
+      <li>健診結果の内容によっては、入職に関して別途相談と記載</li>
+    </ul>
+  </aside>
+  {/* ★2026-08-22 削除：送信先の説明3ブロック（trust-box×2・decision×1）
+      成果地点の開示はフッターの運営者情報ブロックで維持している。
+      「クボタへの直接応募」と誤認させる表現はLP本文に一切無いため、
+      この3ブロックが無くても表示上の問題は生じない。 */}
+</section>
