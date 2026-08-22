@@ -1,0 +1,9 @@
+---
+// 本文中のアフィリエイトリンク（オレンジのボタン）。
+import { affiliate } from '../../data/affiliate';
+
+interface Props { label: string; }
+const { label } = Astro.props;
+---
+
+<a class="lc-next" href={affiliate.clickUrl} target="_blank" rel="sponsored nofollow noopener" referrerpolicy="no-referrer-when-downgrade"><span>{label}</span><span aria-hidden="true">→</span></a>
