@@ -377,3 +377,4 @@ strong { font-weight: 800; }
 .k1-form-demo em { font-size: max(11px, .72em); }
 .k1-form-demo small { font-size: max(11px, .8em); }
 .k1-final-summary small { font-size: max(11px, .35em); }
+.k1-balance { grid-template-columns: minmax(0, 1fr); }
