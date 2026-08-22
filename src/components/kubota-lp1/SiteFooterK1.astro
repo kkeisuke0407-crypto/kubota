@@ -1,0 +1,31 @@
+---
+// トップページ（/）と同じ運営者情報・PR表記。
+import { site } from '../../data/site';
+
+interface Props { note?: string; }
+const { note } = Astro.props;
+---
+
+<footer class="k1-footer">
+  {note && <p class="k1-footer__pr">{note}</p>}
+
+  <section class="k1-footer__info" aria-labelledby="k1-footer-operator">
+    <h2 id="k1-footer-operator">運営者情報</h2>
+    <dl>
+      <div><dt>サイト名</dt><dd>{site.name}</dd></div>
+      <div><dt>運営者</dt><dd>{site.operator}</dd></div>
+      <div><dt>連絡先</dt><dd><a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a></dd></div>
+      <div><dt>事業内容</dt><dd>{site.business}</dd></div>
+      <div><dt>親サイト</dt><dd><a href={site.parentUrl}>{site.parentName}</a></dd></div>
+    </dl>
+    <p>当サイトはアフィリエイトプログラムを利用しており、リンク経由の応募により広告主から紹介料を受け取る場合があります。掲載内容は各社の公開情報をもとにしていますが、最新かつ正確な条件は応募先の公式情報をご確認ください。</p>
+  </section>
+
+  <nav class="k1-footer__nav" aria-label="サイト内リンク">
+    <a href="/">トップページ</a>
+    <a href="/privacy/">プライバシーポリシー</a>
+    <a href="/column/">コラム</a>
+  </nav>
+
+  <p class="k1-footer__copy">{site.copyright}</p>
+</footer>

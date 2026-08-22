@@ -10,8 +10,10 @@ import Section06Career from '../../components/kubota-lp1/Section06Career.astro';
 import Section07Checklist from '../../components/kubota-lp1/Section07Checklist.astro';
 import Section08Form from '../../components/kubota-lp1/Section08Form.astro';
 import Section09Final from '../../components/kubota-lp1/Section09Final.astro';
+import SiteFooterK1 from '../../components/kubota-lp1/SiteFooterK1.astro';
 
-const affiliateUrl = 'https://af.moshimo.com/af/c/click?a_id=5765461&p_id=7694&pc_id=22266&pl_id=95905';
+import { affiliate } from '../../data/affiliate';
+const affiliateUrl = affiliate.clickUrl;
 ---
 
 <!doctype html>
@@ -39,7 +41,8 @@ const affiliateUrl = 'https://af.moshimo.com/af/c/click?a_id=5765461&p_id=7694&p
       <Section06Career />
       <Section07Checklist affiliateUrl={affiliateUrl} />
       <Section08Form />
-      <Section09Final affiliateUrl={affiliateUrl} />
+      <Section09Final />
     </main>
+    <SiteFooterK1 note="PR｜公式募集情報・広告主指定LPを2026年8月20日に確認。未確認事項は応募前にご確認ください。" />
   </body>
 </html>

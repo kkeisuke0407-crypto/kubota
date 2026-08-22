@@ -1,7 +1,5 @@
 ---
-import Cta from './Cta.astro';
-interface Props { affiliateUrl: string }
-const { affiliateUrl } = Astro.props;
+import BannerCta from './BannerCta.astro';
 ---
 
 <section id="section-09" class="k1-section k1-final" aria-labelledby="k1-s9-title">
@@ -32,7 +30,7 @@ const { affiliateUrl } = Astro.props;
 
   <div class="k1-final-cta">
     <p><strong>約230万円の差が、<br />自分にも当てはまるか確認する</strong></p>
-    <Cta href={affiliateUrl} label="クボタ筑波の募集要項・入寮条件を確認する" />
+    <BannerCta alt="クボタ筑波工場の募集情報を見る" />
   </div>
   <ul class="k1-notes">
     <li>寮費無料は入寮条件あり。</li>

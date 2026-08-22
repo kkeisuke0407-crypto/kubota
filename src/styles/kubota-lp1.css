@@ -320,3 +320,60 @@ strong { font-weight: 800; }
  * hand-drawn people, plants, buildings, objects, icons and editorial frames.
  * HTML remains responsible for copy, numbers, conditions, tables and links.
  */
+
+/* --- mobile pass: drop unused icon slots, lift small type, tidy wrapping --- */
+
+/* icon slots that were never filled: remove the empty circles and their columns */
+.k1-model-icons li::before { margin-bottom: .55em; }
+.k1-result-row { grid-template-columns: minmax(0, 1fr) auto; }
+.k1-result-row b { font-size: .9em; }
+.k1-shifts > div { grid-template-columns: 4.6em minmax(0, 1fr); }
+.k1-holidays { grid-template-columns: minmax(0, 1fr); }
+.k1-holidays > div { padding: .2em .3em; }
+.k1-flow li { grid-template-columns: minmax(0, 1fr); }
+.k1-formula { gap: .1em; }
+
+/* small type: keep a readable floor on mobile */
+.k1-table { font-size: max(12.5px, .86em); }
+.k1-table th, .k1-table td { padding: .8em .5em; }
+.k1-notes { font-size: max(12px, .78em); }
+.k1-model-icons b { font-size: max(12px, .8em); }
+
+/* wrapping: avoid one-character last lines */
+.k1-page p, .k1-page li, .k1-page dd, .k1-page dt, .k1-page h1, .k1-page h2, .k1-page h3, .k1-page figcaption, .k1-table th, .k1-table td { text-wrap: pretty; }
+.k1-page h1, .k1-page h2, .k1-heading p { text-wrap: balance; }
+
+/* the intro paragraph was squeezed into a 38% column on phones */
+.k1-work-intro { grid-template-columns: minmax(0, 1fr); }
+.k1-work-intro > p { margin-bottom: .2em; }
+
+/* final CTA banner */
+.k1-banner { position: relative; margin-top: 1.1em; }
+.k1-banner a { display: block; width: min(100%, 30rem); margin-inline: auto; overflow: hidden; border-radius: 14px; box-shadow: var(--k1-shadow); }
+.k1-banner a:focus-visible { outline: 4px solid #153e7d; outline-offset: 4px; }
+.k1-banner a img { width: 100%; height: auto; }
+.k1-banner__pixel { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+
+/* footer */
+.k1-footer { padding: 1.6em 1.15em 2.2em; border-top: 1px solid var(--k1-line); background: var(--k1-paper); color: var(--k1-muted); font-size: max(12px, .78em); line-height: 1.75; text-align: center; }
+.k1-footer__pr { margin: 0 0 1em; }
+.k1-footer__info { max-width: 34rem; margin-inline: auto; text-align: start; }
+.k1-footer__info h2 { margin: 0 0 .3em; color: var(--k1-ink); font-size: 1em; }
+.k1-footer__info dl { display: grid; gap: 2px; margin: 0 0 .8em; }
+.k1-footer__info dl > div { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: .6em; }
+.k1-footer__info dt, .k1-footer__info dd { margin: 0; }
+.k1-footer__info dd { color: var(--k1-ink); }
+.k1-footer__info p { margin: 0; }
+.k1-footer__nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 1em; margin-top: 1.1em; padding-top: .9em; border-top: 1px solid #e8ddc4; }
+.k1-footer a { color: inherit; text-underline-offset: .2em; }
+.k1-footer__copy { margin: .9em 0 0; }
+
+/* small type, second pass: nothing under ~11px on a phone */
+.k1-table small { font-size: max(11px, .8em); }
+.k1-equation-row { font-size: max(13px, .86em); }
+.k1-equation-row b { font-size: max(11px, .8em); }
+.k1-shifts > div { font-size: max(13px, .85em); }
+.k1-form-demo { font-size: max(13px, .78em); }
+.k1-form-demo em { font-size: max(11px, .72em); }
+.k1-form-demo small { font-size: max(11px, .8em); }
+.k1-final-summary small { font-size: max(11px, .35em); }
