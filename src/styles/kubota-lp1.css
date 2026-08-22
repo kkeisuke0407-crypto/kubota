@@ -153,7 +153,7 @@ strong { font-weight: 800; }
 .k1-process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .55em; margin: 0 0 1.2em; }
 .k1-process-grid figure { margin: 0; overflow: hidden; background: #fffaf0; border: 1px solid var(--k1-line); border-radius: 12px; }
 .k1-process-grid figure:nth-child(n+4) { transform: translateX(52%); }
-.k1-process-art { width: 100%; aspect-ratio: .76; background-image: url('/assets/kubota-lp1/s04/manufacturing-processes-v1.png'); background-repeat: no-repeat; background-size: 510% auto; background-position-y: 50%; }
+.k1-process-art { width: 100%; aspect-ratio: .76; background-image: url('/assets/kubota-lp1/s04/manufacturing-processes-v1.webp'); background-repeat: no-repeat; background-size: 510% auto; background-position-y: 50%; }
 .k1-process-art--1 { background-position-x: 0%; }.k1-process-art--2 { background-position-x: 25%; }.k1-process-art--3 { background-position-x: 50%; }.k1-process-art--4 { background-position-x: 75%; }.k1-process-art--5 { background-position-x: 100%; }
 .k1-process-grid figcaption { padding: .35em; text-align: center; font-size: .8em; font-weight: 800; }
 .k1-shifts { padding: .8em; }
