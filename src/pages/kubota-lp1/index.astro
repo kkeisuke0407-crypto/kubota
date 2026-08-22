@@ -25,6 +25,31 @@ const affiliateUrl = 'https://af.moshimo.com/af/c/click?a_id=5765461&p_id=7694&p
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <!--
+      ★仮説別の冒頭出し分け（07b_Phase1実行設計 方法A）。
+      ?hypothesis= を読み <html data-hypothesis> を立てる。CSSが .k1-var を選ぶ。
+      bodyより前に同期実行するため、既定のH4が一瞬見えてから切り替わることはない。
+      未知の値・パラメータ無し・JS無効 は H4（現行版）にフォールバックする。
+    -->
+    <script is:inline>
+      (function () {
+        var allowed = ['H1', 'H3', 'H4', 'N4b'];
+        var raw = '';
+        try {
+          raw = new URLSearchParams(window.location.search).get('hypothesis') || '';
+        } catch (e) {
+          raw = '';
+        }
+        var matched = 'H4';
+        for (var i = 0; i < allowed.length; i++) {
+          if (allowed[i].toLowerCase() === raw.trim().toLowerCase()) {
+            matched = allowed[i];
+            break;
+          }
+        }
+        document.documentElement.setAttribute('data-hypothesis', matched);
+      })();
+    </script>
     <Analytics />
   </head>
   <body>

@@ -1,12 +1,67 @@
-<section id="section-01" class="k1-section k1-hero" aria-labelledby="k1-hero-title">
+<!--
+  S1 FV ＋ S1-b 橋渡し。
+  ★このLPで仮説別に出し分ける唯一のセクション（07b_Phase1実行設計「LP1の仮説別改修」）。
+  S2以降は全仮説共通。分岐は URLパラメータ ?hypothesis= を index.astro の
+  インラインスクリプトが読み <html data-hypothesis> を立て、CSSが表示を選ぶ。
+  パラメータ欠落・未知の値・JS無効 のときは H4（現行版）を出す。
+-->
+<section id="section-01" class="k1-section k1-hero" aria-label="導入">
   <div class="k1-hero-visual">
     <img src="/assets/kubota-lp1/s01/thinking-woman-v1.webp" alt="1年後の働き方を考える女性のイメージ" width="1448" height="1086" fetchpriority="high" />
-    <div class="k1-hero-copy">
-      <h1 id="k1-hero-title"><em>期間工</em>はきつい。<br />でも、今の仕事を1年続けるのと、<br />どっちが<span>後悔しない？</span></h1>
+
+    <!-- H4 きつさ・配属不安（現行。パラメータが無いときの既定） -->
+    <div class="k1-hero-copy k1-var" data-for="H4">
+      <h1><em>期間工</em>はきつい。<br />でも、今の仕事を1年続けるのと、<br />どっちが<span>後悔しない？</span></h1>
       <p>「期間工 きつい」と調べると、しんどさ・夜勤・配属・体力面の話がたくさん出てきます。それ自体は、間違っていません。</p>
       <p>このページでも、<strong>期間工が「楽な仕事」だとは書きません。</strong></p>
       <p class="k1-lead">ただ、「きついかどうか」だけで決める前に、<strong>1年後に残るお金まで比べてから判断してもいいのでは？</strong>と思いました。</p>
     </div>
+
+    <!-- H1 純顕在「期間工」 -->
+    <div class="k1-hero-copy k1-var" data-for="H1">
+      <h1><em>期間工</em>で1年働くと、<br />いくら<span>残るのか</span>。</h1>
+      <p>「期間工」で調べると、月収例・寮費無料・満期慰労金といった条件がずらりと並びます。</p>
+      <p>ただ、条件の一覧を見ても、<strong>1年後に手元にいくら残るのかは分かりません。</strong></p>
+      <p class="k1-lead">このページは、<strong>茨城・クボタ筑波の募集条件を使って、1年後の残額まで計算しました。</strong></p>
+    </div>
+
+    <!-- H3 寮付き・住み込み求人 -->
+    <div class="k1-hero-copy k1-var" data-for="H3">
+      <h1><em>寮費無料</em>で働くと、<br />1年後にいくら<span>残るのか</span>。</h1>
+      <p>「寮付き」「住み込み」で探すと、<strong>寮費無料</strong>と書かれた求人がいくつも出てきます。</p>
+      <p>ただ、寮費が0円だと分かっても、<strong>1年後に手元にいくら残るのかは書かれていません。</strong></p>
+      <p class="k1-lead">このページは、<strong>置いた前提をすべて書いたうえで、寮に入れた場合の1年後の残額まで計算しました。</strong></p>
+    </div>
+
+    <!-- N4b いまの業界から出たい -->
+    <div class="k1-hero-copy k1-var" data-for="N4b">
+      <h1>いまの仕事を続けた<br />1年後と<em>比べて</em>、<br />やる価値が<span>あるか</span>で決める。</h1>
+      <p>辞めたい理由が給料でも、休みでも、人間関係でも、次を選ぶときに迷うところは同じです。</p>
+      <p><strong>「移って本当に良くなるのか」が、比べられない</strong>からです。</p>
+      <p class="k1-lead">このページは、<strong>いまの生活を1年続けた場合と、クボタ筑波で1年働いた場合を、同じ条件で並べました。</strong></p>
+    </div>
+  </div>
+
+  <!-- S1-b 橋渡し。H4は現行のS1リード文がそのまま橋渡しになっているため置かない -->
+  <div class="k1-card k1-bridge k1-var" data-for="H1">
+    <p class="k1-bridge-claim">期間工を選ぶなら、月収だけでなく<br /><strong>1年後に残る金額まで</strong>見たほうがいい。</p>
+    <p>月収例は各社が出しています。クボタ筑波は<strong>月収例34万円</strong>（20日勤務＋残業25時間・昼勤のみの場合）です。</p>
+    <p>ただし、そこから手元にいくら残るかは、<strong>家賃・食費・一時金</strong>の条件で変わります。同じ条件で並べないと、比べられません。</p>
+    <p class="k1-bridge-lead">だからこのページは、<strong>1年後の残額を出すところ</strong>から始めます。</p>
+  </div>
+
+  <div class="k1-card k1-bridge k1-var" data-for="H3">
+    <p class="k1-bridge-claim">寮付き求人を探すなら、寮費0円で<br /><strong>1年後にいくら残るかまで</strong>見たほうがいい。</p>
+    <p>「寮費無料」と書かれた求人は多くあります。ただし<strong>入寮には条件があり、その中身は募集要項に書かれていません。</strong></p>
+    <p>光熱費・備品・寝具の扱いも記載がないため、この試算では差を付けず、<strong>確認すべき項目として本文に載せています。</strong></p>
+    <p class="k1-bridge-lead">そのうえで、<strong>家賃が消えると1年でいくら差が出るのか</strong>を計算しました。</p>
+  </div>
+
+  <div class="k1-card k1-bridge k1-var" data-for="N4b">
+    <p class="k1-bridge-claim">次の仕事を、<br /><strong>給料の額面だけで決める前に。</strong></p>
+    <p>額面が上がっても、家賃と生活費が同じなら、<strong>手元に残る額は変わりません。</strong></p>
+    <p>見るべきなのは月給の差ではなく、<strong>1年後に残る額の差</strong>のほうです。</p>
+    <p class="k1-bridge-lead">だからこのページは、<strong>いまの生活を1年続けた場合と並べて</strong>計算します。</p>
   </div>
 
   <div class="k1-card k1-model-card">
@@ -42,5 +97,9 @@
     <p>勤務時間も、<strong>日勤・変則勤務・交替勤務</strong>が記載されています。夜勤は<strong class="k1-orange">20:00〜4:30</strong>です。</p>
   </div>
 
-  <p class="k1-decision">だから、このページで考えるのは、<br /><strong>「きついか？」だけではなく、<br /><span>「そのきつさを引き受けてでも、1年後の差に価値があるか？」</span></strong>です。</p>
+  <!-- 本文への接続文。仮説ごとに「このページで考えること」を言い換える -->
+  <p class="k1-decision k1-var" data-for="H4">だから、このページで考えるのは、<br /><strong>「きついか？」だけではなく、<br /><span>「そのきつさを引き受けてでも、1年後の差に価値があるか？」</span></strong>です。</p>
+  <p class="k1-decision k1-var" data-for="H1">だから、このページで考えるのは、<br /><strong>「月収がいくらか？」ではなく、<br /><span>「1年後に、手元にいくら残るか？」</span></strong>です。</p>
+  <p class="k1-decision k1-var" data-for="H3">だから、このページで考えるのは、<br /><strong>「寮費が無料かどうか？」ではなく、<br /><span>「寮費が0円になると、1年後の残額がどう変わるか？」</span></strong>です。</p>
+  <p class="k1-decision k1-var" data-for="N4b">だから、このページで考えるのは、<br /><strong>「いまより良い仕事か？」ではなく、<br /><span>「1年後の差に、移るだけの価値があるか？」</span></strong>です。</p>
 </section>

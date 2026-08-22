@@ -78,6 +78,28 @@ strong { font-weight: 800; }
 .k1-hero-copy p { font-size: .86em; line-height: 1.8; }
 .k1-hero-copy .k1-lead { color: var(--k1-orange-dark); }
 
+/* ★2026-08-22 仮説別の冒頭出し分け（07b_Phase1実行設計 方法A）
+ * .k1-var は data-for に書いた仮説のときだけ表示する。
+ * ルールは display:none を「足す」だけにしてある。表示される版は本来のdisplayを保つため、
+ * 出し分けの追加でレイアウトが変わらない。
+ * data-hypothesis が無い場合（JS無効・スクリプト失敗）は H4（現行版）を出す。 */
+html:not([data-hypothesis]) .k1-var:not([data-for~="H4"]),
+html[data-hypothesis="H4"] .k1-var:not([data-for~="H4"]),
+html[data-hypothesis="H1"] .k1-var:not([data-for~="H1"]),
+html[data-hypothesis="H3"] .k1-var:not([data-for~="H3"]),
+html[data-hypothesis="N4b"] .k1-var:not([data-for~="N4b"]) { display: none !important; }
+
+/* S1-b 橋渡し。ヒーロー画像へ重ねる役割をモデルケースカードから引き継ぐ */
+.k1-bridge { margin-top: -25px; z-index: 2; background: var(--k1-paper-warm); }
+.k1-bridge > p { font-size: .88em; }
+.k1-bridge .k1-bridge-claim { margin: 0 0 .75em; padding-bottom: .65em; color: var(--k1-green); border-bottom: 1px dashed var(--k1-line); font-size: 1.02em; font-weight: 800; line-height: 1.62; }
+.k1-bridge .k1-bridge-claim strong { color: var(--k1-orange-dark); }
+.k1-bridge .k1-bridge-lead { margin-bottom: 0; color: var(--k1-orange-dark); font-weight: 700; }
+/* 橋渡しを出す仮説では、モデルケースカードは通常の間隔へ戻す（重なりは橋渡し側が担う） */
+html[data-hypothesis="H1"] .k1-model-card,
+html[data-hypothesis="H3"] .k1-model-card,
+html[data-hypothesis="N4b"] .k1-model-card { margin-top: 1.1em; }
+
 .k1-model-card { margin-top: -38px; z-index: 2; }
 .k1-model-icons { display: grid; grid-template-columns: repeat(4, 1fr); margin: .4em 0 1em; padding: 0; list-style: none; }
 /* ★案B：背景画像で描いていた小アイコンの代わりに、控えめな丸印を置く */
