@@ -5,9 +5,9 @@ interface Props { affiliateUrl: string; }
 const { affiliateUrl } = Astro.props;
 ---
 <section class="lc-section" aria-labelledby="lc-s9-title">
-  <SectionHeader id="lc-s9-title" number="S9" title="応募する前に、この5つだけ確認する" />
+  <SectionHeader id="lc-s9-title" title="応募する前に、この5つだけ確認する" />
   <div class="lc-prose"><p>このページで分からなかったことがあります。</p><p>募集要項に書いていないので、<mark>勝手には補いません。</mark></p></div>
   <ol class="lc-questions"><li><span><b>01</b><i aria-hidden="true">👤</i></span><strong>自分は入寮条件を満たすのか</strong></li><li><span><b>02</b><i aria-hidden="true">💡</i></span><strong>寮の光熱費はいくらかかるのか</strong></li><li><span><b>03</b><i aria-hidden="true">🛏</i></span><div><strong>家具・家電・寝具はあるのか</strong><small>引越し費用の補助も確認。</small></div></li><li><span><b>04</b><i aria-hidden="true">🕒</i></span><strong>日勤・変則勤務・交替勤務はどう決まるのか</strong></li><li><span><b>05</b><i aria-hidden="true">📅</i></span><strong>途中で契約を終える場合、いつまで寮を使えるのか</strong></li></ol>
   <div class="lc-prose"><p>この5つが分かれば、さっきの計算を、<mark>自分の条件でもう一度やり直せます。</mark></p></div>
-  <CtaBlock href={affiliateUrl} heading="まず、自分が入寮対象になるか確認する" label="募集条件を確認する" note="※リンク先で募集要項・応募条件をご確認ください。" />
+  <CtaBlock href={affiliateUrl} heading="まず、自分が入寮対象になるか確認する" label="入寮条件・募集情報を見る" note="※広告（アフィリエイトリンク）です。リンク先で募集要項・応募条件をご確認ください。" />
 </section>

@@ -1,15 +1,13 @@
 ---
 import SectionHeader from './SectionHeader.astro';
-import CtaBlock from './CtaBlock.astro';
-interface Props { affiliateUrl: string; }
-const { affiliateUrl } = Astro.props;
+import BannerCta from './BannerCta.astro';
 ---
 <section class="lc-section" aria-labelledby="lc-s10-title">
-  <SectionHeader id="lc-s10-title" number="S10" title="まとめ" />
+  <SectionHeader id="lc-s10-title" title="まとめ" />
   <div class="lc-prose"><p>「一人暮らしの初期費用はいくら？」と調べて、50万円必要だと分かったとしても、</p><p><mark>その50万円が3年10ヶ月先なら、まだ生活は動きません。</mark></p><p>今回のモデルケースでは、</p></div>
   <div class="lc-table lc-table--three" role="table" aria-label="モデルケースのまとめ"><div class="lc-th"><span>項目</span><span>毎月貯められる額</span><span>50万円まで</span></div><div><strong>今の家計</strong><b>11,100円</b><b>3年10ヶ月</b></div><div><strong>家賃だけ0円と仮定</strong><b>81,100円</b><b>約7ヶ月</b></div><div><strong>寮費無料の募集例</strong><b>126,900円</b><b>約4ヶ月</b></div></div>
   <div class="lc-summary-arrow"><strong>3年10ヶ月</strong><span>→</span><strong>7ヶ月</strong><span>→</span><strong>4ヶ月</strong></div>
   <div class="lc-prose"><p>ただし、最後の4ヶ月は、</p><div class="lc-summary-caveats"><ul><li>月収34万円の募集例</li><li>手取り率78%という仮定</li><li>入寮条件を満たす</li><li>食費が一部減るという仮定</li></ul><img src="/assets/living-cost/s10/savings-growth-v1.png" alt="貯蓄額が増えるイメージ図" width="1256" height="1256" loading="lazy" /></div><p>などを置いた試算です。</p><p class="lc-key">「4ヶ月で貯まる仕事」だと思って応募するのではなく、<br /><mark>「自分の場合はいくら残るのか」</mark>を確認してから決めてください。</p><p>そのために最初に確認したいのは、</p><p><mark>寮費無料が自分にも適用されるかどうか。</mark></p></div>
-  <CtaBlock href={affiliateUrl} heading="今の家計を続けるか、住居費を変える働き方も見るか。" label="寮費無料の条件・募集要項を確認する" copy="入寮条件・勤務形態・募集条件を確認してから判断できます。" final />
+  <BannerCta heading="今の家計を続けるか、住居費を変える働き方も見るか。" copy="入寮条件・勤務形態・募集条件を見てから判断できます。" alt="クボタ筑波工場の募集情報を見る" note="※広告（アフィリエイトリンク）です。" />
   <footer class="lc-legal"><p>※募集要項は2026年8月20日に確認した内容を基にしています。条件は変更される場合があります。</p><p>※本ページには広告リンクを含みます。</p></footer>
 </section>

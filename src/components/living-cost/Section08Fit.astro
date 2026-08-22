@@ -1,10 +1,11 @@
 ---
 import SectionHeader from './SectionHeader.astro';
+import AdLink from './AdLink.astro';
 ---
 <section class="lc-section" aria-labelledby="lc-s8-title">
-  <SectionHeader id="lc-s8-title" number="S8" title="この選択肢が向いていそうな人" />
+  <SectionHeader id="lc-s8-title" title="この選択肢が向いていそうな人" />
   <div class="lc-fit lc-fit--yes"><h3><span aria-hidden="true">👍</span><mark>向いているかもしれない</mark></h3><ul><li>「○月までに○万円」と目標が決まっている</li><li>家賃負担が大きく、毎月ほとんど貯金できていない</li><li>数ヶ月〜1年など、期間を区切って考えられる</li><li>住む場所を変えることを検討できる</li><li>遅番・夜勤になる可能性も確認したうえで判断できる</li><li>製造現場で働くこと自体は選択肢に入る</li></ul></div>
   <div class="lc-fit lc-fit--care"><h3><span>!</span><mark>慎重に考えた方がいい</mark></h3><ul><li>そもそも目標額や期限が決まっていない</li><li>実家暮らしなど、今の住居費がほとんどかからない</li><li>今の地域を離れたくない</li><li>交替勤務を受け入れられない</li><li>製造現場・体力面への不安が強い</li></ul></div>
   <aside class="lc-info"><span aria-hidden="true">!</span><p>期間工経験者366人への既存調査では、「おすすめしない理由」の1位は<mark>体力的にキツイ</mark>でした。<br /><strong>貯まる速度だけでは決めない方がいいです。</strong></p></aside>
-  <a class="lc-next" href="#lc-s9-title">次へ：応募前に確認する5つへ <span aria-hidden="true">→</span></a>
+  <AdLink label="入寮条件・募集情報を見る" />
 </section>
