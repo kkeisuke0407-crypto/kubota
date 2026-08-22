@@ -1,0 +1,18 @@
+---
+import { affiliate } from '../../data/affiliate';
+
+interface Props { heading?: string; copy?: string; note?: string; alt: string; }
+const { heading, copy, note, alt } = Astro.props;
+---
+
+<aside class="lc-cta-panel lc-cta-panel--banner">
+  {heading && <p class="lc-cta-heading">{heading}</p>}
+  {copy && <p>{copy}</p>}
+  <div class="lc-banner">
+    <a href={affiliate.clickUrl} target="_blank" rel="sponsored nofollow noopener" referrerpolicy="no-referrer-when-downgrade" attributionsrc>
+      <img src={affiliate.bannerImage} alt={alt} width={affiliate.bannerWidth} height={affiliate.bannerHeight} loading="lazy" />
+    </a>
+    <img class="lc-banner__pixel" src={affiliate.bannerImpression} alt="" width="1" height="1" loading="lazy" aria-hidden="true" />
+  </div>
+  {note && <p class="lc-cta-note">{note}</p>}
+</aside>
