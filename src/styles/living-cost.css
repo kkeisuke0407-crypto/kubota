@@ -50,7 +50,8 @@ mark{color:inherit;background:linear-gradient(var(--lc-transparent) 60%,var(--lc
 
 /* --- mobile pass: section headers, marker bands, CTA labels, PR label, footer --- */
 
-.lc-pr{position:static;display:inline-block;margin:var(--lc-3) 0 0 var(--lc-3);font-size:var(--lc-xs);line-height:1.2}
+.lc-pr{position:fixed;inset-block-start:var(--lc-2);inset-inline-end:var(--lc-2);padding:2px 7px;box-shadow:0 2px 6px var(--lc-shadow-soft);font-size:.68rem;line-height:1.35}
+.living-cost-page .lc-section-head{padding-inline-end:3.4rem}
 .living-cost-page .lc-section-head{align-items:flex-start;padding:11px 14px}
 .living-cost-page .lc-section-head h2{min-width:0;font-size:clamp(1rem,4.4vw,1.25rem);overflow-wrap:anywhere}
 @media(max-width:23.4375rem){.living-cost-page .lc-section-head{padding:10px 12px}.living-cost-page .lc-section-head h2{font-size:clamp(.95rem,4.3vw,1.1rem)}}
