@@ -13,6 +13,7 @@ import Section08Fit from '../../components/living-cost/Section08Fit.astro';
 import Section09Checklist from '../../components/living-cost/Section09Checklist.astro';
 import Section10Summary from '../../components/living-cost/Section10Summary.astro';
 import SiteFooterLc from '../../components/living-cost/SiteFooterLc.astro';
+import Measurement from '../../components/Measurement.astro';
 import { affiliate } from '../../data/affiliate';
 const affiliateUrl = affiliate.clickUrl;
 ---
@@ -48,4 +49,6 @@ const affiliateUrl = affiliate.clickUrl;
 <script is:inline>
 const calculator=document.querySelector('[data-lc-calculator]');
 if(calculator instanceof HTMLFormElement){const formatter=new Intl.NumberFormat('ja-JP');calculator.addEventListener('submit',(event)=>{event.preventDefault();const data=new FormData(calculator);const target=Number(data.get('target'));const income=Number(data.get('income'));const rent=Number(data.get('rent'));const living=Number(data.get('living'));const surplus=income-rent-living;const surplusEl=calculator.querySelector('[data-lc-surplus]');const monthsEl=calculator.querySelector('[data-lc-months]');const targetEl=calculator.querySelector('[data-lc-target-label]');const errorEl=calculator.querySelector('[data-lc-error]');if(!(surplusEl&&monthsEl&&targetEl&&errorEl))return;surplusEl.textContent=`${formatter.format(surplus)}円`;targetEl.textContent=`${formatter.format(target)}円まで`;if(surplus<=0||target<=0){monthsEl.textContent='計算できません';errorEl.hidden=false;return;}const months=Math.ceil(target/surplus);const years=Math.floor(months/12);const rest=months%12;monthsEl.textContent=years>0?`約${years}年${rest}ヶ月`:`約${months}ヶ月`;errorEl.hidden=true;});}
-</script></body></html>
+</script>
+<Measurement />
+</body></html>

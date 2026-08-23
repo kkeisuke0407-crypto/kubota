@@ -1,0 +1,111 @@
+---
+// ★STEP12 計測設定（M4）。LP1・LP2 の両方で読み込む。
+//
+// このLPは静的配信でサーバーログを持てないため、07bが想定していた「自前ログ」は
+// GA4のイベントパラメータで代替する。Google Ads側のCV帰属（gclid経由）と
+// GA4に記録した hypothesis を突き合わせて、仮説別に分離できているかを検証する。
+//
+// 取得するもの
+//   mcv_click     … もしもリンクのクリック＝MCV（広告主へ送客）※全モード共通で必須
+//   simulator_use … LP2 S3の簡易シミュレーター実行（Round 1の評価指標）
+//   scroll        … GA4の拡張計測イベント（90%到達）を利用。追加実装なし
+//
+// すべてのイベントに hypothesis / campaignid / adgroupid / keyword / matchtype を付ける。
+// Clarity にも hypothesis をタグ付けし、セッション録画を仮説別に絞り込めるようにする。
+---
+<script is:inline>
+  (function () {
+    var KEYS = ['hypothesis', 'campaignid', 'adgroupid', 'keyword', 'matchtype', 'gclid'];
+    var STORE = 'k_trk';
+
+    // ① 流入パラメータを取得し、セッション内で保持する（LP内遷移でも失われないように）
+    var trk = {};
+    try {
+      var saved = sessionStorage.getItem(STORE);
+      if (saved) trk = JSON.parse(saved) || {};
+    } catch (e) {}
+    try {
+      var q = new URLSearchParams(window.location.search);
+      var got = false;
+      for (var i = 0; i < KEYS.length; i++) {
+        var v = q.get(KEYS[i]);
+        if (v) { trk[KEYS[i]] = String(v).slice(0, 100); got = true; }
+      }
+      if (got) sessionStorage.setItem(STORE, JSON.stringify(trk));
+    } catch (e) {}
+
+    // ★hypothesis は出し分けの実結果（フォールバック後の値）を使う。
+    //   広告のパラメータが落ちてH4/H2で表示された場合、LPの実表示と一致させるため。
+    trk.hypothesis_shown = document.documentElement.getAttribute('data-hypothesis') || '(none)';
+    trk.lp = window.location.pathname;
+
+    function params(extra) {
+      var o = {};
+      for (var k in trk) if (Object.prototype.hasOwnProperty.call(trk, k)) o[k] = trk[k];
+      for (var k2 in extra) if (Object.prototype.hasOwnProperty.call(extra, k2)) o[k2] = extra[k2];
+      return o;
+    }
+    function send(name, extra) {
+      if (typeof window.gtag === 'function') window.gtag('event', name, params(extra));
+      (window.dataLayer = window.dataLayer || []).push(Object.assign({ event: name }, params(extra)));
+    }
+
+    // ② GA4の全イベントに流入情報を既定で載せる
+    if (typeof window.gtag === 'function') {
+      window.gtag('set', 'user_properties', {
+        hypothesis: trk.hypothesis || '(none)',
+        hypothesis_shown: trk.hypothesis_shown
+      });
+    }
+
+    // ③ Clarity に仮説をタグ付け（セッション録画を仮説別に絞り込む）
+    function tagClarity() {
+      if (typeof window.clarity !== 'function') return false;
+      window.clarity('set', 'hypothesis', trk.hypothesis_shown);
+      window.clarity('set', 'lp', trk.lp);
+      return true;
+    }
+    if (!tagClarity()) {
+      var tries = 0;
+      var t = setInterval(function () {
+        if (tagClarity() || ++tries > 20) clearInterval(t);
+      }, 500);
+    }
+
+    // ④ MCV：もしもリンクのクリック
+    //    委譲リスナーで全CTAを拾う。preventDefaultしないので遷移を遅らせない。
+    //    GA4はsendBeaconで送るため、離脱直前でも欠損しにくい。
+    var fired = {};
+    document.addEventListener('click', function (ev) {
+      var a = ev.target && ev.target.closest ? ev.target.closest('a[href*="af.moshimo.com"]') : null;
+      if (!a) return;
+      // 同一CTAの二重計上を防ぐ（ダブルクリック・連打対策。別CTAは別々に数える）
+      // どのCTAかを一意に識別する。LP1はsectionにidがあるが、LP2は無いので通し番号を使う。
+      var section = a.closest('section');
+      var id = 'unknown';
+      if (section) {
+        if (section.id) {
+          id = section.id;
+        } else {
+          var all = document.querySelectorAll('main section');
+          for (var s = 0; s < all.length; s++) {
+            if (all[s] === section) { id = 'sec' + (s + 1); break; }
+          }
+        }
+      }
+      var key = id + '|' + (a.textContent || '').trim().slice(0, 20);
+      var now = Date.now();
+      if (fired[key] && now - fired[key] < 3000) return;
+      fired[key] = now;
+      send('mcv_click', { cta_location: id, cta_label: (a.textContent || '').trim().slice(0, 60) });
+    }, true);
+
+    // ⑤ シミュレーター利用（LP2 S3）
+    var calc = document.querySelector('[data-lc-calculator]');
+    if (calc) {
+      calc.addEventListener('submit', function () {
+        send('simulator_use', {});
+      });
+    }
+  })();
+</script>
