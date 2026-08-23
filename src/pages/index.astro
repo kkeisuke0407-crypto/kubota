@@ -4,9 +4,11 @@ import '../styles/kubota-tsukuba.css';
 import SiteFooter from '../components/SiteFooter.astro';
 import Analytics from '../components/Analytics.astro';
 
-const affiliateUrl = '//af.moshimo.com/af/c/click?a_id=5765461&p_id=7694&pc_id=22266&pl_id=95905';
-const bannerImage = '//image.moshimo.com/af-img/6249/000000095905.png';
-const bannerImpression = '//i.moshimo.com/af/i/impression?a_id=5765461&p_id=7694&pc_id=22266&pl_id=95905';
+import { affiliate } from '../data/affiliate';
+
+const affiliateUrl = affiliate.clickUrl;
+const bannerImage = affiliate.bannerImage;
+const bannerImpression = affiliate.bannerImpression;
 
 const comparisonRows = [
   ['月の残額', '−1,200円', '126,900円'],
