@@ -1,18 +1,54 @@
 ---
 import AdLink from './AdLink.astro';
 ---
-<section class="lc-section lc-hero" aria-labelledby="lc-s1-title">
+<!--
+  S1 FV ＋ 橋渡し。★仮説別に出し分ける唯一のセクション。
+  S2以降は全仮説共通。分岐は URLパラメータ ?hypothesis= を index.astro のインラインスクリプトが読み、
+  <html data-hypothesis> を立てて CSS が .lc-var を選ぶ（LP1 /kubota-lp1/ と同じ機構）。
+  パラメータ欠落・未知の値・JS無効 のときは H2（現行版）を出す。
+-->
+<section class="lc-section lc-hero" aria-label="導入">
   <div class="lc-hero-visual">
     <img src="/assets/living-cost/s01/hero-thinking-man-v2.png" alt="一人暮らしの資金計画を考える男性のイメージ" width="1536" height="1152" fetchpriority="high" />
-    <div class="lc-hero-copy">
-      <h1 id="lc-s1-title">一人暮らしの<br /><strong>初期費用。</strong></h1>
+
+    <!-- H2 一人暮らし初期費用（現行。パラメータが無いときの既定） -->
+    <div class="lc-hero-copy lc-var" data-for="H2">
+      <h1>一人暮らしの<br /><strong>初期費用。</strong></h1>
       <p>50万円を目標にしたら、<br />今の家計で<mark>何ヶ月</mark>かかる？</p>
     </div>
+
+    <!-- N1 貯金ができない -->
+    <div class="lc-hero-copy lc-var" data-for="N1">
+      <h1><strong>貯金が<br />できない。</strong></h1>
+      <p>意志だけの問題ではなく、<br />毎月残る額の<mark>“構造”</mark>に<br />原因があるかもしれません。</p>
+    </div>
+
+    <!-- H11 家賃がもったいない -->
+    <div class="lc-hero-copy lc-var" data-for="H11">
+      <h1>その家賃、<br /><strong>もったいない？</strong></h1>
+      <p>答えは「高い・安い」だけではなく、<br />その負担が<mark>なくなったら</mark><br />何が変わるかで考えられます。</p>
+    </div>
+
     <span class="lc-image-label">イメージ</span>
   </div>
 
+  <!-- 橋渡し。H2は現行のリード文（下の lc-hero-prose）がそのまま橋渡しになっているため置かない -->
+  <div class="lc-prose lc-bridge lc-var" data-for="N1">
+    <p>節約できる生活費には限界があります。</p>
+    <p>一方、家計の中でも<strong>大きな固定費になりやすいのが家賃</strong>です。</p>
+    <p class="lc-bridge-lead">そこでこのページでは、<mark>家賃負担が変わると、毎月残るお金がどれだけ変わるか</mark>を計算します。</p>
+  </div>
+
+  <div class="lc-prose lc-bridge lc-var" data-for="H11">
+    <p>家賃7万円なら、<strong>1年で84万円。</strong></p>
+    <p>もしこの84万円を抑えられたら、<strong>50万円を作るまでの時間はどれだけ変わるのか。</strong></p>
+    <p class="lc-bridge-lead">このページでは、<mark>自分の家賃を入れて実際に計算できます。</mark></p>
+  </div>
+
   <div class="lc-hero-result">
-    <p>手取り23万円・家賃7万円のモデルケースで計算すると、</p>
+    <!-- 目標額50万円の前置き。H2はFVで宣言済みなので短い版を出す -->
+    <p class="lc-var" data-for="H2">手取り23万円・家賃7万円のモデルケースで計算すると、</p>
+    <p class="lc-var" data-for="N1 H11">手取り23万円・家賃7万円のモデルケースで、<br />50万円貯まるまでを計算すると、</p>
     <strong>3年10ヶ月。</strong>
   </div>
 

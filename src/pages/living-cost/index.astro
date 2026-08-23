@@ -17,7 +17,32 @@ import { affiliate } from '../../data/affiliate';
 const affiliateUrl = affiliate.clickUrl;
 ---
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" /><meta name="description" content="一人暮らしの初期費用50万円を、今の家計・家賃0円の仮定・寮費無料の募集例で何ヶ月かかるか比較します。" /><title>一人暮らしの初期費用｜50万円まで何ヶ月かかる？</title><link rel="canonical" href="https://kubota.hakobu-family.com/living-cost/" /><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800;900&display=swap" rel="stylesheet" /><Analytics /></head>
+<html lang="ja"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" /><meta name="description" content="一人暮らしの初期費用50万円を、今の家計・家賃0円の仮定・寮費無料の募集例で何ヶ月かかるか比較します。" /><title>一人暮らしの初期費用｜50万円まで何ヶ月かかる？</title><link rel="canonical" href="https://kubota.hakobu-family.com/living-cost/" /><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
+<!--
+  ★仮説別の冒頭出し分け。?hypothesis= を読み <html data-hypothesis> を立てる。CSSが .lc-var を選ぶ。
+  bodyより前に同期実行するため、既定のH2が一瞬見えてから切り替わることはない。
+  未知の値・パラメータ無し・JS無効 は H2（現行版）にフォールバックする。
+-->
+<script is:inline>
+  (function () {
+    var allowed = ['H2', 'N1', 'H11'];
+    var raw = '';
+    try {
+      raw = new URLSearchParams(window.location.search).get('hypothesis') || '';
+    } catch (e) {
+      raw = '';
+    }
+    var matched = 'H2';
+    for (var i = 0; i < allowed.length; i++) {
+      if (allowed[i].toLowerCase() === raw.trim().toLowerCase()) {
+        matched = allowed[i];
+        break;
+      }
+    }
+    document.documentElement.setAttribute('data-hypothesis', matched);
+  })();
+</script>
+<Analytics /></head>
 <body class="living-cost-page"><a class="lc-skip" href="#main-content">本文へ移動</a><div class="lc-pr">PR</div><main id="main-content" class="lc-page"><Section01Hero /><Section02Goal /><Section03Simulator /><Section04RentComparison /><Section05DormOffer affiliateUrl={affiliateUrl} /><Section06Caveats /><Section07DormConditions /><Section08Fit /><Section09Checklist affiliateUrl={affiliateUrl} /><Section10Summary /></main>
 <SiteFooterLc />
 <script is:inline>

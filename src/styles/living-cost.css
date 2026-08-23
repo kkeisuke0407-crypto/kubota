@@ -96,3 +96,18 @@ mark{background:linear-gradient(var(--lc-transparent) 62%,var(--lc-yellow) 62% 9
 .lc-footer__copy{margin:var(--lc-3) 0 0}
 .living-cost-page .lc-section:nth-of-type(4) .lc-image-note{grid-template-columns:1.6fr .7fr;height:auto;min-height:6rem}
 .living-cost-page .lc-section:nth-of-type(4) .lc-image-note img{height:100%;object-fit:cover}
+
+/* ★2026-08-23 仮説別の冒頭出し分け（LP1 /kubota-lp1/ と同じ機構）
+ * .lc-var は data-for に書いた仮説のときだけ表示する。
+ * ルールは display:none を「足す」だけ。表示される版は本来のdisplayを保つので、
+ * 出し分けの追加で既存レイアウトが変わらない。
+ * data-hypothesis が無い場合（JS無効・スクリプト失敗）は H2（現行版）を出す。 */
+html:not([data-hypothesis]) .lc-var:not([data-for~="H2"]),
+html[data-hypothesis="H2"] .lc-var:not([data-for~="H2"]),
+html[data-hypothesis="N1"] .lc-var:not([data-for~="N1"]),
+html[data-hypothesis="H11"] .lc-var:not([data-for~="H11"]) { display: none !important; }
+
+/* 橋渡し（N1・H11のみ。H2は現行リード文が兼ねる） */
+.lc-bridge { margin-block-start: var(--lc-5); padding: var(--lc-4); border: 1px solid var(--lc-blue-soft); border-radius: var(--lc-radius-md); background: var(--lc-surface-blue); font-size: .84rem; line-height: 1.66; }
+.lc-bridge p { margin: 0 0 .5em; }
+.lc-bridge .lc-bridge-lead { margin-bottom: 0; font-weight: 800; }
