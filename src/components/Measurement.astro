@@ -37,6 +37,8 @@
     // ★hypothesis は出し分けの実結果（フォールバック後の値）を使う。
     //   広告のパラメータが落ちてH4/H2で表示された場合、LPの実表示と一致させるため。
     trk.hypothesis_shown = document.documentElement.getAttribute('data-hypothesis') || '(none)';
+    // ★未指定でも必ず送る。GA4側で「パラメータ無し」と「計測欠損」を区別するため。
+    if (!trk.hypothesis) trk.hypothesis = '(none)';
     trk.lp = window.location.pathname;
 
     function params(extra) {
@@ -93,19 +95,32 @@
           }
         }
       }
-      var key = id + '|' + (a.textContent || '').trim().slice(0, 20);
+      // バナーCTAはテキストを持たないので、画像のaltを識別子に使う
+      var label = (a.textContent || '').trim();
+      if (!label) {
+        var img = a.querySelector('img');
+        label = img ? (img.getAttribute('alt') || 'banner') : 'banner';
+      }
+      var key = id + '|' + label.slice(0, 20);
       var now = Date.now();
       if (fired[key] && now - fired[key] < 3000) return;
       fired[key] = now;
-      send('mcv_click', { cta_location: id, cta_label: (a.textContent || '').trim().slice(0, 60) });
+      send('mcv_click', { cta_location: id, cta_label: label.slice(0, 60) });
     }, true);
 
     // ⑤ シミュレーター利用（LP2 S3）
-    var calc = document.querySelector('[data-lc-calculator]');
-    if (calc) {
+    //    このスクリプトはhead内で走るため、DOM構築後にバインドする。
+    function bindSimulator() {
+      var calc = document.querySelector('[data-lc-calculator]');
+      if (!calc) return;
       calc.addEventListener('submit', function () {
         send('simulator_use', {});
       });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', bindSimulator);
+    } else {
+      bindSimulator();
     }
   })();
 </script>

@@ -43,12 +43,11 @@ const affiliateUrl = affiliate.clickUrl;
     document.documentElement.setAttribute('data-hypothesis', matched);
   })();
 </script>
-<Analytics /></head>
+<Analytics /><Measurement /></head>
 <body class="living-cost-page"><a class="lc-skip" href="#main-content">本文へ移動</a><div class="lc-pr">PR</div><main id="main-content" class="lc-page"><Section01Hero /><Section02Goal /><Section03Simulator /><Section04RentComparison /><Section05DormOffer affiliateUrl={affiliateUrl} /><Section06Caveats /><Section07DormConditions /><Section08Fit /><Section09Checklist affiliateUrl={affiliateUrl} /><Section10Summary /></main>
 <SiteFooterLc />
 <script is:inline>
 const calculator=document.querySelector('[data-lc-calculator]');
 if(calculator instanceof HTMLFormElement){const formatter=new Intl.NumberFormat('ja-JP');calculator.addEventListener('submit',(event)=>{event.preventDefault();const data=new FormData(calculator);const target=Number(data.get('target'));const income=Number(data.get('income'));const rent=Number(data.get('rent'));const living=Number(data.get('living'));const surplus=income-rent-living;const surplusEl=calculator.querySelector('[data-lc-surplus]');const monthsEl=calculator.querySelector('[data-lc-months]');const targetEl=calculator.querySelector('[data-lc-target-label]');const errorEl=calculator.querySelector('[data-lc-error]');if(!(surplusEl&&monthsEl&&targetEl&&errorEl))return;surplusEl.textContent=`${formatter.format(surplus)}円`;targetEl.textContent=`${formatter.format(target)}円まで`;if(surplus<=0||target<=0){monthsEl.textContent='計算できません';errorEl.hidden=false;return;}const months=Math.ceil(target/surplus);const years=Math.floor(months/12);const rest=months%12;monthsEl.textContent=years>0?`約${years}年${rest}ヶ月`:`約${months}ヶ月`;errorEl.hidden=true;});}
 </script>
-<Measurement />
 </body></html>
