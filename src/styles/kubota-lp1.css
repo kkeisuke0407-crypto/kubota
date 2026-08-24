@@ -400,3 +400,8 @@ html[data-hypothesis="N4b"] .k1-model-card { margin-top: 1.1em; }
 .k1-form-demo small { font-size: max(11px, .8em); }
 .k1-final-summary small { font-size: max(11px, .35em); }
 .k1-balance { grid-template-columns: minmax(0, 1fr); }
+
+/* S7 応募前チェック：チェック円が番号円より大きく主張していたので整える */
+.k1-question-list li { grid-template-columns: 2.6em 2.2em minmax(0, 1fr); gap: .55em; min-height: 4.6em; }
+.k1-question-icon { width: 2.1em; height: 2.1em; font-size: 1em; }
+.k1-question-icon::before { width: .72em; height: .38em; border-left-width: .16em; border-bottom-width: .16em; }
