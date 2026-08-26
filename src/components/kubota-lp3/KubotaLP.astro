@@ -8,7 +8,15 @@ type ImageItem = {
   width: number;
   height: number;
   alt: string;
-  cta?: { location: string; label: string; top: string; height: string };
+  cta?: {
+    location: string;
+    label: string;
+    top: string;
+    left: string;
+    width: string;
+    height: string;
+    glow?: string;
+  };
 };
 
 const { clusterId } = Astro.props;
@@ -31,13 +39,13 @@ const item = (file: string, width: number, height: number, alt: string, cta?: Im
 
 const heroByCluster: Record<ClusterId, ImageItem> = {
   FACTORY_UNEXP: item('hero-factory-unexp.webp', 852, 1846, '工場未経験でも検討できる根拠と最初に確認する3点', {
-    location: 'hero', label: cluster.ctas.first, top: '80.4%', height: '8.2%',
+    location: 'hero', label: cluster.ctas.first, top: '80.9%', left: '4.1%', width: '91.3%', height: '5.8%',
   }),
   PERIOD_INCOME: item('hero-period-income.webp', 862, 1825, 'クボタ筑波で1年後に残せる貯金の試算と主な条件', {
-    location: 'hero', label: cluster.ctas.first, top: '85.0%', height: '8.2%',
+    location: 'hero', label: cluster.ctas.first, top: '86.2%', left: '3.5%', width: '92.9%', height: '6.3%',
   }),
   PERIOD_JOBDESC: item('hero-period-jobdesc.webp', 864, 1821, 'クボタ筑波の5つの仕事内容と判断ポイント', {
-    location: 'hero', label: cluster.ctas.first, top: '85.4%', height: '8.2%',
+    location: 'hero', label: cluster.ctas.first, top: '85.9%', left: '3.0%', width: '93.7%', height: '6.5%',
   }),
 };
 
@@ -70,27 +78,27 @@ const moduleImages: Partial<Record<ModuleId, ImageItem[]>> = {
 };
 
 const savingsCtaByCluster: Record<ClusterId, ImageItem> = {
-  FACTORY_UNEXP: item('cta-factory-savings.webp', 1536, 869, cluster.ctas.afterSimulator, { location: 'after_simulator', label: cluster.ctas.afterSimulator, top: '28.5%', height: '31%' }),
-  PERIOD_INCOME: item('cta-income-savings.webp', 1536, 869, cluster.ctas.afterSimulator, { location: 'after_simulator', label: cluster.ctas.afterSimulator, top: '28.5%', height: '31%' }),
-  PERIOD_JOBDESC: item('cta-jobdesc-savings.webp', 1536, 869, cluster.ctas.afterSimulator, { location: 'after_simulator', label: cluster.ctas.afterSimulator, top: '28.5%', height: '31%' }),
+  FACTORY_UNEXP: item('cta-factory-savings.webp', 1536, 869, cluster.ctas.afterSimulator, { location: 'after_simulator', label: cluster.ctas.afterSimulator, top: '28.7%', left: '3.8%', width: '92.0%', height: '30.6%' }),
+  PERIOD_INCOME: item('cta-income-savings.webp', 1536, 869, cluster.ctas.afterSimulator, { location: 'after_simulator', label: cluster.ctas.afterSimulator, top: '28.7%', left: '3.8%', width: '92.0%', height: '30.7%' }),
+  PERIOD_JOBDESC: item('cta-jobdesc-savings.webp', 1536, 869, cluster.ctas.afterSimulator, { location: 'after_simulator', label: cluster.ctas.afterSimulator, top: '28.9%', left: '3.8%', width: '92.0%', height: '30.6%' }),
 };
 
 const fitCtaByCluster: Partial<Record<ClusterId, ImageItem>> = {
-  FACTORY_UNEXP: item('cta-factory-fit.webp', 1536, 869, cluster.ctas.late, { location: 'after_fit', label: cluster.ctas.late, top: '28.5%', height: '31%' }),
-  PERIOD_JOBDESC: item('cta-jobdesc-fit.webp', 1536, 869, cluster.ctas.late, { location: 'after_fit', label: cluster.ctas.late, top: '28.5%', height: '31%' }),
+  FACTORY_UNEXP: item('cta-factory-fit.webp', 1536, 869, cluster.ctas.late, { location: 'after_fit', label: cluster.ctas.late, top: '28.9%', left: '3.8%', width: '92.0%', height: '30.5%' }),
+  PERIOD_JOBDESC: item('cta-jobdesc-fit.webp', 1536, 869, cluster.ctas.late, { location: 'after_fit', label: cluster.ctas.late, top: '28.7%', left: '3.8%', width: '92.0%', height: '30.6%' }),
 };
 
 const comparisonByCluster: Record<ClusterId, ImageItem> = {
   FACTORY_UNEXP: item('07_comparison_nocta.webp', 858, 1655, 'クボタ筑波と主な期間工5社の初回日給比較'),
   PERIOD_INCOME: item('07_comparison.webp', 858, 1822, 'クボタ筑波と主な期間工5社の初回日給比較', {
-    location: 'after_comparison', label: cluster.ctas.late, top: '91.0%', height: '6.8%',
+    location: 'after_comparison', label: cluster.ctas.late, top: '91.5%', left: '5.3%', width: '88.8%', height: '6.3%', glow: '0 150 136',
   }),
   PERIOD_JOBDESC: item('07_comparison_nocta.webp', 858, 1655, 'クボタ筑波と主な期間工5社の初回日給比較'),
 };
 
 const finalItems: ImageItem[] = [
   item('15_final.webp', 858, 1818, '給料・手当・寮費・1年後の貯金のまとめ', {
-    location: 'final', label: cluster.ctas.final, top: '91.3%', height: '7.5%',
+    location: 'final', label: cluster.ctas.final, top: '92.3%', left: '3.8%', width: '92.4%', height: '6.4%',
   }),
 ];
 
@@ -159,7 +167,7 @@ const renderItems: Array<{ chapter: string; images: ImageItem[] }> = [
                 <>
                   <a
                     class="cta-hitbox"
-                    style={`--top:${image.cta.top};--height:${image.cta.height}`}
+                    style={`--top:${image.cta.top};--left:${image.cta.left};--width:${image.cta.width};--height:${image.cta.height}`}
                     href={AFFILIATE_URL}
                     target="_blank"
                     rel="sponsored nofollow noopener"
@@ -169,19 +177,9 @@ const renderItems: Array<{ chapter: string; images: ImageItem[] }> = [
                   ></a>
                   <span
                     class="cta-motion"
-                    style={`--top:${image.cta.top};--height:${image.cta.height};--crop-top:-${(Number.parseFloat(image.cta.top) / Number.parseFloat(image.cta.height)) * 100}%`}
+                    style={`--top:${image.cta.top};--left:${image.cta.left};--width:${image.cta.width};--height:${image.cta.height};--glow:${image.cta.glow ?? '255 91 0'}`}
                     aria-hidden="true"
-                  >
-                    <img
-                      class="cta-motion-image"
-                      src={`/lp-images-v3/${image.file}`}
-                      alt=""
-                      width={image.width}
-                      height={image.height}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </span>
+                  ></span>
                 </>
               )}
             </div>
@@ -221,61 +219,50 @@ const renderItems: Array<{ chapter: string; images: ImageItem[] }> = [
   :global(body) { background: #eef5f4; }
   .lp { width: 100%; max-width: 430px; margin: 0 auto; overflow: hidden; background: #fff; box-shadow: 0 0 36px rgb(0 66 71 / 10%); }
   .lp-chapter, .lp-image { position: relative; width: 100%; margin: 0; padding: 0; line-height: 0; }
-  .lp img { display: block; width: 100%; height: auto; margin: 0; }
-  .cta-hitbox { position: absolute; z-index: 3; top: var(--top); left: 4.5%; width: 91%; height: var(--height); min-height: 44px; border-radius: 999px; }
-  .cta-hitbox:focus-visible { outline: 4px solid #111; outline-offset: -4px; }
+  .lp-image { margin-top: -1px; overflow: hidden; }
+  .lp-chapter:first-child .lp-image:first-child { margin-top: 0; }
+  .lp-image > img { display: block; width: 100%; height: auto; margin: 0; clip-path: inset(6px 0); }
+  .lp-chapter:first-child .lp-image:first-child > img { clip-path: inset(0 0 6px 0); }
+  .cta-hitbox { position: absolute; z-index: 3; top: var(--top); left: var(--left); width: var(--width); height: var(--height); min-height: 44px; border-radius: 999px; }
+  .cta-hitbox:focus-visible { outline: none; }
   .cta-motion {
     position: absolute;
     z-index: 2;
     top: var(--top);
-    left: 4.5%;
-    width: 91%;
+    left: var(--left);
+    width: var(--width);
     height: var(--height);
-    min-height: 44px;
-    overflow: hidden;
     border-radius: 999px;
     pointer-events: none;
-    transform-origin: 50% 50%;
-    animation: cta-breathe 2.8s ease-in-out infinite;
-    transition: transform 140ms ease, filter 140ms ease, box-shadow 140ms ease;
-    will-change: transform, filter, box-shadow;
-  }
-  .lp .cta-motion-image {
-    position: absolute;
-    top: var(--crop-top);
-    left: -4.945055%;
-    width: 109.89011%;
-    max-width: none;
-    height: auto;
+    background: rgb(255 255 255 / 0%);
+    box-shadow: 0 0 0 0 rgb(var(--glow) / 0%);
+    animation: cta-attention 3.4s ease-in-out infinite;
+    transition: background-color 150ms ease, box-shadow 150ms ease;
+    will-change: background-color, box-shadow;
   }
   .cta-hitbox:hover + .cta-motion,
   .cta-hitbox:focus-visible + .cta-motion {
     animation: none;
-    transform: translateY(-2px) scale(1.02);
-    filter: brightness(1.08) saturate(1.04);
-    box-shadow: 0 12px 26px rgb(255 91 0 / 28%);
+    background: rgb(255 255 255 / 6%);
+    box-shadow: 0 0 0 2px rgb(var(--glow) / 16%), 0 8px 20px rgb(var(--glow) / 20%);
   }
   .cta-hitbox:active + .cta-motion {
     animation: none;
-    transform: translateY(1px) scale(.985);
-    filter: brightness(.96);
-    box-shadow: 0 4px 10px rgb(255 91 0 / 18%);
+    background: rgb(0 0 0 / 5%);
+    box-shadow: inset 0 3px 8px rgb(0 0 0 / 12%), 0 3px 8px rgb(var(--glow) / 12%);
   }
-  @keyframes cta-breathe {
-    0%, 62%, 100% {
-      transform: scale(1);
-      filter: brightness(1);
-      box-shadow: 0 6px 14px rgb(255 91 0 / 0%);
+  @keyframes cta-attention {
+    0%, 72%, 100% {
+      background: rgb(255 255 255 / 0%);
+      box-shadow: 0 0 0 0 rgb(var(--glow) / 0%);
     }
-    76% {
-      transform: scale(1.018);
-      filter: brightness(1.08) saturate(1.04);
-      box-shadow: 0 10px 24px rgb(255 91 0 / 28%);
+    84% {
+      background: rgb(255 255 255 / 5%);
+      box-shadow: 0 0 0 3px rgb(var(--glow) / 12%), 0 7px 16px rgb(var(--glow) / 18%);
     }
-    88% {
-      transform: scale(1.006);
-      filter: brightness(1.03);
-      box-shadow: 0 8px 18px rgb(255 91 0 / 14%);
+    93% {
+      background: rgb(255 255 255 / 2%);
+      box-shadow: 0 0 0 1px rgb(var(--glow) / 6%), 0 4px 10px rgb(var(--glow) / 8%);
     }
   }
   @media (prefers-reduced-motion: reduce) {
