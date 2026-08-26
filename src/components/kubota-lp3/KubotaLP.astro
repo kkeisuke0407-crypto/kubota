@@ -1,5 +1,6 @@
 ---
 import { AFFILIATE_URL, clusters, type ClusterId, type ModuleId } from '../../data/kubota-lp3/content';
+import { site } from '../../data/site';
 
 type Props = { clusterId: ClusterId };
 type ChapterId = 'work' | 'money' | 'savings' | 'conditions' | 'comparison' | 'next';
@@ -188,6 +189,28 @@ const renderItems: Array<{ chapter: string; images: ImageItem[] }> = [
       ))}
     </main>
 
+    <footer class="lp-footer">
+      <section class="lp-footer__info" aria-labelledby="lp-footer-operator">
+        <h2 id="lp-footer-operator">運営者情報</h2>
+        <dl>
+          <div><dt>サイト名</dt><dd>{site.name}</dd></div>
+          <div><dt>運営者</dt><dd>{site.operator}</dd></div>
+          <div><dt>連絡先</dt><dd><a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a></dd></div>
+          <div><dt>事業内容</dt><dd>{site.business}</dd></div>
+          <div><dt>親サイト</dt><dd><a href={site.parentUrl}>ハコぶファミリー（HAKOBU FAMILY）</a></dd></div>
+        </dl>
+        <p>当サイトはアフィリエイトプログラムを利用しており、リンク経由の応募により広告主から紹介料を受け取る場合があります。掲載内容は各社の公開情報をもとにしていますが、最新かつ正確な条件は応募先の公式情報をご確認ください。</p>
+      </section>
+
+      <nav class="lp-footer__nav" aria-label="サイト内リンク">
+        <a href="/">トップページ</a>
+        <a href="/privacy/">プライバシーポリシー</a>
+        <a href="/column/">コラム</a>
+      </nav>
+
+      <p class="lp-footer__copy">{site.copyright}</p>
+    </footer>
+
     <script is:inline define:vars={{ hypothesis: cluster.id, lp: cluster.slug }}>
       (() => {
         const params = new URLSearchParams(location.search);
@@ -223,6 +246,20 @@ const renderItems: Array<{ chapter: string; images: ImageItem[] }> = [
   .lp-chapter:first-child .lp-image:first-child { margin-top: 0; }
   .lp-image > img { display: block; width: 100%; height: auto; margin: 0; clip-path: inset(6px 0); }
   .lp-chapter:first-child .lp-image:first-child > img { clip-path: inset(0 0 6px 0); }
+  .lp-footer { width: 100%; max-width: 430px; margin: 0 auto; padding: 28px 20px 32px; border-top: 1px solid #d8e7e5; background: #fff; color: #5c6e6b; font-size: 13px; line-height: 1.7; }
+  .lp-footer__info { max-width: 360px; margin: 0 auto; }
+  .lp-footer__info h2 { margin: 0 0 10px; color: #075f68; font-size: 16px; line-height: 1.4; }
+  .lp-footer__info dl { display: grid; gap: 5px; margin: 0 0 12px; }
+  .lp-footer__info dl > div { display: grid; grid-template-columns: 5.5em minmax(0, 1fr); gap: 12px; }
+  .lp-footer__info dt, .lp-footer__info dd { margin: 0; }
+  .lp-footer__info dt { color: #6f807d; }
+  .lp-footer__info dd { color: #263b38; }
+  .lp-footer a { color: #075f68; text-decoration: underline; text-underline-offset: 0.18em; }
+  .lp-footer a:focus-visible { outline: 3px solid #ff8b33; outline-offset: 3px; }
+  .lp-footer__info p { margin: 0; }
+  .lp-footer__nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 16px; margin: 20px 0 14px; padding-top: 16px; border-top: 1px solid #e3eeec; }
+  .lp-footer__nav a { display: inline-flex; align-items: center; min-height: 44px; }
+  .lp-footer__copy { margin: 0; color: #6f807d; font-size: 12px; text-align: center; }
   .cta-hitbox { position: absolute; z-index: 3; top: var(--top); left: var(--left); width: var(--width); height: var(--height); min-height: 44px; border-radius: 999px; }
   .cta-hitbox:focus-visible { outline: none; }
   .cta-motion {
