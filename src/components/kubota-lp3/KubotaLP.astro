@@ -1,0 +1,285 @@
+---
+import { AFFILIATE_URL, clusters, type ClusterId, type ModuleId } from '../../data/kubota-lp3/content';
+
+type Props = { clusterId: ClusterId };
+type ChapterId = 'work' | 'money' | 'savings' | 'conditions' | 'comparison' | 'next';
+type ImageItem = {
+  file: string;
+  width: number;
+  height: number;
+  alt: string;
+  cta?: { location: string; label: string; top: string; height: string };
+};
+
+const { clusterId } = Astro.props;
+const cluster = clusters[clusterId];
+const canonical = new URL(`/${cluster.slug}/`, Astro.site ?? 'https://vpscomparehub.com');
+
+const chapterByModule: Record<ModuleId, ChapterId> = {
+  beginner: 'work', job: 'work', reviews: 'work', overview: 'money', income: 'money',
+  bonus: 'money', dorm: 'money', simulator: 'savings', shift: 'conditions', fit: 'conditions',
+  comparison: 'comparison', career: 'next', apply: 'next',
+};
+
+const chapterOrder = cluster.sequence.reduce<ChapterId[]>((order, moduleId) => {
+  const chapter = chapterByModule[moduleId];
+  if (!order.includes(chapter)) order.push(chapter);
+  return order;
+}, []);
+
+const item = (file: string, width: number, height: number, alt: string, cta?: ImageItem['cta']): ImageItem => ({ file, width, height, alt, cta });
+
+const heroByCluster: Record<ClusterId, ImageItem> = {
+  FACTORY_UNEXP: item('hero-factory-unexp.webp', 852, 1846, '工場未経験でも検討できる根拠と最初に確認する3点', {
+    location: 'hero', label: cluster.ctas.first, top: '80.4%', height: '8.2%',
+  }),
+  PERIOD_INCOME: item('hero-period-income.webp', 862, 1825, 'クボタ筑波で1年後に残せる貯金の試算と主な条件', {
+    location: 'hero', label: cluster.ctas.first, top: '85.0%', height: '8.2%',
+  }),
+  PERIOD_JOBDESC: item('hero-period-jobdesc.webp', 864, 1821, 'クボタ筑波の5つの仕事内容と判断ポイント', {
+    location: 'hero', label: cluster.ctas.first, top: '85.4%', height: '8.2%',
+  }),
+};
+
+const moduleImages: Partial<Record<ModuleId, ImageItem[]>> = {
+  beginner: [item('beginner.webp', 862, 1825, '製造未経験でも検討できる根拠と慣れるまでの本人例')],
+  job: [
+    item('08_01_jobs.webp', 858, 1666, '組立・塗装・溶接・機械加工・運搬の仕事内容'),
+    item('08_02_jobs_check.webp', 858, 1504, '工程ごとに確認したい仕事の大変さ'),
+  ],
+  reviews: [item('10_workers.webp', 858, 1862, '機械加工・溶接・ピッキングで働いた人の具体例')],
+  income: [item('03_salary.webp', 858, 1938, '日給・月収例・割増賃金と他社より高い初回日給')],
+  bonus: [
+    item('04_01_bonus.webp', 858, 1710, '満期慰労金24万円と祝儀14万円の条件'),
+    item('04_02_bonus_total.webp', 858, 1748, '月給以外で1年最大76万円、年間約484万円の計算'),
+  ],
+  dorm: [item('05_dorm.webp', 858, 1910, '寮費0円の条件、実質568万円相当と食堂の案内')],
+  simulator: [
+    item('06_01_current.webp', 858, 1824, '今の生活を1年続けた場合の貯金例'),
+    item('06_02_kubota.webp', 858, 1774, 'クボタ筑波で1年間働く場合の試算条件'),
+    item('06_03_living_cost.webp', 858, 1698, '月5万円の生活費内訳と年間手取りの計算'),
+    item('06_04_result.webp', 858, 1244, '1年後の貯金337.5万円と今の生活との差319万円'),
+  ],
+  shift: [item('09_shift.webp', 858, 1854, '勤務時間4種類、休日、有給、貸与品')],
+  fit: [item('11_fit.webp', 858, 1820, '向いている人と応募前に確認したい人')],
+  career: [item('12_career.webp', 858, 1858, '契約期間と正社員を目指せる制度')],
+  apply: [
+    item('13_check.webp', 858, 1822, '応募前に確認する3つの条件'),
+    item('14_application.webp', 858, 1782, '応募ページの必須入力6項目'),
+  ],
+};
+
+const savingsCtaByCluster: Record<ClusterId, ImageItem> = {
+  FACTORY_UNEXP: item('cta-factory-savings.webp', 1536, 869, cluster.ctas.afterSimulator, { location: 'after_simulator', label: cluster.ctas.afterSimulator, top: '28.5%', height: '31%' }),
+  PERIOD_INCOME: item('cta-income-savings.webp', 1536, 869, cluster.ctas.afterSimulator, { location: 'after_simulator', label: cluster.ctas.afterSimulator, top: '28.5%', height: '31%' }),
+  PERIOD_JOBDESC: item('cta-jobdesc-savings.webp', 1536, 869, cluster.ctas.afterSimulator, { location: 'after_simulator', label: cluster.ctas.afterSimulator, top: '28.5%', height: '31%' }),
+};
+
+const fitCtaByCluster: Partial<Record<ClusterId, ImageItem>> = {
+  FACTORY_UNEXP: item('cta-factory-fit.webp', 1536, 869, cluster.ctas.late, { location: 'after_fit', label: cluster.ctas.late, top: '28.5%', height: '31%' }),
+  PERIOD_JOBDESC: item('cta-jobdesc-fit.webp', 1536, 869, cluster.ctas.late, { location: 'after_fit', label: cluster.ctas.late, top: '28.5%', height: '31%' }),
+};
+
+const comparisonByCluster: Record<ClusterId, ImageItem> = {
+  FACTORY_UNEXP: item('07_comparison_nocta.webp', 858, 1655, 'クボタ筑波と主な期間工5社の初回日給比較'),
+  PERIOD_INCOME: item('07_comparison.webp', 858, 1822, 'クボタ筑波と主な期間工5社の初回日給比較', {
+    location: 'after_comparison', label: cluster.ctas.late, top: '91.0%', height: '6.8%',
+  }),
+  PERIOD_JOBDESC: item('07_comparison_nocta.webp', 858, 1655, 'クボタ筑波と主な期間工5社の初回日給比較'),
+};
+
+const finalItems: ImageItem[] = [
+  item('15_final.webp', 858, 1818, '給料・手当・寮費・1年後の貯金のまとめ', {
+    location: 'final', label: cluster.ctas.final, top: '91.3%', height: '7.5%',
+  }),
+];
+
+const faqItems: ImageItem[] = [
+  item('16_01_faq.webp', 858, 1752, '寮費、水道光熱費、家具家電についてのFAQ'),
+  item('16_02_faq.webp', 858, 1650, '勤務時間、担当する仕事、有給についてのFAQ'),
+  item('16_03_faq.webp', 858, 1572, '貸与品、社会保険、正社員制度についてのFAQ'),
+];
+
+const chapterItems = (chapterId: ChapterId): ImageItem[] => {
+  const moduleIds = cluster.sequence.filter((moduleId) => chapterByModule[moduleId] === chapterId);
+  const images = moduleIds.flatMap((moduleId) => {
+    if (moduleId === 'beginner' && clusterId === 'FACTORY_UNEXP') return [];
+    return moduleImages[moduleId] ?? [];
+  });
+  if (chapterId === 'savings') images.push(savingsCtaByCluster[clusterId]);
+  if (chapterId === 'conditions' && fitCtaByCluster[clusterId]) images.push(fitCtaByCluster[clusterId]!);
+  if (chapterId === 'comparison') return [comparisonByCluster[clusterId]];
+  if (chapterId === 'next') images.push(...finalItems);
+  return images;
+};
+
+const renderItems: Array<{ chapter: string; images: ImageItem[] }> = [
+  { chapter: 'intro', images: [heroByCluster[clusterId]] },
+  ...chapterOrder.map((chapter) => ({ chapter, images: chapterItems(chapter) })),
+  { chapter: 'faq', images: faqItems },
+];
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#009688" />
+    <meta name="description" content={cluster.description} />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href={canonical} />
+    <link rel="preload" as="image" href={`/lp-images-v3/${heroByCluster[clusterId].file}`} fetchpriority="high" />
+    <title>{cluster.pageTitle}</title>
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-2YLF06DC0E"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-2YLF06DC0E');
+      gtag('config', 'AW-18129603657');
+    </script>
+  </head>
+  <body data-hypothesis={cluster.id} data-lp={cluster.slug}>
+    <main class="lp" aria-label="クボタ筑波 期間従業員の記事LP">
+      {renderItems.map((group) => (
+        <section class="lp-chapter" data-chapter={group.chapter}>
+          {group.images.map((image, index) => (
+            <div class="lp-image" data-image={image.file}>
+              <img
+                src={`/lp-images-v3/${image.file}`}
+                alt={image.alt}
+                width={image.width}
+                height={image.height}
+                loading={group.chapter === 'intro' && index === 0 ? 'eager' : 'lazy'}
+                fetchpriority={group.chapter === 'intro' && index === 0 ? 'high' : 'auto'}
+                decoding="async"
+              />
+              {image.cta && (
+                <>
+                  <a
+                    class="cta-hitbox"
+                    style={`--top:${image.cta.top};--height:${image.cta.height}`}
+                    href={AFFILIATE_URL}
+                    target="_blank"
+                    rel="sponsored nofollow noopener"
+                    aria-label={image.cta.label}
+                    data-affiliate
+                    data-location={image.cta.location}
+                  ></a>
+                  <span
+                    class="cta-motion"
+                    style={`--top:${image.cta.top};--height:${image.cta.height};--crop-top:-${(Number.parseFloat(image.cta.top) / Number.parseFloat(image.cta.height)) * 100}%`}
+                    aria-hidden="true"
+                  >
+                    <img
+                      class="cta-motion-image"
+                      src={`/lp-images-v3/${image.file}`}
+                      alt=""
+                      width={image.width}
+                      height={image.height}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </span>
+                </>
+              )}
+            </div>
+          ))}
+        </section>
+      ))}
+    </main>
+
+    <script is:inline define:vars={{ hypothesis: cluster.id, lp: cluster.slug }}>
+      (() => {
+        const params = new URLSearchParams(location.search);
+        const trackedKeys = ['keyword', 'matchtype', 'campaignid', 'adgroupid', 'gclid'];
+        const tracking = Object.fromEntries(trackedKeys.map((key) => [key, params.get(key) || '']));
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: 'lp_view', hypothesis, lp, ...tracking });
+        document.querySelectorAll('[data-affiliate]').forEach((link) => {
+          const destination = new URL(link.href);
+          trackedKeys.forEach((key) => {
+            const value = params.get(key);
+            if (value) destination.searchParams.set(key, value);
+          });
+          destination.searchParams.set('hypothesis', hypothesis);
+          destination.searchParams.set('lp', lp);
+          link.href = destination.toString();
+          link.addEventListener('click', () => window.dataLayer.push({
+            event: 'cta_click', hypothesis, lp, cta_location: link.dataset.location || '', ...tracking,
+          }));
+        });
+      })();
+    </script>
+  </body>
+</html>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(html), :global(body) { margin: 0; padding: 0; }
+  :global(body) { background: #eef5f4; }
+  .lp { width: 100%; max-width: 430px; margin: 0 auto; overflow: hidden; background: #fff; box-shadow: 0 0 36px rgb(0 66 71 / 10%); }
+  .lp-chapter, .lp-image { position: relative; width: 100%; margin: 0; padding: 0; line-height: 0; }
+  .lp img { display: block; width: 100%; height: auto; margin: 0; }
+  .cta-hitbox { position: absolute; z-index: 3; top: var(--top); left: 4.5%; width: 91%; height: var(--height); min-height: 44px; border-radius: 999px; }
+  .cta-hitbox:focus-visible { outline: 4px solid #111; outline-offset: -4px; }
+  .cta-motion {
+    position: absolute;
+    z-index: 2;
+    top: var(--top);
+    left: 4.5%;
+    width: 91%;
+    height: var(--height);
+    min-height: 44px;
+    overflow: hidden;
+    border-radius: 999px;
+    pointer-events: none;
+    transform-origin: 50% 50%;
+    animation: cta-breathe 2.8s ease-in-out infinite;
+    transition: transform 140ms ease, filter 140ms ease, box-shadow 140ms ease;
+    will-change: transform, filter, box-shadow;
+  }
+  .lp .cta-motion-image {
+    position: absolute;
+    top: var(--crop-top);
+    left: -4.945055%;
+    width: 109.89011%;
+    max-width: none;
+    height: auto;
+  }
+  .cta-hitbox:hover + .cta-motion,
+  .cta-hitbox:focus-visible + .cta-motion {
+    animation: none;
+    transform: translateY(-2px) scale(1.02);
+    filter: brightness(1.08) saturate(1.04);
+    box-shadow: 0 12px 26px rgb(255 91 0 / 28%);
+  }
+  .cta-hitbox:active + .cta-motion {
+    animation: none;
+    transform: translateY(1px) scale(.985);
+    filter: brightness(.96);
+    box-shadow: 0 4px 10px rgb(255 91 0 / 18%);
+  }
+  @keyframes cta-breathe {
+    0%, 62%, 100% {
+      transform: scale(1);
+      filter: brightness(1);
+      box-shadow: 0 6px 14px rgb(255 91 0 / 0%);
+    }
+    76% {
+      transform: scale(1.018);
+      filter: brightness(1.08) saturate(1.04);
+      box-shadow: 0 10px 24px rgb(255 91 0 / 28%);
+    }
+    88% {
+      transform: scale(1.006);
+      filter: brightness(1.03);
+      box-shadow: 0 8px 18px rgb(255 91 0 / 14%);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cta-motion { animation: none; transition: none; }
+  }
+  @media (max-width: 430px) { .lp { box-shadow: none; } }
+</style>
