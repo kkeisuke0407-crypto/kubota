@@ -1,131 +1,65 @@
 ---
-import { AFFILIATE_URL, clusters, type ClusterId, type ModuleId } from '../../data/kubota-lp3/content';
+import { AFFILIATE_URL, clusters, type ClusterId } from '../../data/kubota-lp3/content';
 import { site } from '../../data/site';
 
 type Props = { clusterId: ClusterId };
-type ChapterId = 'work' | 'money' | 'savings' | 'conditions' | 'comparison' | 'next';
-type ImageItem = {
-  file: string;
-  width: number;
-  height: number;
-  alt: string;
-  cta?: {
-    location: string;
-    label: string;
-    top: string;
-    left: string;
-    width: string;
-    height: string;
-    glow?: string;
-  };
-};
+type ImageId = 'numbers' | 'jobs' | 'difficulty' | 'training' | 'experience' | 'shifts' | 'dorm' | 'income' | 'savings' | 'comparison' | 'fit' | 'apply' | 'faq' | 'final';
+type ImageItem = { file: string; width: number; height: number; alt: string };
+type PageItem = { type: 'image'; image: ImageItem } | { type: 'cta'; location: string; label: string };
 
 const { clusterId } = Astro.props;
 const cluster = clusters[clusterId];
-const canonical = new URL(`/${cluster.slug}/`, Astro.site ?? 'https://vpscomparehub.com');
-
-const chapterByModule: Record<ModuleId, ChapterId> = {
-  beginner: 'work', job: 'work', reviews: 'work', overview: 'money', income: 'money',
-  bonus: 'money', dorm: 'money', simulator: 'savings', shift: 'conditions', fit: 'conditions',
-  comparison: 'comparison', career: 'next', apply: 'next',
-};
-
-const chapterOrder = cluster.sequence.reduce<ChapterId[]>((order, moduleId) => {
-  const chapter = chapterByModule[moduleId];
-  if (!order.includes(chapter)) order.push(chapter);
-  return order;
-}, []);
-
-const item = (file: string, width: number, height: number, alt: string, cta?: ImageItem['cta']): ImageItem => ({ file, width, height, alt, cta });
+const canonical = new URL(`/${cluster.slug}/`, Astro.site ?? 'https://kubota.hakobu-family.com');
 
 const heroByCluster: Record<ClusterId, ImageItem> = {
-  FACTORY_UNEXP: item('hero-factory-unexp.webp', 852, 1846, '工場未経験でも検討できる根拠と最初に確認する3点', {
-    location: 'hero', label: cluster.ctas.first, top: '80.9%', left: '4.1%', width: '91.3%', height: '5.8%',
-  }),
-  PERIOD_INCOME: item('hero-period-income.webp', 862, 1825, 'クボタ筑波で1年後に残せる貯金の試算と主な条件', {
-    location: 'hero', label: cluster.ctas.first, top: '86.2%', left: '3.5%', width: '92.9%', height: '6.3%',
-  }),
-  PERIOD_JOBDESC: item('hero-period-jobdesc.webp', 864, 1821, 'クボタ筑波の5つの仕事内容と判断ポイント', {
-    location: 'hero', label: cluster.ctas.first, top: '85.9%', left: '3.0%', width: '93.7%', height: '6.5%',
-  }),
+  FACTORY_UNEXP: { file: '/lp-images-v4/hero-factory-unexp.webp', width: 852, height: 1846, alt: '工場未経験でも研修と適性を見て配属されることを伝える導入' },
+  PERIOD_INCOME: { file: '/lp-images-v4/hero-period-income.webp', width: 862, height: 1824, alt: 'モデルケースで1年後の貯金約337.5万円になる導入' },
+  PERIOD_JOBDESC: { file: '/lp-images-v4/hero-period-jobdesc.webp', width: 864, height: 1821, alt: 'クボタ筑波の5つの仕事内容を伝える導入' },
 };
 
-const moduleImages: Partial<Record<ModuleId, ImageItem[]>> = {
-  beginner: [item('beginner.webp', 862, 1825, '製造未経験でも検討できる根拠と慣れるまでの本人例')],
-  job: [
-    item('08_01_jobs.webp', 858, 1666, '組立・塗装・溶接・機械加工・運搬の仕事内容'),
-    item('08_02_jobs_check.webp', 858, 1504, '工程ごとに確認したい仕事の大変さ'),
+const bodyImages: Record<ImageId, ImageItem> = {
+  numbers: { file: '/lp-images-v4/01_four_numbers.webp', width: 862, height: 1825, alt: 'クボタ筑波を判断するときの4数字' },
+  jobs: { file: '/lp-images-v4/02_jobs_reality.webp', width: 863, height: 1823, alt: '5つの仕事内容と工程ごとの負担例' },
+  difficulty: { file: '/lp-images-v4/03_difficulty_varies.webp', width: 864, height: 1821, alt: '同じ工場でも大変さが変わる理由' },
+  training: { file: '/lp-images-v4/04_training_assignment.webp', width: 862, height: 1825, alt: '未経験者向け研修と配属決定の流れ' },
+  experience: { file: '/lp-images-v4/05_experience_examples.webp', width: 862, height: 1824, alt: '仕事に慣れるまでの個人体験例' },
+  shifts: { file: '/lp-images-v4/06_shifts_payday.webp', width: 862, height: 1825, alt: '勤務時間、休日、給料日と社会保険' },
+  dorm: { file: '/lp-images-v4/07_dorm_confirmed.webp', width: 862, height: 1825, alt: '寮費0円の条件と確認済みの家電' },
+  income: { file: '/lp-images-v4/08_annual_income.webp', width: 862, height: 1824, alt: '1年間の給与モデルと条件付き一時金' },
+  savings: { file: '/lp-images-v4/09_savings_model.webp', width: 932, height: 1688, alt: 'モデルケースで1年後の貯金約337.5万円になる試算' },
+  comparison: { file: '/lp-images-v4/10_savings_compare.webp', width: 863, height: 1823, alt: '今の生活モデルとクボタ筑波モデルの1年後比較' },
+  fit: { file: '/lp-images-v4/11_fit_career.webp', width: 862, height: 1825, alt: '候補になりやすい人と1年後の3つの選択肢' },
+  apply: { file: '/lp-images-v4/12_precheck_apply.webp', width: 862, height: 1824, alt: '応募前の3つの確認事項と必須6項目' },
+  faq: { file: '/lp-images-v4/13_faq.webp', width: 862, height: 1825, alt: '応募前によくある8つの質問' },
+  final: { file: '/lp-images-v4/14_final.webp', width: 862, height: 1824, alt: 'この仕事と条件で1年間続けられそうかを判断するまとめ' },
+};
+
+const image = (id: ImageId): PageItem => ({ type: 'image', image: bodyImages[id] });
+const cta = (location: string, label: string): PageItem => ({ type: 'cta', location, label });
+const late = (): PageItem[] => [image('fit'), cta('after_fit', cluster.ctas.late), image('apply'), image('faq'), image('final'), cta('final', cluster.ctas.final)];
+
+const itemsByCluster: Record<ClusterId, PageItem[]> = {
+  FACTORY_UNEXP: [
+    image('training'), cta('after_training', cluster.ctas.first), image('experience'), image('jobs'), cta('after_jobs', '仕事内容と募集条件を見る'),
+    image('difficulty'), image('shifts'), image('dorm'), image('numbers'), image('income'), image('savings'), image('comparison'),
+    cta('after_savings', cluster.ctas.afterSimulator), ...late(),
   ],
-  reviews: [item('10_workers.webp', 858, 1862, '機械加工・溶接・ピッキングで働いた人の具体例')],
-  income: [item('03_salary.webp', 858, 1938, '日給・月収例・割増賃金と他社より高い初回日給')],
-  bonus: [
-    item('04_01_bonus.webp', 858, 1710, '満期慰労金24万円と祝儀14万円の条件'),
-    item('04_02_bonus_total.webp', 858, 1748, '月給以外で1年最大76万円、年間約484万円の計算'),
+  PERIOD_INCOME: [
+    image('numbers'), cta('after_numbers', cluster.ctas.first), image('income'), image('savings'), image('comparison'),
+    cta('after_savings', cluster.ctas.afterSimulator), image('jobs'), cta('after_jobs', '仕事内容と募集条件を見る'),
+    image('difficulty'), image('training'), image('experience'), image('shifts'), image('dorm'), ...late(),
   ],
-  dorm: [item('05_dorm.webp', 858, 1910, '寮費0円の条件、実質568万円相当と食堂の案内')],
-  simulator: [
-    item('06_01_current.webp', 858, 1824, '今の生活を1年続けた場合の貯金例'),
-    item('06_02_kubota.webp', 858, 1774, 'クボタ筑波で1年間働く場合の試算条件'),
-    item('06_03_living_cost.webp', 858, 1698, '月5万円の生活費内訳と年間手取りの計算'),
-    item('06_04_result.webp', 858, 1244, '1年後の貯金337.5万円と今の生活との差319万円'),
-  ],
-  shift: [item('09_shift.webp', 858, 1854, '勤務時間4種類、休日、有給、貸与品')],
-  fit: [item('11_fit.webp', 858, 1820, '向いている人と応募前に確認したい人')],
-  career: [item('12_career.webp', 858, 1858, '契約期間と正社員を目指せる制度')],
-  apply: [
-    item('13_check.webp', 858, 1822, '応募前に確認する3つの条件'),
-    item('14_application.webp', 858, 1782, '応募ページの必須入力6項目'),
+  PERIOD_JOBDESC: [
+    image('jobs'), cta('after_jobs', cluster.ctas.first), image('difficulty'), image('experience'), image('training'),
+    cta('after_training', '未経験で働ける条件を見る'), image('shifts'), image('dorm'), image('numbers'), image('income'), image('savings'),
+    image('comparison'), cta('after_savings', cluster.ctas.afterSimulator), ...late(),
   ],
 };
 
-const savingsCtaByCluster: Record<ClusterId, ImageItem> = {
-  FACTORY_UNEXP: item('cta-factory-savings.webp', 1536, 869, cluster.ctas.afterSimulator, { location: 'after_simulator', label: cluster.ctas.afterSimulator, top: '28.7%', left: '3.8%', width: '92.0%', height: '30.6%' }),
-  PERIOD_INCOME: item('cta-income-savings.webp', 1536, 869, cluster.ctas.afterSimulator, { location: 'after_simulator', label: cluster.ctas.afterSimulator, top: '28.7%', left: '3.8%', width: '92.0%', height: '30.7%' }),
-  PERIOD_JOBDESC: item('cta-jobdesc-savings.webp', 1536, 869, cluster.ctas.afterSimulator, { location: 'after_simulator', label: cluster.ctas.afterSimulator, top: '28.9%', left: '3.8%', width: '92.0%', height: '30.6%' }),
-};
-
-const fitCtaByCluster: Partial<Record<ClusterId, ImageItem>> = {
-  FACTORY_UNEXP: item('cta-factory-fit.webp', 1536, 869, cluster.ctas.late, { location: 'after_fit', label: cluster.ctas.late, top: '28.9%', left: '3.8%', width: '92.0%', height: '30.5%' }),
-  PERIOD_JOBDESC: item('cta-jobdesc-fit.webp', 1536, 869, cluster.ctas.late, { location: 'after_fit', label: cluster.ctas.late, top: '28.7%', left: '3.8%', width: '92.0%', height: '30.6%' }),
-};
-
-const comparisonByCluster: Record<ClusterId, ImageItem> = {
-  FACTORY_UNEXP: item('07_comparison_nocta.webp', 858, 1655, 'クボタ筑波と主な期間工5社の初回日給比較'),
-  PERIOD_INCOME: item('07_comparison.webp', 858, 1822, 'クボタ筑波と主な期間工5社の初回日給比較', {
-    location: 'after_comparison', label: cluster.ctas.late, top: '91.5%', left: '5.3%', width: '88.8%', height: '6.3%', glow: '0 150 136',
-  }),
-  PERIOD_JOBDESC: item('07_comparison_nocta.webp', 858, 1655, 'クボタ筑波と主な期間工5社の初回日給比較'),
-};
-
-const finalItems: ImageItem[] = [
-  item('15_final.webp', 858, 1818, '給料・手当・寮費・1年後の貯金のまとめ', {
-    location: 'final', label: cluster.ctas.final, top: '92.3%', left: '3.8%', width: '92.4%', height: '6.4%',
-  }),
-];
-
-const faqItems: ImageItem[] = [
-  item('16_01_faq.webp', 858, 1752, '寮費、水道光熱費、家具家電についてのFAQ'),
-  item('16_02_faq.webp', 858, 1650, '勤務時間、担当する仕事、有給についてのFAQ'),
-  item('16_03_faq.webp', 858, 1572, '貸与品、社会保険、正社員制度についてのFAQ'),
-];
-
-const chapterItems = (chapterId: ChapterId): ImageItem[] => {
-  const moduleIds = cluster.sequence.filter((moduleId) => chapterByModule[moduleId] === chapterId);
-  const images = moduleIds.flatMap((moduleId) => {
-    if (moduleId === 'beginner' && clusterId === 'FACTORY_UNEXP') return [];
-    return moduleImages[moduleId] ?? [];
-  });
-  if (chapterId === 'savings') images.push(savingsCtaByCluster[clusterId]);
-  if (chapterId === 'conditions' && fitCtaByCluster[clusterId]) images.push(fitCtaByCluster[clusterId]!);
-  if (chapterId === 'comparison') return [comparisonByCluster[clusterId]];
-  if (chapterId === 'next') images.push(...finalItems);
-  return images;
-};
-
-const renderItems: Array<{ chapter: string; images: ImageItem[] }> = [
-  { chapter: 'intro', images: [heroByCluster[clusterId]] },
-  ...chapterOrder.map((chapter) => ({ chapter, images: chapterItems(chapter) })),
-  { chapter: 'faq', images: faqItems },
+const renderItems: PageItem[] = [
+  { type: 'image', image: heroByCluster[clusterId] },
+  cta('hero', '現在の募集条件を見る'),
+  ...itemsByCluster[clusterId],
 ];
 ---
 
@@ -138,7 +72,7 @@ const renderItems: Array<{ chapter: string; images: ImageItem[] }> = [
     <meta name="description" content={cluster.description} />
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <link rel="canonical" href={canonical} />
-    <link rel="preload" as="image" href={`/lp-images-v3/${heroByCluster[clusterId].file}`} fetchpriority="high" />
+    <link rel="preload" as="image" href={heroByCluster[clusterId].file} fetchpriority="high" />
     <title>{cluster.pageTitle}</title>
     <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-2YLF06DC0E"></script>
     <script is:inline>
@@ -151,40 +85,15 @@ const renderItems: Array<{ chapter: string; images: ImageItem[] }> = [
   </head>
   <body data-hypothesis={cluster.id} data-lp={cluster.slug}>
     <main class="lp" aria-label="クボタ筑波 期間従業員の記事LP">
-      {renderItems.map((group) => (
-        <section class="lp-chapter" data-chapter={group.chapter}>
-          {group.images.map((image, index) => (
-            <div class="lp-image" data-image={image.file}>
-              <img
-                src={`/lp-images-v3/${image.file}`}
-                alt={image.alt}
-                width={image.width}
-                height={image.height}
-                loading={group.chapter === 'intro' && index === 0 ? 'eager' : 'lazy'}
-                fetchpriority={group.chapter === 'intro' && index === 0 ? 'high' : 'auto'}
-                decoding="async"
-              />
-              {image.cta && (
-                <>
-                  <a
-                    class="cta-hitbox"
-                    style={`--top:${image.cta.top};--left:${image.cta.left};--width:${image.cta.width};--height:${image.cta.height}`}
-                    href={AFFILIATE_URL}
-                    target="_blank"
-                    rel="sponsored nofollow noopener"
-                    aria-label={image.cta.label}
-                    data-affiliate
-                    data-location={image.cta.location}
-                  ></a>
-                  <span
-                    class="cta-motion"
-                    style={`--top:${image.cta.top};--left:${image.cta.left};--width:${image.cta.width};--height:${image.cta.height};--glow:${image.cta.glow ?? '255 91 0'}`}
-                    aria-hidden="true"
-                  ></span>
-                </>
-              )}
-            </div>
-          ))}
+      {renderItems.map((item, index) => item.type === 'image' ? (
+        <section class="lp-section lp-image" data-image={item.image.file}>
+          <img src={item.image.file} alt={item.image.alt} width={item.image.width} height={item.image.height} loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : 'auto'} decoding="async" />
+        </section>
+      ) : (
+        <section class="lp-section cta-block" aria-label="募集内容を確認">
+          <a id={`cta-${item.location}`} class="cta-button" href={AFFILIATE_URL} target="_blank" rel="sponsored nofollow noopener" data-affiliate data-location={item.location}>
+            <span>{item.label}</span><b aria-hidden="true">›</b>
+          </a>
         </section>
       ))}
     </main>
@@ -201,13 +110,7 @@ const renderItems: Array<{ chapter: string; images: ImageItem[] }> = [
         </dl>
         <p>当サイトはアフィリエイトプログラムを利用しており、リンク経由の応募により広告主から紹介料を受け取る場合があります。掲載内容は各社の公開情報をもとにしていますが、最新かつ正確な条件は応募先の公式情報をご確認ください。</p>
       </section>
-
-      <nav class="lp-footer__nav" aria-label="サイト内リンク">
-        <a href="/">トップページ</a>
-        <a href="/privacy/">プライバシーポリシー</a>
-        <a href="/column/">コラム</a>
-      </nav>
-
+      <nav class="lp-footer__nav" aria-label="サイト内リンク"><a href="/">トップページ</a><a href="/privacy/">プライバシーポリシー</a><a href="/column/">コラム</a></nav>
       <p class="lp-footer__copy">{site.copyright}</p>
     </footer>
 
@@ -220,16 +123,11 @@ const renderItems: Array<{ chapter: string; images: ImageItem[] }> = [
         window.dataLayer.push({ event: 'lp_view', hypothesis, lp, ...tracking });
         document.querySelectorAll('[data-affiliate]').forEach((link) => {
           const destination = new URL(link.href);
-          trackedKeys.forEach((key) => {
-            const value = params.get(key);
-            if (value) destination.searchParams.set(key, value);
-          });
+          trackedKeys.forEach((key) => { const value = params.get(key); if (value) destination.searchParams.set(key, value); });
           destination.searchParams.set('hypothesis', hypothesis);
           destination.searchParams.set('lp', lp);
           link.href = destination.toString();
-          link.addEventListener('click', () => window.dataLayer.push({
-            event: 'cta_click', hypothesis, lp, cta_location: link.dataset.location || '', ...tracking,
-          }));
+          link.addEventListener('click', () => window.dataLayer.push({ event: 'cta_click', hypothesis, lp, cta_location: link.dataset.location || '', ...tracking }));
         });
       })();
     </script>
@@ -241,11 +139,18 @@ const renderItems: Array<{ chapter: string; images: ImageItem[] }> = [
   :global(html), :global(body) { margin: 0; padding: 0; }
   :global(body) { background: #eef5f4; }
   .lp { width: 100%; max-width: 430px; margin: 0 auto; overflow: hidden; background: #fff; box-shadow: 0 0 36px rgb(0 66 71 / 10%); }
-  .lp-chapter, .lp-image { position: relative; width: 100%; margin: 0; padding: 0; line-height: 0; }
-  .lp-image { margin-top: -1px; overflow: hidden; }
-  .lp-chapter:first-child .lp-image:first-child { margin-top: 0; }
-  .lp-image > img { display: block; width: 100%; height: auto; margin: 0; clip-path: inset(6px 0); }
-  .lp-chapter:first-child .lp-image:first-child > img { clip-path: inset(0 0 6px 0); }
+  .lp-section { position: relative; width: 100%; margin: 0; padding: 0; background: #fff; }
+  .lp-section + .lp-section { margin-top: -1px; }
+  .lp-image { overflow: hidden; font-size: 0; line-height: 0; }
+  .lp-image img { display: block; width: 100%; height: auto; margin: 0; border: 0; vertical-align: top; }
+  .cta-block { padding: 24px 22px 25px; line-height: 1.4; }
+  .cta-button { display: grid; grid-template-columns: minmax(0, 1fr) 44px; align-items: center; gap: 10px; width: 100%; min-height: 76px; padding: 12px 14px 12px 22px; border: 1px solid #ff6a00; border-radius: 999px; background: linear-gradient(180deg, #ff741a 0%, #ff5a00 100%); box-shadow: 0 5px 0 #cf4100, 0 10px 24px rgb(255 91 0 / 22%); color: #fff; text-decoration: none; transform: translateY(0); transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease; -webkit-tap-highlight-color: transparent; }
+  .cta-button span { min-width: 0; font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: clamp(17px, 4.8vw, 21px); font-weight: 800; line-height: 1.35; text-align: center; letter-spacing: .01em; }
+  .cta-button b { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #fff; color: #ff5a00; font-family: Arial, sans-serif; font-size: 36px; font-weight: 700; line-height: 1; padding-bottom: 4px; transition: transform 140ms ease; }
+  .cta-button:hover { filter: brightness(1.035); transform: translateY(-1px); box-shadow: 0 6px 0 #cf4100, 0 12px 28px rgb(255 91 0 / 26%); }
+  .cta-button:hover b { transform: translateX(2px); }
+  .cta-button:active { transform: translateY(4px); box-shadow: 0 1px 0 #cf4100, 0 4px 10px rgb(255 91 0 / 18%); }
+  .cta-button:focus-visible { outline: 4px solid rgb(0 150 136 / 38%); outline-offset: 4px; }
   .lp-footer { width: 100%; max-width: 430px; margin: 0 auto; padding: 28px 20px 32px; border-top: 1px solid #d8e7e5; background: #fff; color: #5c6e6b; font-size: 13px; line-height: 1.7; }
   .lp-footer__info { max-width: 360px; margin: 0 auto; }
   .lp-footer__info h2 { margin: 0 0 10px; color: #075f68; font-size: 16px; line-height: 1.4; }
@@ -254,56 +159,13 @@ const renderItems: Array<{ chapter: string; images: ImageItem[] }> = [
   .lp-footer__info dt, .lp-footer__info dd { margin: 0; }
   .lp-footer__info dt { color: #6f807d; }
   .lp-footer__info dd { color: #263b38; }
-  .lp-footer a { color: #075f68; text-decoration: underline; text-underline-offset: 0.18em; }
+  .lp-footer a { color: #075f68; text-decoration: underline; text-underline-offset: .18em; }
   .lp-footer a:focus-visible { outline: 3px solid #ff8b33; outline-offset: 3px; }
   .lp-footer__info p { margin: 0; }
   .lp-footer__nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 16px; margin: 20px 0 14px; padding-top: 16px; border-top: 1px solid #e3eeec; }
   .lp-footer__nav a { display: inline-flex; align-items: center; min-height: 44px; }
   .lp-footer__copy { margin: 0; color: #6f807d; font-size: 12px; text-align: center; }
-  .cta-hitbox { position: absolute; z-index: 3; top: var(--top); left: var(--left); width: var(--width); height: var(--height); min-height: 44px; border-radius: 999px; }
-  .cta-hitbox:focus-visible { outline: none; }
-  .cta-motion {
-    position: absolute;
-    z-index: 2;
-    top: var(--top);
-    left: var(--left);
-    width: var(--width);
-    height: var(--height);
-    border-radius: 999px;
-    pointer-events: none;
-    background: rgb(255 255 255 / 0%);
-    box-shadow: 0 0 0 0 rgb(var(--glow) / 0%);
-    animation: cta-attention 3.4s ease-in-out infinite;
-    transition: background-color 150ms ease, box-shadow 150ms ease;
-    will-change: background-color, box-shadow;
-  }
-  .cta-hitbox:hover + .cta-motion,
-  .cta-hitbox:focus-visible + .cta-motion {
-    animation: none;
-    background: rgb(255 255 255 / 6%);
-    box-shadow: 0 0 0 2px rgb(var(--glow) / 16%), 0 8px 20px rgb(var(--glow) / 20%);
-  }
-  .cta-hitbox:active + .cta-motion {
-    animation: none;
-    background: rgb(0 0 0 / 5%);
-    box-shadow: inset 0 3px 8px rgb(0 0 0 / 12%), 0 3px 8px rgb(var(--glow) / 12%);
-  }
-  @keyframes cta-attention {
-    0%, 72%, 100% {
-      background: rgb(255 255 255 / 0%);
-      box-shadow: 0 0 0 0 rgb(var(--glow) / 0%);
-    }
-    84% {
-      background: rgb(255 255 255 / 5%);
-      box-shadow: 0 0 0 3px rgb(var(--glow) / 12%), 0 7px 16px rgb(var(--glow) / 18%);
-    }
-    93% {
-      background: rgb(255 255 255 / 2%);
-      box-shadow: 0 0 0 1px rgb(var(--glow) / 6%), 0 4px 10px rgb(var(--glow) / 8%);
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .cta-motion { animation: none; transition: none; }
-  }
+  @media (prefers-reduced-motion: reduce) { .cta-button, .cta-button b { transition: none; } }
   @media (max-width: 430px) { .lp { box-shadow: none; } }
+  @media (max-width: 350px) { .cta-block { padding-inline: 14px; } .cta-button { grid-template-columns: minmax(0, 1fr) 40px; padding-left: 16px; } .cta-button b { width: 40px; height: 40px; } }
 </style>

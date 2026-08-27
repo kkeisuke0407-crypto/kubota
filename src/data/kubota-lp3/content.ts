@@ -11,7 +11,6 @@ export const kubotaFacts = {
   completionBonus6Months: 240_000,
   celebrationBonus: 140_000,
   annualGrossExample: 4_840_000,
-  effectiveAnnualValue: 5_680_000,
   dormFee: 0,
 } as const;
 
@@ -81,8 +80,8 @@ export const clusters: Record<ClusterId, ClusterConfig> = {
     sequence: ['beginner', 'job', 'overview', 'income', 'bonus', 'dorm', 'simulator', 'shift', 'reviews', 'fit', 'comparison', 'career', 'apply'],
     ctas: {
       first: '未経験で働ける条件を見る',
-      afterSimulator: '1年でどれくらい貯められるか見る',
-      late: '自分に合いそうか募集条件を見る',
+      afterSimulator: '現在の募集条件を確認する',
+      late: '自分に合いそうか募集内容を見る',
       final: 'クボタ筑波の現在の募集条件を見る',
     },
   },
@@ -97,13 +96,13 @@ export const clusters: Record<ClusterId, ClusterConfig> = {
     heroBody: '月収だけでは、手元に残るお金は分かりません。クボタ筑波の給料・追加でもらえるお金・寮費を、1年単位で見ていきます。',
     heroNote: '満期慰労金・祝儀・寮には条件があります。',
     answerTitle: '今回の試算では、1年後の貯金は約337.5万円。',
-    answerBody: '月収例34万円×12か月、満期慰労金48万円、祝儀28万円で、1年間は約484万円。家賃7万円分まで入れると実質568万円相当です。',
+    answerBody: '月収例34万円×12か月、満期慰労金48万円、祝儀28万円で、1年間は約484万円のモデルケースです。寮費0円なら固定費を抑えられる可能性があります。',
     answerPoints: ['最初の日給14,000円', '月給以外で1年最大76万円', '寮費0円の案内あり'],
     sequence: ['income', 'bonus', 'dorm', 'simulator', 'comparison', 'job', 'shift', 'reviews', 'fit', 'career', 'apply'],
     ctas: {
-      first: '1年でもらえる金額を見る',
+      first: '1年間でもらえる金額を見る',
       afterSimulator: '現在の募集条件を見る',
-      late: '他社と比べてみる',
+      late: '自分に合いそうか募集内容を見る',
       final: 'クボタ筑波の現在の募集条件を見る',
     },
   },
@@ -123,9 +122,9 @@ export const clusters: Record<ClusterId, ClusterConfig> = {
     bridge: '仕事内容を見たあと、「この仕事で、この給料なら自分はアリか」で考えます。',
     sequence: ['job', 'reviews', 'beginner', 'shift', 'fit', 'income', 'bonus', 'dorm', 'simulator', 'comparison', 'career', 'apply'],
     ctas: {
-      first: '仕事内容と給料を見る',
-      afterSimulator: 'この仕事の募集条件を見る',
-      late: '自分に合いそうか確認する',
+      first: '仕事内容と募集条件を見る',
+      afterSimulator: '現在の募集条件を確認する',
+      late: '自分に合いそうか募集内容を見る',
       final: 'クボタ筑波の現在の募集条件を見る',
     },
   },
@@ -185,10 +184,9 @@ export const modules: Record<Exclude<ModuleId, 'simulator' | 'comparison'>, Cont
     <div class="annual-total"><span>34万円 × 12か月 ＋ 76万円</span><p>1年間 <strong>約484万円</strong></p><small>当サイト試算。公式年収ではありません。</small></div>`,
   },
   dorm: {
-    id: 'dorm', number: '06', eyebrow: 'LIVING COST', title: '家賃まで入れると、実質568万円相当',
-    html: `<div class="value-stack"><div><span>1年間の試算</span><strong>約484万円</strong></div><b>＋</b><div><span>家賃7万円 × 12か月</span><strong>84万円分</strong></div><b>＝</b><div class="value-result"><span>家賃負担まで入れた価値</span><strong>568万円相当</strong></div></div>
-    <p>一人用の個室と家族寮について<strong>寮費0円</strong>と案内されています。工場内の食堂は1食500円。食費補助250円＋諸手当250円で、募集ページでは実質負担0円と表示されています。</p>
-    <p class="fineprint">寮には入寮条件があります。水道光熱費や家具家電は募集ページに金額・設備の案内がありません。食堂補助は568万円相当へ足していません。</p>`,
+    id: 'dorm', number: '06', eyebrow: 'LIVING COST', title: '寮費0円。では、どんな部屋？',
+    html: `<p>会社契約の一般物件が案内され、入寮条件を満たす場合は家賃無料です。募集情報にはTV・冷蔵庫・洗濯機・電子レンジの記載があります。</p>
+    <p class="fineprint">Wi-Fi、バス・トイレ、寝具、エアコン、駐車場、光熱費、通勤時間、門限、来客ルールは公開情報では確認できません。応募前に確認してください。</p>`,
   },
   shift: {
     id: 'shift', number: '08', eyebrow: 'SHIFT & REST', title: '勤務時間は1つではありません', tone: 'paper',
