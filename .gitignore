@@ -10,3 +10,6 @@ scripts/
 
 # 焼き込み背景テンプレート（2026-08-22 案Bで不使用に。13MB）
 public/assets/kubota-lp1/templates/
+
+# 記事LP画像生成時のPNG原版（公開はWebPのみ）
+public/kubota-article-v2/*.png

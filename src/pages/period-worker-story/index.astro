@@ -15,33 +15,42 @@ type ArticleItem =
   | { type: 'cta'; location: string; label: string; note: string };
 
 const images: ImageSection[] = [
-  { file: '/kubota-article/01-hero.webp', width: 864, height: 1821, alt: '期間工を7年見てきたモデルストーリーとして、今クボタ筑波を比較候補に置く理由を伝える導入' },
-  { file: '/kubota-article/02-toyota.webp', width: 864, height: 1821, alt: 'トヨタの待遇と、会社名だけでは配属後の働きやすさが分からないという体験章' },
-  { file: '/kubota-article/03-denso.webp', width: 864, height: 1821, alt: 'デンソーの長期一時金の強さと、部品メーカーでも工程によって負担が違うという体験章' },
-  { file: '/kubota-article/04-dorm-awareness.webp', width: 864, height: 1821, alt: '寮費だけでなく個室、光熱費、家具家電、通勤、休日の生活まで見る重要性を伝える章' },
-  { file: '/kubota-article/05-standards.webp', width: 941, height: 1672, alt: '期間工選びで最初に見ていたことと、7年後に確認することを比較した表', chapter: 'comparison' },
-  { file: '/kubota-article/06-five-criteria.webp', width: 864, height: 1821, alt: '給料、満了金、寮、仕事内容、立地の5つを確認する考え方' },
-  { file: '/kubota-article/07-manufacturer-comparison.webp', width: 839, height: 1875, alt: 'トヨタ、デンソー、SUBARU、いすゞ、クボタ筑波の現行条件を正直に比較した表' },
-  { file: '/kubota-article/08-kubota-transition.webp', width: 864, height: 1821, alt: '2026年の今、給料、一時金、寮、仕事内容、立地の総合バランスからクボタ筑波を考える章', chapter: 'kubota' },
-  { file: '/kubota-article/09-daily-pay.webp', width: 916, height: 1717, alt: 'クボタ筑波の日給14000円と、昼勤20日、残業25時間で平均月収約34万円というモデルの見方' },
-  { file: '/kubota-article/10-bonus.webp', width: 864, height: 1821, alt: '6か月ごとの満期慰労金24万円と、在籍日や勤務成績などの条件がある祝儀14万円の説明' },
-  { file: '/kubota-article/11-apartment.webp', width: 864, height: 1821, alt: '一般物件で家賃無料という募集条件と、設備や光熱費など応募前に確認する項目' },
-  { file: '/kubota-article/12-tsukuba-life.webp', width: 864, height: 1821, alt: 'つくばみらい市とTX沿線の立地を、寮の場所やシフトに注意して生活面から考える章' },
-  { file: '/kubota-article/13-work.webp', width: 864, height: 1821, alt: 'トラクタや産業用エンジンの組立、塗装、溶接補助、加工、検査、運搬などの仕事と負担例' },
-  { file: '/kubota-article/14-career.webp', width: 864, height: 1821, alt: '1年以上勤務した人を対象とする正社員登用制度と、登用が保証される制度ではないという注意' },
-  { file: '/kubota-article/15-fit.webp', width: 864, height: 1821, alt: '他社の強みを認めたうえで、クボタ筑波を比較したい人の条件を整理した章', chapter: 'decision' },
-  { file: '/kubota-article/16-closing-a.webp', width: 941, height: 1672, alt: '最大月収ではなく、半年後や1年後にいくら残せそうかで選ぶという結論' },
-  { file: '/kubota-article/17-closing-b.webp', width: 864, height: 1821, alt: '有名な自動車メーカーだけでなく、クボタも現在の募集条件を見て比較する提案' },
-  { file: '/kubota-article/18-closing-c.webp', width: 864, height: 1821, alt: '給与、勤務時間、寮、満期慰労金、募集状況を確認して比べる最終案内' },
+  { file: '/kubota-article-v2/01-hero.webp', width: 864, height: 1821, alt: '期間工を7年見てきたモデルストーリーのタイトルと、どこが一番いいかという導入' },
+  { file: '/kubota-article-v2/02-old-criteria.webp', width: 864, height: 1821, alt: '月収や祝い金など大きな数字だけで選んでいた頃と、現在の判断軸の違い' },
+  { file: '/kubota-article-v2/03-current-criteria.webp', width: 864, height: 1821, alt: 'クボタ筑波を比較候補の上位に置く理由とモデルストーリーであることの注意書き' },
+  { file: '/kubota-article-v2/04-toyota-appeal.webp', width: 864, height: 1821, alt: 'トヨタの現在の日給や月収例など、王道メーカーとしての魅力' },
+  { file: '/kubota-article-v2/05-toyota-reality.webp', width: 864, height: 1821, alt: '高待遇と楽は別であり、会社名だけでは実際の働きやすさが分からないという気づき' },
+  { file: '/kubota-article-v2/06-denso-appeal.webp', width: 866, height: 1817, alt: 'デンソーの日給、月収例、長期一時金の強さ' },
+  { file: '/kubota-article-v2/07-denso-reality.webp', width: 864, height: 1821, alt: '部品メーカーでも工程や働き方によって負担が異なるという体験章' },
+  { file: '/kubota-article-v2/08-dorm-awareness.webp', width: 876, height: 1796, alt: '寮は無料かどうかだけでなく毎日帰る家として考えるという体験章' },
+  { file: '/kubota-article-v2/09-dorm-checklist.webp', width: 864, height: 1821, alt: '個室、光熱費、家具家電、通勤、休日など寮選びの確認項目と他社の強み' },
+  { file: '/kubota-article-v2/10-before-after.webp', width: 941, height: 1672, alt: '7年間で変わった期間工の選び方を最初の頃と今で比べた図', chapter: 'comparison' },
+  { file: '/kubota-article-v2/11-five-criteria-a.webp', width: 863, height: 1822, alt: '期間工選びで確認する5項目のうち給料と満了金の見方' },
+  { file: '/kubota-article-v2/12-five-criteria-b.webp', width: 864, height: 1821, alt: '期間工選びで確認する5項目のうち寮、仕事内容、立地の見方' },
+  { file: '/kubota-article-v2/13-comparison-income.webp', width: 864, height: 1821, alt: 'トヨタ、デンソー、SUBARU、いすゞ、クボタ筑波の日給と掲載月収例の比較' },
+  { file: '/kubota-article-v2/14-comparison-benefits.webp', width: 864, height: 1821, alt: '5社の一時金、寮、比較時に見るポイントの比較' },
+  { file: '/kubota-article-v2/15-comparison-note.webp', width: 862, height: 1824, alt: '月収例は残業や深夜勤務など条件が異なるため金額だけで単純比較できないという注意' },
+  { file: '/kubota-article-v2/16-kubota-transition.webp', width: 864, height: 1821, alt: '2026年の今、総合バランスからクボタ筑波を候補に置く最大の転換点', chapter: 'kubota' },
+  { file: '/kubota-article-v2/17-daily-pay.webp', width: 916, height: 1717, alt: 'クボタ筑波の日給14000円と昼勤20日、残業25時間で平均月収約34万円のモデル' },
+  { file: '/kubota-article-v2/18-shifts.webp', width: 916, height: 1717, alt: '日勤、早番、遅番、夜勤など配属によって勤務帯が変わるという注意' },
+  { file: '/kubota-article-v2/19-six-month-money.webp', width: 864, height: 1821, alt: '6か月ごとの満期慰労金24万円と条件付き祝儀14万円の支給条件' },
+  { file: '/kubota-article-v2/20-apartment.webp', width: 864, height: 1821, alt: '会社契約の一般物件で家賃無料という条件と応募前に確認する住居項目' },
+  { file: '/kubota-article-v2/21-work.webp', width: 864, height: 1821, alt: 'トラクタや産業用エンジンの仕事と、工程によって異なる負担を正直に説明する章' },
+  { file: '/kubota-article-v2/22-tsukuba-life.webp', width: 864, height: 1821, alt: 'つくばみらい市とつくばエクスプレス沿線で休日の選択肢を考える章' },
+  { file: '/kubota-article-v2/23-career.webp', width: 864, height: 1821, alt: '1年以上勤務した人を対象とする正社員登用制度の流れと注意' },
+  { file: '/kubota-article-v2/24-fit.webp', width: 864, height: 1821, alt: '優先条件ごとのメーカー選びとクボタ筑波を比較したい人の特徴', chapter: 'decision' },
+  { file: '/kubota-article-v2/25-closing-a.webp', width: 941, height: 1672, alt: '最大月収ではなく半年後や1年後にいくら残せそうかで選ぶという結論' },
+  { file: '/kubota-article-v2/26-closing-b.webp', width: 864, height: 1821, alt: 'クボタを候補から外さず他社と並べて比較する提案' },
+  { file: '/kubota-article-v2/27-final-guide.webp', width: 864, height: 1821, alt: '給与、勤務時間、寮、満期慰労金、募集状況を確認する最終案内' },
 ];
 
 const items: ArticleItem[] = [];
 images.forEach((image, index) => {
   items.push({ type: 'image', image });
-  if (index === 6) {
+  if (index === 14) {
     items.push({ type: 'cta', location: 'after_comparison', label: 'クボタ筑波の現在の募集条件を見る', note: '比較表の条件と、現在の募集要項を見比べられます。' });
   }
-  if (index === 13) {
+  if (index === 22) {
     items.push({ type: 'cta', location: 'after_details', label: '給与・寮・仕事内容を募集要項で確認する', note: '配属・勤務帯・入寮条件は応募前に確認してください。' });
   }
 });
@@ -93,9 +102,9 @@ const canonical = new URL('/period-worker-story/', Astro.site ?? 'https://kubota
       ))}
 
       <section class="article-cta article-cta--final" aria-label="給与・寮・勤務条件を確認">
-        <p>応募するかどうかは、最新の条件を見てから決められます。</p>
+        <p>応募するかどうかは、そのあとでいい。まず今の条件を見て、他社と並べて決められます。</p>
         <a class="article-cta__button" href={AFFILIATE_URL} target="_blank" rel="sponsored nofollow noopener" data-affiliate data-location="final">
-          <span>【 給与・寮・勤務条件を見てみる → 】</span>
+          <span>クボタ筑波の現在の募集条件を見る</span><b aria-hidden="true">→</b>
         </a>
       </section>
     </main>
