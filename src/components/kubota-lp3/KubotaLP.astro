@@ -118,7 +118,7 @@ const renderItems: PageItem[] = [
     <script is:inline define:vars={{ hypothesis: cluster.id, lp: cluster.slug }}>
       (() => {
         const params = new URLSearchParams(location.search);
-        const trackedKeys = ['keyword', 'matchtype', 'campaignid', 'adgroupid', 'gclid'];
+        const trackedKeys = ['cluster_id', 'keyword', 'matchtype', 'campaignid', 'adgroupid', 'gclid'];
         const tracking = Object.fromEntries(trackedKeys.map((key) => [key, params.get(key) || '']));
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({ event: 'lp_view', hypothesis, lp, ...tracking });
