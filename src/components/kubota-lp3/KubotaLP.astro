@@ -3,7 +3,7 @@ import { AFFILIATE_URL, clusters, type ClusterId } from '../../data/kubota-lp3/c
 import { site } from '../../data/site';
 
 type Props = { clusterId: ClusterId };
-type ImageId = 'numbers' | 'jobs' | 'difficulty' | 'training' | 'experience' | 'shifts' | 'dorm' | 'income' | 'savings' | 'comparison' | 'fit' | 'apply' | 'faq' | 'final';
+type ImageId = 'numbers' | 'jobs' | 'difficulty' | 'training' | 'experience' | 'shifts' | 'dorm' | 'location' | 'income' | 'savings' | 'comparison' | 'fit' | 'apply' | 'faq' | 'final';
 type ImageItem = { file: string; width: number; height: number; alt: string };
 type PageItem = { type: 'image'; image: ImageItem } | { type: 'cta'; location: string; label: string };
 
@@ -25,6 +25,7 @@ const bodyImages: Record<ImageId, ImageItem> = {
   experience: { file: '/lp-images-v5/05_experience_examples.webp', width: 1008, height: 1561, alt: '仕事に慣れるまでの個人体験例' },
   shifts: { file: '/lp-images-v5/06_shifts_payday.webp', width: 1054, height: 1492, alt: '勤務時間、休日、給料日と社会保険' },
   dorm: { file: '/lp-images-v5/07_dorm_confirmed.webp', width: 1019, height: 1544, alt: '寮費0円の条件と確認済みの家電' },
+  location: { file: '/lp-images-v5/15_location_holiday-v2.webp', width: 1040, height: 1714, alt: 'TX沿線の勤務地と休日の過ごし方を含めて1年間の生活を考える案内' },
   income: { file: '/lp-images-v5/08_annual_income.webp', width: 1006, height: 1563, alt: '1年間の給与モデルと条件付き一時金' },
   savings: { file: '/lp-images-v5/09_savings_model.webp', width: 997, height: 1577, alt: 'モデルケースで1年後の貯金約337.5万円になる試算' },
   comparison: { file: '/lp-images-v5/10_savings_compare.webp', width: 1065, height: 1477, alt: '今の生活モデルとクボタ筑波モデルの1年後比較' },
@@ -41,17 +42,17 @@ const late = (): PageItem[] => [image('fit'), cta('after_fit', cluster.ctas.late
 const itemsByCluster: Record<ClusterId, PageItem[]> = {
   FACTORY_UNEXP: [
     image('training'), cta('after_training', cluster.ctas.first), image('experience'), image('jobs'), cta('after_jobs', '仕事内容と募集条件を見る'),
-    image('difficulty'), image('shifts'), image('dorm'), image('numbers'), image('income'), image('savings'), image('comparison'),
+    image('difficulty'), image('shifts'), image('dorm'), image('location'), image('numbers'), image('income'), image('savings'), image('comparison'),
     cta('after_savings', cluster.ctas.afterSimulator), ...late(),
   ],
   PERIOD_INCOME: [
     image('numbers'), cta('after_numbers', cluster.ctas.first), image('income'), image('savings'), image('comparison'),
     cta('after_savings', cluster.ctas.afterSimulator), image('jobs'), cta('after_jobs', '仕事内容と募集条件を見る'),
-    image('difficulty'), image('training'), image('experience'), image('shifts'), image('dorm'), ...late(),
+    image('difficulty'), image('training'), image('experience'), image('shifts'), image('dorm'), image('location'), ...late(),
   ],
   PERIOD_JOBDESC: [
     image('jobs'), cta('after_jobs', cluster.ctas.first), image('difficulty'), image('experience'), image('training'),
-    cta('after_training', '未経験で働ける条件を見る'), image('shifts'), image('dorm'), image('numbers'), image('income'), image('savings'),
+    cta('after_training', '未経験で働ける条件を見る'), image('shifts'), image('dorm'), image('location'), image('numbers'), image('income'), image('savings'),
     image('comparison'), cta('after_savings', cluster.ctas.afterSimulator), ...late(),
   ],
 };
