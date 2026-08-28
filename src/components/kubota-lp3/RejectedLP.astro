@@ -1,0 +1,56 @@
+---
+import { AFFILIATE_URL } from '../../data/kubota-lp3/content';
+import { site } from '../../data/site';
+
+const canonical = new URL('/period-rejected/', Astro.site ?? 'https://kubota.hakobu-family.com');
+const images = [
+  ['/lp-images-v5/01_four_numbers.webp','クボタ筑波を判断するときの4数字'],
+  ['/lp-images-v5/02_jobs_reality.webp','5つの仕事内容と工程ごとの負担例'],
+  ['/lp-images-v5/03_difficulty_varies.webp','同じ工場でも大変さが変わる理由'],
+  ['/lp-images-v5/04_training_assignment.webp','未経験者向け研修と配属決定の流れ'],
+  ['/lp-images-v5/06_shifts_payday.webp','勤務時間、休日、給料日と社会保険'],
+  ['/lp-images-v5/08_annual_income.webp','1年間の給与モデルと条件付き一時金'],
+  ['/lp-images-v5/07_dorm_confirmed.webp','寮費0円の条件と確認済みの家電'],
+  ['/lp-images-v5/15_location_holiday-v2.webp','筑波での仕事と休日を含む生活イメージ'],
+  ['/lp-images-v5/09_savings_model.webp','1年後に残るお金のモデル試算'],
+  ['/lp-images-v5/10_savings_compare.webp','今の生活モデルとの比較'],
+  ['/lp-images-v5/11_fit_career.webp','候補になりやすい人と1年後の選択肢'],
+  ['/lp-images-v5/12_precheck_apply.webp','応募前の確認事項'],
+  ['/lp-images-v5/13_faq.webp','応募前によくある質問'],
+] as const;
+const cta = (label:string, location:string) => ({label,location});
+---
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#087c73" /><meta name="robots" content="index,follow,max-image-preview:large" />
+<meta name="description" content="期間工の選考がうまくいかず次の応募先を探している方へ。1社の結果だけで決めず、仕事内容・給与・寮・勤務地からクボタ筑波を次の候補として判断するための情報を整理します。" />
+<link rel="canonical" href={canonical} /><title>期間工に落ちたら次はどうする？クボタ筑波を次の候補として見る4条件</title>
+<script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-2YLF06DC0E"></script><script is:inline>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-2YLF06DC0E');gtag('config','AW-18129603657');</script>
+</head>
+<body data-hypothesis="PERIOD_REJECT" data-lp="period-rejected">
+<main class="lp">
+<section class="hero"><div class="tag">次の期間工を探している方へ</div><h1>期間工に落ちた。<br><em>次は、どこを選ぶ？</em></h1><p class="hero-lead">1社の結果だけで「期間工は無理」と決める必要はありません。</p><p>メーカーが変われば、募集条件も仕事内容も勤務地も違います。次を探すなら、<strong>クボタ筑波工場も比較候補のひとつとして確認できます。</strong></p><div class="hero-note">「受かりやすさ」だけでなく、入ってから続けられる条件かまで見て選ぶ。</div></section>
+<section class="cta"><a href={AFFILIATE_URL} data-affiliate data-location="hero" target="_blank" rel="sponsored nofollow noopener"><span>クボタ筑波の現在の募集条件を見る</span><b>›</b></a></section>
+
+<section class="intro section"><span class="eyebrow">FIRST ANSWER</span><h2>1社の不採用 ＝<br>すべての期間工で不採用、ではありません。</h2><p>期間工は、どのメーカーでも同じ条件・同じ仕事で募集しているわけではありません。募集職種、仕事内容、勤務地、契約期間、勤務形態も応募先によって異なります。</p><div class="message"><strong>前の会社で不採用だった</strong><i>≠</i><strong>他の期間工も全部無理</strong></div><p>不採用理由を推測するより、次のメーカーの募集内容を確認して、<strong>自分が働けそうな条件か</strong>を改めて判断する方が前に進めます。</p></section>
+
+<section class="section warm"><span class="eyebrow">NEXT CHECK</span><h2>次の応募先は、<br><em>この4つ</em>を見れば判断しやすい。</h2><div class="four"><article><b>01</b><h3>仕事内容</h3><p>何をするのか。自分でも続けられそうか。</p></article><article><b>02</b><h3>給与</h3><p>月収だけでなく、手当や1年間の総額まで。</p></article><article><b>03</b><h3>寮・生活費</h3><p>稼いだあと、実際にいくら残りそうか。</p></article><article><b>04</b><h3>勤務地</h3><p>そこで暮らす自分をイメージできるか。</p></article></div><p class="bridge">では、<strong>クボタ筑波工場</strong>をこの4条件で見てみます。</p></section>
+
+<section class="section choose"><span class="eyebrow">WHY KUBOTA?</span><h2>次の応募先として、<br>クボタ筑波を候補にしやすい理由。</h2><p class="lead">「どこでもいいから受かりたい」ではなく、<strong>入ってから続けられる条件か</strong>で見てみます。</p><div class="reasons"><article><b>01</b><div><h3>収入だけでなく、残るお金まで考えられる</h3><p>給与・各種手当だけでなく、寮条件を含めて生活固定費まで見ながら比較できます。</p></div></article><article><b>02</b><div><h3>仕事内容が具体的に分かる</h3><p>組立・塗装・溶接・機械加工・運搬。どんな工程で働く可能性があるかを確認できます。</p></div></article><article><b>03</b><div><h3>未経験でも、働くイメージを作って判断できる</h3><p>仕事内容、研修、勤務時間、寮生活まで先に見て、「自分なら続けられそうか」で考えられます。</p></div></article><article><b>04</b><div><h3>1年間働いた先まで考えられる</h3><p>一定期間働いてお金を作り、生活を整え、その後の選択肢を考えるという見方もできます。</p></div></article></div><div class="conclusion">クボタ筑波は、<strong>「次は条件までちゃんと見て応募先を選びたい人」</strong>が比較候補にしやすい期間工です。</div></section>
+
+<section class="cta"><a href={AFFILIATE_URL} data-affiliate data-location="after_reason" target="_blank" rel="sponsored nofollow noopener"><span>クボタ筑波を4条件で確認する</span><b>›</b></a></section>
+
+{images.map(([src,alt],i)=><><section class:list={['image',{break:i===5||i===8}]}><img src={src} alt={alt} loading="lazy" decoding="async" /></section>{[0,3,8].includes(i)&&<section class="cta"><a href={AFFILIATE_URL} data-affiliate data-location={`body_${i}`} target="_blank" rel="sponsored nofollow noopener"><span>{i===0?'現在の募集条件を確認する':i===3?'仕事内容と応募条件を見る':'1年後まで見て募集内容を確認する'}</span><b>›</b></a></section>}</>)}
+
+<section class="section faq"><span class="eyebrow">REJECTION FAQ</span><h2>「また落ちたら…」と不安な人へ。</h2><details open><summary>他社の期間工に落ちています。それでも応募できますか？</summary><p>他社での選考結果だけから、クボタの選考結果を判断することはできません。応募先ごとに募集条件が異なるため、まず現在の応募条件を確認してください。</p></details><details><summary>未経験でも応募できますか？</summary><p>製造経験だけで応募可否を断定せず、現在公開されている募集条件を確認してください。本ページでは仕事内容や研修についても整理しています。</p></details><details><summary>クボタは受かりやすい期間工ですか？</summary><p>採用を保証したり、他社より採用されやすいと断定したりすることはできません。仕事内容、収入、寮、勤務地まで含め、自分に合う候補かで比較してください。</p></details></section>
+<section class="final section"><span class="eyebrow">FINAL CHECK</span><h2>1社の結果だけで決めず、<br><em>次の選択肢を確認してから</em>判断する。</h2><p>仕事内容。給与。寮。勤務地。</p><p>条件を見て、<strong>「ここなら働けそう」</strong>と思えたら、そこで初めて応募を検討すればOKです。</p></section>
+<section class="cta final-cta"><a href={AFFILIATE_URL} data-affiliate data-location="final" target="_blank" rel="sponsored nofollow noopener"><span>クボタ筑波の現在の募集条件を見る</span><b>›</b></a><small>最新の応募条件・募集状況は公式ページで確認してください。</small></section>
+</main>
+<footer><h2>運営者情報</h2><dl><div><dt>サイト名</dt><dd>{site.name}</dd></div><div><dt>運営者</dt><dd>{site.operator}</dd></div><div><dt>連絡先</dt><dd><a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a></dd></div></dl><p>当サイトはアフィリエイトプログラムを利用しており、リンク経由の応募により広告主から紹介料を受け取る場合があります。最新かつ正確な条件は応募先の公式情報をご確認ください。</p><nav><a href="/">トップ</a><a href="/privacy/">プライバシーポリシー</a></nav></footer>
+<script is:inline>(()=>{const p=new URLSearchParams(location.search),keys=['keyword','matchtype','campaignid','adgroupid','gclid'];window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'lp_view',hypothesis:'PERIOD_REJECT',lp:'period-rejected'});document.querySelectorAll('[data-affiliate]').forEach(a=>{const u=new URL(a.href);keys.forEach(k=>{const v=p.get(k);if(v)u.searchParams.set(k,v)});u.searchParams.set('hypothesis','PERIOD_REJECT');u.searchParams.set('lp','period-rejected');a.href=u.toString();a.addEventListener('click',()=>window.dataLayer.push({event:'cta_click',hypothesis:'PERIOD_REJECT',lp:'period-rejected',cta_location:a.dataset.location||''}))})})();</script>
+</body></html>
+<style>
+:global(*){box-sizing:border-box}:global(html),:global(body){margin:0;padding:0}:global(body){background:#edf4f3;color:#172b2a;font-family:system-ui,-apple-system,'Segoe UI',sans-serif}.lp{max-width:430px;margin:auto;background:#fff;box-shadow:0 0 36px #00424718;overflow:hidden}.hero,.section{padding:46px 24px}.hero{padding-top:36px;background:linear-gradient(155deg,#e8f7f4 0%,#fff 58%);border-top:7px solid #087c73}.tag,.eyebrow{display:inline-block;font-size:12px;font-weight:900;letter-spacing:.12em;color:#087c73}.tag{padding:7px 12px;background:#fff;border:1px solid #9bd2ca;border-radius:99px}.hero h1,.section h2{font-size:31px;line-height:1.3;margin:18px 0}.hero h1 em,.section h2 em{font-style:normal;color:#087c73}.hero p,.section p{font-size:16px;line-height:1.9}.hero-lead{font-size:19px!important;font-weight:800}.hero-note{margin-top:24px;padding:15px;border-left:4px solid #ff6a00;background:#fff6ed;font-weight:800;line-height:1.7}.message{display:grid;gap:9px;margin:25px 0;text-align:center}.message strong{padding:13px;background:#f1f6f5;border-radius:8px}.message i{font-style:normal;font-size:24px;color:#087c73}.warm{background:#f6faf9}.four{display:grid;grid-template-columns:1fr 1fr;gap:10px}.four article{padding:17px 14px;background:#fff;border:1px solid #d9e7e5;border-radius:12px}.four b,.reasons>b{color:#087c73}.four h3{font-size:18px;margin:7px 0}.four p{font-size:13px;line-height:1.6;margin:0}.bridge{margin-top:24px!important;padding:17px;text-align:center;background:#087c73;color:#fff;border-radius:10px}.choose{background:#102d2b;color:#fff}.choose .eyebrow{color:#72d4c8}.choose .lead{color:#d9e9e7}.reasons{margin-top:25px}.reasons article{display:grid;grid-template-columns:42px 1fr;gap:12px;padding:19px 0;border-top:1px solid #ffffff28}.reasons article>b{font-size:20px;color:#72d4c8}.reasons h3{font-size:18px;line-height:1.5;margin:0 0 7px}.reasons p{font-size:14px;color:#d9e9e7;margin:0;line-height:1.7}.conclusion{margin-top:22px;padding:18px;background:#fff;color:#17312f;border-radius:10px;line-height:1.8}.image{font-size:0}.image img{display:block;width:100%;height:auto}.image.break{padding-top:20px;background:#edf4f3}.cta{padding:17px 22px 20px;background:#fff}.cta a{display:grid;grid-template-columns:1fr 44px;align-items:center;gap:8px;min-height:74px;padding:12px 14px 12px 20px;background:linear-gradient(#ff741a,#ff5900);border-radius:99px;box-shadow:0 5px 0 #cb4000;color:#fff;text-decoration:none;font-weight:900;text-align:center;font-size:18px}.cta a b{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:#fff;color:#ff5900;font-size:34px}.faq{background:#f5f8f8}.faq details{margin-top:10px;background:#fff;border:1px solid #dce8e6;border-radius:10px;padding:15px}.faq summary{font-weight:800;line-height:1.6;cursor:pointer}.faq details p{font-size:14px;margin-bottom:0}.final{text-align:center}.final-cta small{display:block;margin:17px 0 0;text-align:center;color:#60716f;font-size:11px;line-height:1.6}footer{max-width:430px;margin:auto;padding:30px 24px 45px;background:#153330;color:#dce9e7;font-size:12px;line-height:1.7}footer h2{font-size:16px;color:#fff}footer dl div{display:grid;grid-template-columns:80px 1fr;border-top:1px solid #ffffff20;padding:8px 0}footer dt{font-weight:800}footer dd{margin:0}footer a{color:#fff}footer nav{display:flex;gap:16px;margin-top:18px}@media(max-width:360px){.hero,.section{padding-left:19px;padding-right:19px}.hero h1,.section h2{font-size:28px}.four{grid-template-columns:1fr}}
+</style>
