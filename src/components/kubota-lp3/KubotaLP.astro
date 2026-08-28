@@ -5,7 +5,7 @@ import { site } from '../../data/site';
 type Props = { clusterId: ClusterId };
 type ImageId = 'numbers' | 'jobs' | 'difficulty' | 'training' | 'experience' | 'shifts' | 'dorm' | 'location' | 'income' | 'savings' | 'comparison' | 'fit' | 'apply' | 'faq' | 'final';
 type ImageItem = { file: string; width: number; height: number; alt: string };
-type PageItem = { type: 'image'; image: ImageItem } | { type: 'cta'; location: string; label: string };
+type PageItem = { type: 'image'; image: ImageItem; chapterBreak?: boolean } | { type: 'cta'; location: string; label: string };
 
 const { clusterId } = Astro.props;
 const cluster = clusters[clusterId];
@@ -35,14 +35,14 @@ const bodyImages: Record<ImageId, ImageItem> = {
   final: { file: '/lp-images-v5/14_final.webp', width: 1024, height: 1536, alt: 'この仕事と条件で1年間続けられそうかを判断するまとめ' },
 };
 
-const image = (id: ImageId): PageItem => ({ type: 'image', image: bodyImages[id] });
+const image = (id: ImageId, chapterBreak = false): PageItem => ({ type: 'image', image: bodyImages[id], chapterBreak });
 const cta = (location: string, label: string): PageItem => ({ type: 'cta', location, label });
 const late = (): PageItem[] => [image('fit'), cta('after_fit', cluster.ctas.late), image('apply'), image('faq'), image('final'), cta('final', cluster.ctas.final)];
 
 const itemsByCluster: Record<ClusterId, PageItem[]> = {
   FACTORY_UNEXP: [
     image('training'), cta('after_training', cluster.ctas.first), image('experience'), image('jobs'), cta('after_jobs', '仕事内容と募集条件を見る'),
-    image('difficulty'), image('shifts'), image('dorm'), image('location'), image('numbers'), image('income'), image('savings'), image('comparison'),
+    image('difficulty'), image('shifts'), image('dorm', true), image('location'), image('numbers', true), image('income'), image('savings'), image('comparison'),
     cta('after_savings', cluster.ctas.afterSimulator), ...late(),
   ],
   PERIOD_INCOME: [
@@ -87,7 +87,7 @@ const renderItems: PageItem[] = [
   <body data-hypothesis={cluster.id} data-lp={cluster.slug}>
     <main class="lp" aria-label="クボタ筑波 期間従業員の記事LP">
       {renderItems.map((item, index) => item.type === 'image' ? (
-        <section class="lp-section lp-image" data-image={item.image.file}>
+        <section class:list={['lp-section', 'lp-image', { 'lp-section--chapter-break': item.chapterBreak }]} data-image={item.image.file}>
           <img src={item.image.file} alt={item.image.alt} width={item.image.width} height={item.image.height} loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : 'auto'} decoding="async" />
         </section>
       ) : (
@@ -136,12 +136,16 @@ const renderItems: PageItem[] = [
 </html>
 
 <style>
+  /* Hallmark · macrostructure: Narrative Workflow · tone: playful utilitarian · anchor hue: blue-green */
+  /* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V4 · contrast: pass (40–41) */
   :global(*) { box-sizing: border-box; }
-  :global(html), :global(body) { margin: 0; padding: 0; }
+  :global(html), :global(body) { margin: 0; padding: 0; overflow-x: clip; }
   :global(body) { background: #eef5f4; }
-  .lp { width: 100%; max-width: 430px; margin: 0 auto; overflow: hidden; background: #fff; box-shadow: 0 0 36px rgb(0 66 71 / 10%); }
+  .lp { --lp-chapter-surface: #eef5f4; --lp-chapter-rule: #b9dedd; width: 100%; max-width: 430px; margin: 0 auto; overflow: hidden; background: #fff; box-shadow: 0 0 36px rgb(0 66 71 / 10%); }
   .lp-section { position: relative; width: 100%; margin: 0; padding: 0; background: #fff; }
   .lp-section + .lp-section { margin-top: -1px; }
+  .lp-section--chapter-break { margin-top: 0 !important; padding-top: 20px; background: var(--lp-chapter-surface); }
+  .lp-section--chapter-break::before { content: ''; position: absolute; top: 9px; left: 50%; width: 52px; height: 2px; border-radius: 999px; background: var(--lp-chapter-rule); transform: translateX(-50%); }
   .lp-image { overflow: hidden; font-size: 0; line-height: 0; }
   .lp-image img { display: block; width: 100%; height: auto; margin: 0; border: 0; vertical-align: top; }
   .cta-block { padding: 17px 22px 18px; line-height: 1.4; }
