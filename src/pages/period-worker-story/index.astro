@@ -1,0 +1,179 @@
+---
+import { AFFILIATE_URL } from '../../data/kubota-lp3/content';
+import { site } from '../../data/site';
+
+type ImageSection = {
+  file: string;
+  width: number;
+  height: number;
+  alt: string;
+  chapter?: 'comparison' | 'kubota' | 'decision';
+};
+
+type ArticleItem =
+  | { type: 'image'; image: ImageSection }
+  | { type: 'cta'; location: string; label: string; note: string };
+
+const images: ImageSection[] = [
+  { file: '/kubota-article/01-hero.webp', width: 864, height: 1821, alt: '期間工を7年見てきたモデルストーリーとして、今クボタ筑波を比較候補に置く理由を伝える導入' },
+  { file: '/kubota-article/02-toyota.webp', width: 864, height: 1821, alt: 'トヨタの待遇と、会社名だけでは配属後の働きやすさが分からないという体験章' },
+  { file: '/kubota-article/03-denso.webp', width: 864, height: 1821, alt: 'デンソーの長期一時金の強さと、部品メーカーでも工程によって負担が違うという体験章' },
+  { file: '/kubota-article/04-dorm-awareness.webp', width: 864, height: 1821, alt: '寮費だけでなく個室、光熱費、家具家電、通勤、休日の生活まで見る重要性を伝える章' },
+  { file: '/kubota-article/05-standards.webp', width: 941, height: 1672, alt: '期間工選びで最初に見ていたことと、7年後に確認することを比較した表', chapter: 'comparison' },
+  { file: '/kubota-article/06-five-criteria.webp', width: 864, height: 1821, alt: '給料、満了金、寮、仕事内容、立地の5つを確認する考え方' },
+  { file: '/kubota-article/07-manufacturer-comparison.webp', width: 839, height: 1875, alt: 'トヨタ、デンソー、SUBARU、いすゞ、クボタ筑波の現行条件を正直に比較した表' },
+  { file: '/kubota-article/08-kubota-transition.webp', width: 864, height: 1821, alt: '2026年の今、給料、一時金、寮、仕事内容、立地の総合バランスからクボタ筑波を考える章', chapter: 'kubota' },
+  { file: '/kubota-article/09-daily-pay.webp', width: 916, height: 1717, alt: 'クボタ筑波の日給14000円と、昼勤20日、残業25時間で平均月収約34万円というモデルの見方' },
+  { file: '/kubota-article/10-bonus.webp', width: 864, height: 1821, alt: '6か月ごとの満期慰労金24万円と、在籍日や勤務成績などの条件がある祝儀14万円の説明' },
+  { file: '/kubota-article/11-apartment.webp', width: 864, height: 1821, alt: '一般物件で家賃無料という募集条件と、設備や光熱費など応募前に確認する項目' },
+  { file: '/kubota-article/12-tsukuba-life.webp', width: 864, height: 1821, alt: 'つくばみらい市とTX沿線の立地を、寮の場所やシフトに注意して生活面から考える章' },
+  { file: '/kubota-article/13-work.webp', width: 864, height: 1821, alt: 'トラクタや産業用エンジンの組立、塗装、溶接補助、加工、検査、運搬などの仕事と負担例' },
+  { file: '/kubota-article/14-career.webp', width: 864, height: 1821, alt: '1年以上勤務した人を対象とする正社員登用制度と、登用が保証される制度ではないという注意' },
+  { file: '/kubota-article/15-fit.webp', width: 864, height: 1821, alt: '他社の強みを認めたうえで、クボタ筑波を比較したい人の条件を整理した章', chapter: 'decision' },
+  { file: '/kubota-article/16-closing-a.webp', width: 941, height: 1672, alt: '最大月収ではなく、半年後や1年後にいくら残せそうかで選ぶという結論' },
+  { file: '/kubota-article/17-closing-b.webp', width: 864, height: 1821, alt: '有名な自動車メーカーだけでなく、クボタも現在の募集条件を見て比較する提案' },
+  { file: '/kubota-article/18-closing-c.webp', width: 864, height: 1821, alt: '給与、勤務時間、寮、満期慰労金、募集状況を確認して比べる最終案内' },
+];
+
+const items: ArticleItem[] = [];
+images.forEach((image, index) => {
+  items.push({ type: 'image', image });
+  if (index === 6) {
+    items.push({ type: 'cta', location: 'after_comparison', label: 'クボタ筑波の現在の募集条件を見る', note: '比較表の条件と、現在の募集要項を見比べられます。' });
+  }
+  if (index === 13) {
+    items.push({ type: 'cta', location: 'after_details', label: '給与・寮・仕事内容を募集要項で確認する', note: '配属・勤務帯・入寮条件は応募前に確認してください。' });
+  }
+});
+
+const canonical = new URL('/period-worker-story/', Astro.site ?? 'https://kubota.hakobu-family.com');
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f3ecdd" />
+    <meta name="description" content="期間工を7年見てきたモデルストーリーを通じて、トヨタ、デンソー、SUBARU、いすゞとクボタ筑波の給料、寮、仕事、立地を正直に比較します。" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href={canonical} />
+    <link rel="preload" as="image" href={images[0].file} fetchpriority="high" />
+    <title>期間工を7年やって分かった。今ならクボタ筑波を候補の上に置く理由</title>
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-2YLF06DC0E"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-2YLF06DC0E');
+      gtag('config', 'AW-18129603657');
+    </script>
+  </head>
+  <body data-lp="period-worker-story" data-hypothesis="ARTICLE_STORY">
+    <main class="article-lp" aria-label="クボタ筑波 期間従業員モデルストーリー記事LP">
+      {items.map((item, index) => item.type === 'image' ? (
+        <section class:list={['article-image', item.image.chapter && `article-image--${item.image.chapter}`]} data-image={item.image.file}>
+          <img
+            src={item.image.file}
+            alt={item.image.alt}
+            width={item.image.width}
+            height={item.image.height}
+            loading={index === 0 ? 'eager' : 'lazy'}
+            fetchpriority={index === 0 ? 'high' : 'auto'}
+            decoding="async"
+          />
+        </section>
+      ) : (
+        <section class="article-cta" aria-label="クボタ筑波の募集条件を確認">
+          <p>{item.note}</p>
+          <a class="article-cta__button" href={AFFILIATE_URL} target="_blank" rel="sponsored nofollow noopener" data-affiliate data-location={item.location}>
+            <span>{item.label}</span><b aria-hidden="true">→</b>
+          </a>
+        </section>
+      ))}
+
+      <section class="article-cta article-cta--final" aria-label="給与・寮・勤務条件を確認">
+        <p>応募するかどうかは、最新の条件を見てから決められます。</p>
+        <a class="article-cta__button" href={AFFILIATE_URL} target="_blank" rel="sponsored nofollow noopener" data-affiliate data-location="final">
+          <span>【 給与・寮・勤務条件を見てみる → 】</span>
+        </a>
+      </section>
+    </main>
+
+    <footer class="article-footer">
+      <section class="article-footer__info" aria-labelledby="article-footer-operator">
+        <h2 id="article-footer-operator">運営者情報</h2>
+        <dl>
+          <div><dt>サイト名</dt><dd>{site.name}</dd></div>
+          <div><dt>運営者</dt><dd>{site.operator}</dd></div>
+          <div><dt>連絡先</dt><dd><a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a></dd></div>
+          <div><dt>事業内容</dt><dd>{site.business}</dd></div>
+          <div><dt>親サイト</dt><dd><a href={site.parentUrl}>ハコぶファミリー（HAKOBU FAMILY）</a></dd></div>
+        </dl>
+        <p>当サイトはアフィリエイトプログラムを利用しており、リンク経由の応募により広告主から紹介料を受け取る場合があります。掲載内容は各社の公開情報をもとにしていますが、最新かつ正確な条件は応募先の公式情報をご確認ください。</p>
+      </section>
+      <nav class="article-footer__nav" aria-label="サイト内リンク"><a href="/">トップページ</a><a href="/privacy/">プライバシーポリシー</a><a href="/column/">コラム</a></nav>
+      <p class="article-footer__copy">{site.copyright}</p>
+    </footer>
+
+    <script is:inline>
+      (() => {
+        const params = new URLSearchParams(location.search);
+        const trackedKeys = ['keyword', 'matchtype', 'campaignid', 'adgroupid', 'gclid'];
+        const tracking = Object.fromEntries(trackedKeys.map((key) => [key, params.get(key) || '']));
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: 'lp_view', hypothesis: 'ARTICLE_STORY', lp: 'period-worker-story', ...tracking });
+        document.querySelectorAll('[data-affiliate]').forEach((link) => {
+          const destination = new URL(link.href);
+          trackedKeys.forEach((key) => { const value = params.get(key); if (value) destination.searchParams.set(key, value); });
+          destination.searchParams.set('hypothesis', 'ARTICLE_STORY');
+          destination.searchParams.set('lp', 'period-worker-story');
+          link.href = destination.toString();
+          link.addEventListener('click', () => window.dataLayer.push({ event: 'cta_click', hypothesis: 'ARTICLE_STORY', lp: 'period-worker-story', cta_location: link.dataset.location || '', ...tracking }));
+        });
+      })();
+    </script>
+  </body>
+</html>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(html), :global(body) { margin: 0; padding: 0; overflow-x: clip; }
+  :global(body) { background: #e9e0cf; color: #282721; }
+  .article-lp { width: 100%; max-width: 430px; margin: 0 auto; overflow: hidden; background: #f7f1e5; box-shadow: 0 0 42px rgb(64 51 27 / 16%); }
+  .article-image { position: relative; width: 100%; margin: 0; padding: 0; overflow: hidden; background: #f7f1e5; font-size: 0; line-height: 0; }
+  .article-image + .article-image { margin-top: -1px; }
+  .article-image img { display: block; width: 100%; height: auto; margin: 0; border: 0; vertical-align: top; }
+  .article-image--comparison, .article-image--kubota, .article-image--decision { padding-top: 14px; background: linear-gradient(180deg, #dfe9df 0 7px, #f7f1e5 7px 100%); }
+  .article-cta { position: relative; padding: 30px 22px 34px; border-block: 1px solid rgb(74 112 102 / 20%); background: #f1eadc; text-align: center; }
+  .article-cta::before { content: ''; position: absolute; inset: 11px auto auto 50%; width: 52px; height: 2px; border-radius: 999px; background: #9bb8ae; transform: translateX(-50%); }
+  .article-cta p { margin: 0 0 14px; color: #4f5a54; font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 13px; font-weight: 650; line-height: 1.65; }
+  .article-cta__button { display: grid; grid-template-columns: minmax(0, 1fr) 42px; align-items: center; gap: 8px; width: 100%; min-height: 68px; padding: 11px 12px 11px 20px; border: 1px solid #b95521; border-radius: 8px; background: #c8642b; box-shadow: 0 4px 0 #8f3b17, 0 12px 26px rgb(117 58 24 / 20%); color: #fffdf7; text-decoration: none; transform: translateY(0); transition: transform 140ms ease, box-shadow 140ms ease, background-color 140ms ease; -webkit-tap-highlight-color: transparent; }
+  .article-cta__button span { min-width: 0; font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: clamp(16px, 4.5vw, 19px); font-weight: 800; line-height: 1.45; letter-spacing: .01em; }
+  .article-cta__button b { display: grid; width: 42px; height: 42px; place-items: center; border-radius: 50%; background: #fff8e9; color: #a8481d; font-family: Arial, sans-serif; font-size: 22px; line-height: 1; }
+  .article-cta__button:hover { background: #d16b31; box-shadow: 0 5px 0 #8f3b17, 0 14px 30px rgb(117 58 24 / 24%); transform: translateY(-1px); }
+  .article-cta__button:active { box-shadow: 0 1px 0 #8f3b17, 0 5px 12px rgb(117 58 24 / 18%); transform: translateY(3px); }
+  .article-cta__button:focus-visible { outline: 4px solid rgb(56 110 99 / 40%); outline-offset: 4px; }
+  .article-cta--final { padding-block: 34px 42px; background: #446f67; }
+  .article-cta--final::before { background: rgb(255 247 229 / 50%); }
+  .article-cta--final p { color: #fff8e9; }
+  .article-cta--final .article-cta__button { border-color: #f0b078; background: #d36d31; box-shadow: 0 4px 0 #803814, 0 12px 28px rgb(35 28 18 / 25%); }
+  .article-cta--final .article-cta__button span { font-size: clamp(15px, 4.2vw, 18px); }
+  .article-footer { width: 100%; max-width: 430px; margin: 0 auto; padding: 30px 20px 34px; border-top: 1px solid #d7cbb8; background: #f9f4e9; color: #665f52; font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 13px; line-height: 1.7; }
+  .article-footer__info { max-width: 360px; margin: 0 auto; }
+  .article-footer__info h2 { margin: 0 0 10px; color: #3e6c63; font-size: 16px; line-height: 1.4; }
+  .article-footer__info dl { display: grid; gap: 5px; margin: 0 0 12px; }
+  .article-footer__info dl > div { display: grid; grid-template-columns: 5.5em minmax(0, 1fr); gap: 12px; }
+  .article-footer__info dt, .article-footer__info dd { margin: 0; }
+  .article-footer__info dt { color: #817868; }
+  .article-footer__info dd { color: #342f27; }
+  .article-footer a { color: #315f57; text-decoration: underline; text-underline-offset: .18em; }
+  .article-footer a:focus-visible { outline: 3px solid #cc713c; outline-offset: 3px; }
+  .article-footer__info p { margin: 0; }
+  .article-footer__nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 16px; margin: 20px 0 14px; padding-top: 16px; border-top: 1px solid #ded4c3; }
+  .article-footer__nav a { display: inline-flex; min-height: 44px; align-items: center; }
+  .article-footer__copy { margin: 0; color: #817868; font-size: 12px; text-align: center; }
+  @media (prefers-reduced-motion: reduce) { .article-cta__button { transition: none; } }
+  @media (max-width: 430px) { .article-lp { box-shadow: none; } }
+  @media (max-width: 350px) { .article-cta { padding-inline: 14px; } .article-cta__button { grid-template-columns: minmax(0, 1fr) 38px; padding-left: 14px; } .article-cta__button b { width: 38px; height: 38px; } }
+</style>
