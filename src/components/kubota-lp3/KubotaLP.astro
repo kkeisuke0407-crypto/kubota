@@ -12,26 +12,26 @@ const cluster = clusters[clusterId];
 const canonical = new URL(`/${cluster.slug}/`, Astro.site ?? 'https://kubota.hakobu-family.com');
 
 const heroByCluster: Record<ClusterId, ImageItem> = {
-  FACTORY_UNEXP: { file: '/lp-images-v4/hero-factory-unexp.webp', width: 852, height: 1846, alt: '工場未経験でも研修と適性を見て配属されることを伝える導入' },
-  PERIOD_INCOME: { file: '/lp-images-v4/hero-period-income.webp', width: 862, height: 1824, alt: 'モデルケースで1年後の貯金約337.5万円になる導入' },
-  PERIOD_JOBDESC: { file: '/lp-images-v4/hero-period-jobdesc.webp', width: 864, height: 1821, alt: 'クボタ筑波の5つの仕事内容を伝える導入' },
+  FACTORY_UNEXP: { file: '/lp-images-v5/hero-factory-unexp.webp', width: 1041, height: 1510, alt: '工場未経験でも研修と適性を見て配属されることを伝える導入' },
+  PERIOD_INCOME: { file: '/lp-images-v5/hero-period-income.webp', width: 1042, height: 1509, alt: 'モデルケースで1年後の貯金約337.5万円になる導入' },
+  PERIOD_JOBDESC: { file: '/lp-images-v5/hero-period-jobdesc.webp', width: 1023, height: 1537, alt: 'クボタ筑波の5つの仕事内容を伝える導入' },
 };
 
 const bodyImages: Record<ImageId, ImageItem> = {
-  numbers: { file: '/lp-images-v4/01_four_numbers.webp', width: 862, height: 1825, alt: 'クボタ筑波を判断するときの4数字' },
-  jobs: { file: '/lp-images-v4/02_jobs_reality.webp', width: 863, height: 1823, alt: '5つの仕事内容と工程ごとの負担例' },
-  difficulty: { file: '/lp-images-v4/03_difficulty_varies.webp', width: 864, height: 1821, alt: '同じ工場でも大変さが変わる理由' },
-  training: { file: '/lp-images-v4/04_training_assignment.webp', width: 862, height: 1825, alt: '未経験者向け研修と配属決定の流れ' },
-  experience: { file: '/lp-images-v4/05_experience_examples.webp', width: 862, height: 1824, alt: '仕事に慣れるまでの個人体験例' },
-  shifts: { file: '/lp-images-v4/06_shifts_payday.webp', width: 862, height: 1825, alt: '勤務時間、休日、給料日と社会保険' },
-  dorm: { file: '/lp-images-v4/07_dorm_confirmed.webp', width: 862, height: 1825, alt: '寮費0円の条件と確認済みの家電' },
-  income: { file: '/lp-images-v4/08_annual_income.webp', width: 862, height: 1824, alt: '1年間の給与モデルと条件付き一時金' },
-  savings: { file: '/lp-images-v4/09_savings_model.webp', width: 932, height: 1688, alt: 'モデルケースで1年後の貯金約337.5万円になる試算' },
-  comparison: { file: '/lp-images-v4/10_savings_compare.webp', width: 863, height: 1823, alt: '今の生活モデルとクボタ筑波モデルの1年後比較' },
-  fit: { file: '/lp-images-v4/11_fit_career.webp', width: 862, height: 1825, alt: '候補になりやすい人と1年後の3つの選択肢' },
-  apply: { file: '/lp-images-v4/12_precheck_apply.webp', width: 862, height: 1824, alt: '応募前の3つの確認事項と必須6項目' },
-  faq: { file: '/lp-images-v4/13_faq.webp', width: 862, height: 1825, alt: '応募前によくある8つの質問' },
-  final: { file: '/lp-images-v4/14_final.webp', width: 862, height: 1824, alt: 'この仕事と条件で1年間続けられそうかを判断するまとめ' },
+  numbers: { file: '/lp-images-v5/01_four_numbers.webp', width: 1100, height: 1429, alt: 'クボタ筑波を判断するときの4数字' },
+  jobs: { file: '/lp-images-v5/02_jobs_reality.webp', width: 941, height: 1672, alt: '5つの仕事内容と工程ごとの負担例' },
+  difficulty: { file: '/lp-images-v5/03_difficulty_varies.webp', width: 1042, height: 1510, alt: '同じ工場でも大変さが変わる理由' },
+  training: { file: '/lp-images-v5/04_training_assignment.webp', width: 1024, height: 1536, alt: '未経験者向け研修と配属決定の流れ' },
+  experience: { file: '/lp-images-v5/05_experience_examples.webp', width: 1008, height: 1561, alt: '仕事に慣れるまでの個人体験例' },
+  shifts: { file: '/lp-images-v5/06_shifts_payday.webp', width: 1054, height: 1492, alt: '勤務時間、休日、給料日と社会保険' },
+  dorm: { file: '/lp-images-v5/07_dorm_confirmed.webp', width: 1019, height: 1544, alt: '寮費0円の条件と確認済みの家電' },
+  income: { file: '/lp-images-v5/08_annual_income.webp', width: 1006, height: 1563, alt: '1年間の給与モデルと条件付き一時金' },
+  savings: { file: '/lp-images-v5/09_savings_model.webp', width: 997, height: 1577, alt: 'モデルケースで1年後の貯金約337.5万円になる試算' },
+  comparison: { file: '/lp-images-v5/10_savings_compare.webp', width: 1065, height: 1477, alt: '今の生活モデルとクボタ筑波モデルの1年後比較' },
+  fit: { file: '/lp-images-v5/11_fit_career.webp', width: 1024, height: 1536, alt: '候補になりやすい人と1年後の3つの選択肢' },
+  apply: { file: '/lp-images-v5/12_precheck_apply.webp', width: 1024, height: 1536, alt: '応募前の3つの確認事項と必須6項目' },
+  faq: { file: '/lp-images-v5/13_faq.webp', width: 1054, height: 1492, alt: '応募前によくある8つの質問' },
+  final: { file: '/lp-images-v5/14_final.webp', width: 1024, height: 1536, alt: 'この仕事と条件で1年間続けられそうかを判断するまとめ' },
 };
 
 const image = (id: ImageId): PageItem => ({ type: 'image', image: bodyImages[id] });
@@ -143,7 +143,7 @@ const renderItems: PageItem[] = [
   .lp-section + .lp-section { margin-top: -1px; }
   .lp-image { overflow: hidden; font-size: 0; line-height: 0; }
   .lp-image img { display: block; width: 100%; height: auto; margin: 0; border: 0; vertical-align: top; }
-  .cta-block { padding: 24px 22px 25px; line-height: 1.4; }
+  .cta-block { padding: 17px 22px 18px; line-height: 1.4; }
   .cta-button { display: grid; grid-template-columns: minmax(0, 1fr) 44px; align-items: center; gap: 10px; width: 100%; min-height: 76px; padding: 12px 14px 12px 22px; border: 1px solid #ff6a00; border-radius: 999px; background: linear-gradient(180deg, #ff741a 0%, #ff5a00 100%); box-shadow: 0 5px 0 #cf4100, 0 10px 24px rgb(255 91 0 / 22%); color: #fff; text-decoration: none; transform: translateY(0); transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease; -webkit-tap-highlight-color: transparent; }
   .cta-button span { min-width: 0; font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: clamp(17px, 4.8vw, 21px); font-weight: 800; line-height: 1.35; text-align: center; letter-spacing: .01em; }
   .cta-button b { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #fff; color: #ff5a00; font-family: Arial, sans-serif; font-size: 36px; font-weight: 700; line-height: 1; padding-bottom: 4px; transition: transform 140ms ease; }
