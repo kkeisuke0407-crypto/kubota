@@ -10,7 +10,11 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-6SW4VDRL7B');
+  // ?ga_debug=1 を付けて開くと GA4 の DebugView に出る（検証用。通常アクセスには影響なし）
+  var kDebug = false;
+  try { kDebug = new URLSearchParams(location.search).get('ga_debug') === '1'; } catch (e) {}
+  gtag('config', 'G-6SW4VDRL7B', kDebug ? { debug_mode: true } : {});
+  if (kDebug) window.__ga_debug = true;
 </script>
 
 <script is:inline>

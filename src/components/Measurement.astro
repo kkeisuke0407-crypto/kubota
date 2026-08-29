@@ -48,8 +48,10 @@
       return o;
     }
     function send(name, extra) {
-      if (typeof window.gtag === 'function') window.gtag('event', name, params(extra));
-      (window.dataLayer = window.dataLayer || []).push(Object.assign({ event: name }, params(extra)));
+      var payload = params(extra);
+      if (window.__ga_debug) payload.debug_mode = true;
+      if (typeof window.gtag === 'function') window.gtag('event', name, payload);
+      (window.dataLayer = window.dataLayer || []).push(Object.assign({ event: name }, payload));
     }
 
     // ② GA4の全イベントに流入情報を既定で載せる
