@@ -14,6 +14,57 @@ type ArticleItem =
   | { type: 'image'; image: ImageSection }
   | { type: 'cta'; location: string; label: string; note: string };
 
+const ctasAfterImage: Record<number, Extract<ArticleItem, { type: 'cta' }>> = {
+  1: {
+    type: 'cta',
+    location: 'after_fv',
+    label: 'まずはクボタ筑波の募集条件を見てみる',
+    note: '給与・寮・勤務条件を先に確認する',
+  },
+  3: {
+    type: 'cta',
+    location: 'after_intro',
+    label: '今のクボタ筑波の条件を先に確認する',
+    note: '比較する前に、募集内容を見てみる',
+  },
+  9: {
+    type: 'cta',
+    location: 'after_dorm',
+    label: '今のクボタ筑波の条件も見てみる',
+    note: '比較の前に、クボタの募集条件を確認する',
+  },
+  15: {
+    type: 'cta',
+    location: 'after_comparison',
+    label: '比較したうえで、クボタ筑波の条件を見る',
+    note: 'クボタ筑波の給与・寮・勤務条件を確認する',
+  },
+  16: {
+    type: 'cta',
+    location: 'after_kubota_reveal',
+    label: '今のクボタ筑波の募集条件を見てみる',
+    note: 'クボタ筑波が気になったら、条件を確認する',
+  },
+  19: {
+    type: 'cta',
+    location: 'after_pay',
+    label: '給与・満期慰労金の条件を確認する',
+    note: '今の支給条件を詳しく見てみる',
+  },
+  22: {
+    type: 'cta',
+    location: 'after_life',
+    label: '寮・勤務条件をまとめて確認する',
+    note: '自分に合うか、募集条件を見てみる',
+  },
+  24: {
+    type: 'cta',
+    location: 'after_fit',
+    label: '自分に合いそうなら、クボタ筑波の条件を見てみる',
+    note: 'クボタ筑波の募集内容を確認する',
+  },
+};
+
 const images: ImageSection[] = [
   { file: '/kubota-article-v2/01-hero.webp', width: 864, height: 1821, alt: '期間工を7年見てきたモデルストーリーのタイトルと、どこが一番いいかという導入' },
   { file: '/kubota-article-v2/02-old-criteria.webp', width: 864, height: 1821, alt: '月収や祝い金など大きな数字だけで選んでいた頃と、現在の判断軸の違い' },
@@ -28,7 +79,7 @@ const images: ImageSection[] = [
   { file: '/kubota-article-v2/11-five-criteria-a.webp', width: 863, height: 1822, alt: '期間工選びで確認する5項目のうち給料と満了金の見方' },
   { file: '/kubota-article-v2/12-five-criteria-b.webp', width: 864, height: 1821, alt: '期間工選びで確認する5項目のうち寮、仕事内容、立地の見方' },
   { file: '/kubota-article-v2/13-comparison-income.webp', width: 864, height: 1821, alt: 'トヨタ、デンソー、SUBARU、いすゞ、クボタ筑波の日給と掲載月収例の比較' },
-  { file: '/kubota-article-v2/14-comparison-benefits.webp', width: 864, height: 1821, alt: '5社の一時金、寮、比較時に見るポイントの比較' },
+  { file: '/kubota-article-v2/14-comparison-benefits-v2.webp', width: 864, height: 1821, alt: '5社の一時金、寮、比較時に見るポイントの比較' },
   { file: '/kubota-article-v2/15-comparison-note.webp', width: 862, height: 1824, alt: '月収例は残業や深夜勤務など条件が異なるため金額だけで単純比較できないという注意' },
   { file: '/kubota-article-v2/16-kubota-transition.webp', width: 864, height: 1821, alt: '2026年の今、総合バランスからクボタ筑波を候補に置く最大の転換点', chapter: 'kubota' },
   { file: '/kubota-article-v2/17-daily-pay.webp', width: 916, height: 1717, alt: 'クボタ筑波の日給14000円と昼勤20日、残業25時間で平均月収約34万円のモデル' },
@@ -47,12 +98,8 @@ const images: ImageSection[] = [
 const items: ArticleItem[] = [];
 images.forEach((image, index) => {
   items.push({ type: 'image', image });
-  if (index === 14) {
-    items.push({ type: 'cta', location: 'after_comparison', label: 'クボタ筑波の現在の募集条件を見る', note: '比較表の条件と、現在の募集要項を見比べられます。' });
-  }
-  if (index === 22) {
-    items.push({ type: 'cta', location: 'after_details', label: '給与・寮・仕事内容を募集要項で確認する', note: '配属・勤務帯・入寮条件は応募前に確認してください。' });
-  }
+  const cta = ctasAfterImage[index + 1];
+  if (cta) items.push(cta);
 });
 
 const canonical = new URL('/period-worker-story/', Astro.site ?? 'https://kubota.hakobu-family.com');
@@ -100,9 +147,9 @@ import Analytics from '../../components/Analytics.astro';
       ))}
 
       <section class="article-cta article-cta--final" aria-label="給与・寮・勤務条件を確認">
-        <p>応募するかどうかは、そのあとでいい。まず今の条件を見て、他社と並べて決められます。</p>
+        <p>給与・寮・勤務時間・現在の募集状況を見る</p>
         <a class="article-cta__button" href={AFFILIATE_URL} target="_blank" rel="sponsored nofollow noopener" data-affiliate data-location="final">
-          <span>クボタ筑波の現在の募集条件を見る</span><b aria-hidden="true">→</b>
+          <span>クボタ筑波工場の募集条件を確認する</span><b aria-hidden="true">→</b>
         </a>
       </section>
     </main>
@@ -175,9 +222,9 @@ import Analytics from '../../components/Analytics.astro';
   .article-image--comparison, .article-image--kubota, .article-image--decision { padding-top: 14px; background: linear-gradient(180deg, #dfe9df 0 7px, #f7f1e5 7px 100%); }
   .article-cta { position: relative; padding: 30px 22px 34px; border-block: 1px solid rgb(74 112 102 / 20%); background: #f1eadc; text-align: center; }
   .article-cta::before { content: ''; position: absolute; inset: 11px auto auto 50%; width: 52px; height: 2px; border-radius: 999px; background: #9bb8ae; transform: translateX(-50%); }
-  .article-cta p { margin: 0 0 14px; color: #4f5a54; font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 13px; font-weight: 650; line-height: 1.65; }
+  .article-cta p { margin: 0 0 14px; color: #4f5a54; font-family: 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, system-ui, sans-serif; font-size: 13px; font-weight: 650; line-height: 1.65; }
   .article-cta__button { display: grid; grid-template-columns: minmax(0, 1fr) 42px; align-items: center; gap: 8px; width: 100%; min-height: 68px; padding: 11px 12px 11px 20px; border: 1px solid #b95521; border-radius: 8px; background: #c8642b; box-shadow: 0 4px 0 #8f3b17, 0 12px 26px rgb(117 58 24 / 20%); color: #fffdf7; text-decoration: none; transform: translateY(0); transition: transform 140ms ease, box-shadow 140ms ease, background-color 140ms ease; -webkit-tap-highlight-color: transparent; }
-  .article-cta__button span { min-width: 0; font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: clamp(16px, 4.5vw, 19px); font-weight: 800; line-height: 1.45; letter-spacing: .01em; }
+  .article-cta__button span { min-width: 0; font-family: 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, system-ui, sans-serif; font-size: clamp(16px, 4.5vw, 19px); font-weight: 800; line-height: 1.45; letter-spacing: .01em; }
   .article-cta__button b { display: grid; width: 42px; height: 42px; place-items: center; border-radius: 50%; background: #fff8e9; color: #a8481d; font-family: Arial, sans-serif; font-size: 22px; line-height: 1; }
   .article-cta__button:hover { background: #d16b31; box-shadow: 0 5px 0 #8f3b17, 0 14px 30px rgb(117 58 24 / 24%); transform: translateY(-1px); }
   .article-cta__button:active { box-shadow: 0 1px 0 #8f3b17, 0 5px 12px rgb(117 58 24 / 18%); transform: translateY(3px); }
@@ -187,7 +234,7 @@ import Analytics from '../../components/Analytics.astro';
   .article-cta--final p { color: #fff8e9; }
   .article-cta--final .article-cta__button { border-color: #f0b078; background: #d36d31; box-shadow: 0 4px 0 #803814, 0 12px 28px rgb(35 28 18 / 25%); }
   .article-cta--final .article-cta__button span { font-size: clamp(15px, 4.2vw, 18px); }
-  .article-footer { width: 100%; max-width: 430px; margin: 0 auto; padding: 30px 20px 34px; border-top: 1px solid #d7cbb8; background: #f9f4e9; color: #665f52; font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 13px; line-height: 1.7; }
+  .article-footer { width: 100%; max-width: 430px; margin: 0 auto; padding: 30px 20px 34px; border-top: 1px solid #d7cbb8; background: #f9f4e9; color: #665f52; font-family: 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, system-ui, sans-serif; font-size: 13px; line-height: 1.7; }
   .article-footer__info { max-width: 360px; margin: 0 auto; }
   .article-footer__info h2 { margin: 0 0 10px; color: #3e6c63; font-size: 16px; line-height: 1.4; }
   .article-footer__info dl { display: grid; gap: 5px; margin: 0 0 12px; }
