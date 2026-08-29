@@ -1,0 +1,193 @@
+---
+import Analytics from '../../components/Analytics.astro';
+import { affiliate } from '../../data/affiliate';
+import { site } from '../../data/site';
+
+type ImageItem = { file: string; width: number; height: number; alt: string; chapter?: boolean };
+type PageItem = { type: 'image'; image: ImageItem } | { type: 'cta'; location: string; label: string; note: string; final?: boolean };
+
+const AFFILIATE_URL = affiliate.clickUrl;
+
+const heroes = {
+  cl07: { file: '/period-rejected/hero-cl07-period-reject.webp', width: 862, height: 1825, alt: '期間工に落ちたあと、応募条件と続けられる条件を確認して次を選ぶ案内' },
+  cl08: { file: '/period-rejected/hero-cl08-easy-pass.webp', width: 928, height: 1694, alt: '受かりやすさを断定せず、応募条件・仕事内容・サポートを確認する案内' },
+  fallback: { file: '/period-rejected/hero-default.webp', width: 1024, height: 1536, alt: '受かりやすさだけで選ぶ前に応募条件と続けられる条件を確認する案内' },
+} satisfies Record<string, ImageItem>;
+
+const specific = {
+  result: { file: '/period-rejected/01-one-result.webp', width: 1024, height: 1536, alt: '1社の不採用だけですべての期間工の結果は決まらないという説明' },
+  eligibility: { file: '/period-rejected/02-eligibility.webp', width: 1024, height: 1536, alt: 'クボタ筑波の現在の募集対象と雇入れ健康診断の注意' },
+  support: { file: '/period-rejected/03-application-support.webp', width: 1024, height: 1536, alt: '応募サポートの案内と合格保証ではないという注意' },
+  checks: { file: '/period-rejected/04-four-checks.webp', width: 980, height: 1605, alt: '受かった後まで考える仕事内容・給与・勤務生活・寮勤務地の4条件', chapter: true },
+  faqA: { file: '/period-rejected/10-faq-a.webp', width: 862, height: 1825, alt: '期間工の不採用、受かりやすいメーカー、未経験応募についてのFAQ' },
+  faqB: { file: '/period-rejected/11-faq-b.webp', width: 862, height: 1825, alt: 'クボタ筑波の採用、寮費、仕事のきつさについてのFAQ' },
+  final: { file: '/period-rejected/12-final.webp', width: 1024, height: 1536, alt: '受かるかだけでなく現在の募集条件と続けられる条件で判断するまとめ', chapter: true },
+} satisfies Record<string, ImageItem>;
+
+// 既存3Clusterと同じ完成画像をそのまま再利用する。画像自体は変更しない。
+const common = {
+  numbers: { file: '/lp-images-v5/01_four_numbers.webp', width: 1100, height: 1429, alt: 'クボタ筑波を判断するときの4数字' },
+  jobs: { file: '/lp-images-v5/02_jobs_reality.webp', width: 941, height: 1672, alt: '5つの仕事内容と工程ごとの負担例', chapter: true },
+  difficulty: { file: '/lp-images-v5/03_difficulty_varies.webp', width: 1042, height: 1510, alt: '同じ工場でも大変さが変わる理由' },
+  training: { file: '/lp-images-v5/04_training_assignment.webp', width: 1024, height: 1536, alt: '未経験者向け研修と配属決定の流れ' },
+  experience: { file: '/lp-images-v5/05_experience_examples.webp', width: 1008, height: 1561, alt: '仕事に慣れるまでの個人体験例' },
+  shifts: { file: '/lp-images-v5/06_shifts_payday.webp', width: 1054, height: 1492, alt: '勤務時間、休日、給料日と社会保険', chapter: true },
+  dorm: { file: '/lp-images-v5/07_dorm_confirmed.webp', width: 1019, height: 1544, alt: '寮費0円の条件と確認済みの家電' },
+  fit: { file: '/lp-images-v5/11_fit_career.webp', width: 1024, height: 1536, alt: '候補になりやすい人と1年後の3つの選択肢', chapter: true },
+  apply: { file: '/lp-images-v5/12_precheck_apply.webp', width: 1024, height: 1536, alt: '応募前の3つの確認事項と必須6項目' },
+} satisfies Record<string, ImageItem>;
+
+const image = (value: ImageItem): PageItem => ({ type: 'image', image: value });
+const cta = (location: string, label: string, note: string, final = false): PageItem => ({ type: 'cta', location, label, note, final });
+
+const items: PageItem[] = [
+  cta('hero', 'クボタ筑波の現在の募集条件を確認する', '応募条件・仕事内容・給与・寮などを確認できます'),
+  image(specific.result), image(specific.eligibility), image(specific.support),
+  cta('after_support', '応募条件とサポート内容を確認する', '採用を保証するものではありません。現在の案内をご確認ください'),
+  image(specific.checks), image(common.numbers),
+  cta('after_pay', '現在の給与・手当条件を確認する', '日給・月収例・満期慰労金・祝儀の最新条件を見る'),
+  image(common.jobs), image(common.difficulty), image(common.training), image(common.experience), image(common.shifts), image(common.dorm),
+  cta('after_dorm', '寮・勤務条件を含めて募集内容を見る', '入寮条件・勤務形態は応募前にご確認ください'),
+  image(common.fit), image(common.apply), image(specific.faqA), image(specific.faqB), image(specific.final),
+  cta('final', 'クボタ筑波工場の現在の募集条件を確認する', '募集対象・仕事内容・給与・勤務時間・寮などを確認できます', true),
+];
+
+const canonical = new URL('/period-rejected/', Astro.site ?? 'https://kubota.hakobu-family.com');
+---
+
+<!doctype html>
+<html lang="ja" data-hypothesis="PERIOD_REJECTED_DEFAULT">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#007b82" />
+    <meta name="description" content="期間工に落ちた人、受かりやすいメーカーを探している人へ。採用を断定せず、クボタ筑波の応募条件・仕事内容・給与・勤務・寮を確認して次の候補を判断します。" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href={canonical} />
+    <link rel="preload" as="image" href={heroes.fallback.file} fetchpriority="high" />
+    <title>期間工に落ちたら次はどうする？応募条件から確認｜クボタ筑波</title>
+    <script is:inline>
+      (() => {
+        let raw = '';
+        try { raw = (new URLSearchParams(location.search).get('cluster_id') || '').trim().toUpperCase(); } catch (e) {}
+        let shown = 'PERIOD_REJECTED_DEFAULT';
+        let view = 'fallback';
+        if (raw === 'CL07' || raw === 'CL07_PERIOD_REJECT') { shown = 'CL07_PERIOD_REJECT'; view = 'cl07'; }
+        if (raw === 'CL08' || raw === 'CL08_PERIOD_EASY_PASS') { shown = 'CL08_PERIOD_EASY_PASS'; view = 'cl08'; }
+        document.documentElement.dataset.hypothesis = shown;
+        document.documentElement.dataset.clusterView = view;
+        window.__periodRejectShown = shown;
+      })();
+    </script>
+    <Analytics />
+    <script is:inline>if (typeof window.gtag === 'function') window.gtag('config', 'AW-18129603657');</script>
+  </head>
+  <body>
+    <main class="rejected-lp" aria-label="クボタ筑波 期間従業員の応募不安記事LP">
+      <section class="hero-stack" aria-label="検索内容に合わせた最初の案内">
+        {Object.entries(heroes).map(([key, hero]) => (
+          <img class={`hero-image hero-image--${key}`} src={hero.file} alt={hero.alt} width={hero.width} height={hero.height} loading="eager" fetchpriority={key === 'fallback' ? 'high' : 'auto'} decoding="async" />
+        ))}
+      </section>
+
+      {items.map((item) => item.type === 'image' ? (
+        <section class:list={['rejected-section', 'rejected-image', { 'rejected-image--chapter': item.image.chapter }]} data-image={item.image.file}>
+          <img src={item.image.file} alt={item.image.alt} width={item.image.width} height={item.image.height} loading="lazy" decoding="async" />
+        </section>
+      ) : (
+        <section class:list={['rejected-section', 'rejected-cta', { 'rejected-cta--final': item.final }]} aria-label="クボタ筑波の募集内容を確認">
+          <p>{item.note}</p>
+          <a class="rejected-cta__button" href={AFFILIATE_URL} target="_blank" rel="sponsored nofollow noopener" data-affiliate data-location={item.location}>
+            <span>{item.label}</span><b aria-hidden="true">›</b>
+          </a>
+        </section>
+      ))}
+    </main>
+
+    <footer class="rejected-footer">
+      <section class="rejected-footer__info" aria-labelledby="rejected-footer-operator">
+        <h2 id="rejected-footer-operator">運営者情報</h2>
+        <dl>
+          <div><dt>サイト名</dt><dd>{site.name}</dd></div>
+          <div><dt>運営者</dt><dd>{site.operator}</dd></div>
+          <div><dt>連絡先</dt><dd><a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a></dd></div>
+          <div><dt>事業内容</dt><dd>{site.business}</dd></div>
+          <div><dt>親サイト</dt><dd><a href={site.parentUrl}>ハコぶファミリー（HAKOBU FAMILY）</a></dd></div>
+        </dl>
+        <p>当サイトはアフィリエイトプログラムを利用しており、リンク経由の応募により広告主から紹介料を受け取る場合があります。掲載内容は各社の公開情報をもとにしていますが、最新かつ正確な条件は応募先の公式情報をご確認ください。</p>
+      </section>
+      <nav class="rejected-footer__nav" aria-label="サイト内リンク"><a href="/">トップページ</a><a href="/privacy/">プライバシーポリシー</a><a href="/column/">コラム</a></nav>
+      <p class="rejected-footer__copy">{site.copyright}</p>
+    </footer>
+
+    <script is:inline>
+      (() => {
+        const params = new URLSearchParams(location.search);
+        const shown = window.__periodRejectShown || 'PERIOD_REJECTED_DEFAULT';
+        const incoming = params.get('hypothesis') || '(none)';
+        const lpPath = location.pathname;
+        const trackedKeys = ['cluster_id', 'keyword', 'matchtype', 'campaignid', 'adgroupid', 'gclid'];
+        const tracking = Object.fromEntries(trackedKeys.map((key) => [key, params.get(key) || '']));
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: 'lp_view', hypothesis: incoming, hypothesis_shown: shown, lp: lpPath, ...tracking });
+        if (typeof window.gtag === 'function') window.gtag('event', 'lp_view', { debug_mode: !!window.__ga_debug, hypothesis: incoming, hypothesis_shown: shown, lp: lpPath, ...tracking });
+        (function tagClarity(tries) {
+          if (typeof window.clarity === 'function') { window.clarity('set', 'hypothesis', shown); window.clarity('set', 'lp', lpPath); return; }
+          if (tries < 20) setTimeout(() => tagClarity(tries + 1), 500);
+        })(0);
+        document.querySelectorAll('[data-affiliate]').forEach((link) => {
+          link.addEventListener('click', () => {
+            const payload = { debug_mode: !!window.__ga_debug, hypothesis: incoming, hypothesis_shown: shown, lp: lpPath, cta_location: link.dataset.location || '', cta_label: (link.textContent || '').trim().slice(0, 60), ...tracking };
+            window.dataLayer.push({ event: 'mcv_click', ...payload });
+            if (typeof window.gtag === 'function') window.gtag('event', 'mcv_click', payload);
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(html), :global(body) { margin: 0; padding: 0; overflow-x: clip; }
+  :global(body) { background: #eef5f4; color: #1a2725; }
+  .rejected-lp { --surface: #eef7f7; --rule: #b9dedd; width: 100%; max-width: 430px; margin: 0 auto; overflow: hidden; background: #fff; box-shadow: 0 0 36px rgb(0 66 71 / 10%); }
+  .hero-stack, .rejected-section { position: relative; width: 100%; margin: 0; padding: 0; background: #fff; }
+  .hero-image { display: none; width: 100%; height: auto; border: 0; }
+  :global(html[data-cluster-view='cl07']) .hero-image--cl07,
+  :global(html[data-cluster-view='cl08']) .hero-image--cl08,
+  :global(html[data-cluster-view='fallback']) .hero-image--fallback { display: block; }
+  .rejected-image { overflow: hidden; font-size: 0; line-height: 0; }
+  .rejected-image + .rejected-image { margin-top: -1px; }
+  .rejected-image img { display: block; width: 100%; height: auto; margin: 0; border: 0; vertical-align: top; }
+  .rejected-image--chapter { margin-top: 0 !important; padding-top: 20px; background: var(--surface); }
+  .rejected-image--chapter::before { content: ''; position: absolute; top: 9px; left: 50%; width: 52px; height: 2px; border-radius: 999px; background: var(--rule); transform: translateX(-50%); }
+  .rejected-cta { padding: 20px 22px 24px; background: #f3faf9; text-align: center; }
+  .rejected-cta p { margin: 0 0 12px; color: #526c68; font-family: 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, system-ui, sans-serif; font-size: 13px; font-weight: 650; line-height: 1.6; }
+  .rejected-cta__button { display: grid; grid-template-columns: minmax(0, 1fr) 44px; align-items: center; gap: 10px; width: 100%; min-height: 76px; padding: 12px 14px 12px 22px; border: 1px solid #ff6a00; border-radius: 999px; background: linear-gradient(180deg, #ff741a, #ff5a00); box-shadow: 0 5px 0 #cf4100, 0 10px 24px rgb(255 91 0 / 22%); color: #fff; text-decoration: none; transform: translateY(0); transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease; -webkit-tap-highlight-color: transparent; }
+  .rejected-cta__button span { min-width: 0; font-family: 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, system-ui, sans-serif; font-size: clamp(16px, 4.6vw, 20px); font-weight: 800; line-height: 1.35; letter-spacing: .01em; }
+  .rejected-cta__button b { display: grid; place-items: center; width: 44px; height: 44px; padding-bottom: 4px; border-radius: 50%; background: #fff; color: #ff5a00; font: 700 36px/1 Arial, sans-serif; transition: transform 140ms ease; }
+  .rejected-cta__button:hover { filter: brightness(1.035); transform: translateY(-1px); box-shadow: 0 6px 0 #cf4100, 0 12px 28px rgb(255 91 0 / 26%); }
+  .rejected-cta__button:hover b { transform: translateX(2px); }
+  .rejected-cta__button:active { transform: translateY(4px); box-shadow: 0 1px 0 #cf4100, 0 4px 10px rgb(255 91 0 / 18%); }
+  .rejected-cta__button:focus-visible { outline: 4px solid rgb(0 150 136 / 38%); outline-offset: 4px; }
+  .rejected-cta--final { padding-block: 30px 38px; background: #0b7177; }
+  .rejected-cta--final p { color: #e9ffff; }
+  .rejected-footer { width: 100%; max-width: 430px; margin: 0 auto; padding: 28px 20px 32px; border-top: 1px solid #d8e7e5; background: #fff; color: #5c6e6b; font-family: 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, system-ui, sans-serif; font-size: 13px; line-height: 1.7; }
+  .rejected-footer__info { max-width: 360px; margin: 0 auto; }
+  .rejected-footer__info h2 { margin: 0 0 10px; color: #075f68; font-size: 16px; line-height: 1.4; }
+  .rejected-footer__info dl { display: grid; gap: 5px; margin: 0 0 12px; }
+  .rejected-footer__info dl > div { display: grid; grid-template-columns: 5.5em minmax(0, 1fr); gap: 12px; }
+  .rejected-footer__info dt, .rejected-footer__info dd { margin: 0; }
+  .rejected-footer__info dt { color: #6f807d; }
+  .rejected-footer__info dd { color: #263b38; }
+  .rejected-footer a { color: #075f68; text-decoration: underline; text-underline-offset: .18em; }
+  .rejected-footer a:focus-visible { outline: 3px solid #ff8b33; outline-offset: 3px; }
+  .rejected-footer__info p { margin: 0; }
+  .rejected-footer__nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 16px; margin: 20px 0 14px; padding-top: 16px; border-top: 1px solid #e3eeec; }
+  .rejected-footer__nav a { display: inline-flex; align-items: center; min-height: 44px; }
+  .rejected-footer__copy { margin: 0; color: #6f807d; font-size: 12px; text-align: center; }
+  @media (prefers-reduced-motion: reduce) { .rejected-cta__button, .rejected-cta__button b { transition: none; } }
+  @media (max-width: 430px) { .rejected-lp { box-shadow: none; } }
+  @media (max-width: 350px) { .rejected-cta { padding-inline: 14px; } .rejected-cta__button { grid-template-columns: minmax(0, 1fr) 40px; padding-left: 16px; } .rejected-cta__button b { width: 40px; height: 40px; } }
+</style>
