@@ -56,6 +56,7 @@ images.forEach((image, index) => {
 });
 
 const canonical = new URL('/period-worker-story/', Astro.site ?? 'https://kubota.hakobu-family.com');
+import Analytics from '../../components/Analytics.astro';
 ---
 
 <!doctype html>
@@ -69,13 +70,10 @@ const canonical = new URL('/period-worker-story/', Astro.site ?? 'https://kubota
     <link rel="canonical" href={canonical} />
     <link rel="preload" as="image" href={images[0].file} fetchpriority="high" />
     <title>期間工を7年やって分かった。今ならクボタ筑波を候補の上に置く理由</title>
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-2YLF06DC0E"></script>
+    <Analytics />
     <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-2YLF06DC0E');
-      gtag('config', 'AW-18129603657');
+      // Google広告のコンバージョンタグ。GA4とClarityは Analytics.astro に集約。
+      if (typeof window.gtag === 'function') window.gtag('config', 'AW-18129603657');
     </script>
   </head>
   <body data-lp="period-worker-story" data-hypothesis="ARTICLE_STORY">
@@ -133,12 +131,28 @@ const canonical = new URL('/period-worker-story/', Astro.site ?? 'https://kubota
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({ event: 'lp_view', hypothesis: 'ARTICLE_STORY', lp: 'period-worker-story', ...tracking });
         if (typeof window.gtag === 'function') window.gtag('event', 'lp_view', { hypothesis: 'ARTICLE_STORY', lp: 'period-worker-story', ...tracking});
+        // Clarityにも仮説とLPをタグ付けし、録画を絞り込めるようにする（LP1/LP2と同じ扱い）
+        (function tagClarity(tries) {
+          if (typeof window.clarity === 'function') {
+            window.clarity('set', 'hypothesis', 'ARTICLE_STORY');
+            window.clarity('set', 'lp', 'period-worker-story');
+            return;
+          }
+          if (tries < 20) setTimeout(function () { tagClarity(tries + 1); }, 500);
+        })(0);
         document.querySelectorAll('[data-affiliate]').forEach((link) => {
+          // もしもの計測URLは書き換えない。付与したパラメータが転送を壊す可能性があるため、
+          // 流入情報の紐付けはGA4イベント側（下の cta_click）で行う。
           const destination = new URL(link.href);
-          trackedKeys.forEach((key) => { const value = params.get(key); if (value) destination.searchParams.set(key, value); });
-          destination.searchParams.set('hypothesis', 'ARTICLE_STORY');
-          destination.searchParams.set('lp', 'period-worker-story');
-          link.href = destination.toString();
+          const isMoshimo = destination.hostname.endsWith('moshimo.com');
+          if (!isMoshimo) {
+            trackedKeys.forEach((key) => { const value = params.get(key); if (value) destination.searchParams.set(key, value); });
+          }
+          if (!isMoshimo) {
+            destination.searchParams.set('hypothesis', 'ARTICLE_STORY');
+            destination.searchParams.set('lp', 'period-worker-story');
+            link.href = destination.toString();
+          }
           link.addEventListener('click', () => { window.dataLayer.push({ event: 'cta_click', hypothesis: 'ARTICLE_STORY', lp: 'period-worker-story', cta_location: link.dataset.location || '', ...tracking }); if (typeof window.gtag === 'function') window.gtag('event', 'cta_click', { hypothesis: 'ARTICLE_STORY', lp: 'period-worker-story', cta_location: link.dataset.location || '', ...tracking}); });
         });
       })();
