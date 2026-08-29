@@ -132,7 +132,7 @@ import Analytics from '../../components/Analytics.astro';
         const tracking = Object.fromEntries(trackedKeys.map((key) => [key, params.get(key) || '']));
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({ event: 'lp_view', hypothesis: 'ARTICLE_STORY', lp: lpPath, ...tracking });
-        if (typeof window.gtag === 'function') window.gtag('event', 'lp_view', { hypothesis: 'ARTICLE_STORY', lp: lpPath, ...tracking});
+        if (typeof window.gtag === 'function') window.gtag('event', 'lp_view', { debug_mode: !!window.__ga_debug, hypothesis: 'ARTICLE_STORY', lp: lpPath, ...tracking});
         // Clarityにも仮説とLPをタグ付けし、録画を絞り込めるようにする（LP1/LP2と同じ扱い）
         (function tagClarity(tries) {
           if (typeof window.clarity === 'function') {
@@ -155,7 +155,7 @@ import Analytics from '../../components/Analytics.astro';
             destination.searchParams.set('lp', 'period-worker-story');
             link.href = destination.toString();
           }
-          link.addEventListener('click', () => { window.dataLayer.push({ event: 'mcv_click', hypothesis: 'ARTICLE_STORY', lp: lpPath, cta_location: link.dataset.location || '', cta_label: (link.textContent || '').trim().slice(0, 60), ...tracking }); if (typeof window.gtag === 'function') window.gtag('event', 'mcv_click', { hypothesis: 'ARTICLE_STORY', lp: lpPath, cta_location: link.dataset.location || '', cta_label: (link.textContent || '').trim().slice(0, 60), ...tracking}); });
+          link.addEventListener('click', () => { window.dataLayer.push({ event: 'mcv_click', hypothesis: 'ARTICLE_STORY', lp: lpPath, cta_location: link.dataset.location || '', cta_label: (link.textContent || '').trim().slice(0, 60), ...tracking }); if (typeof window.gtag === 'function') window.gtag('event', 'mcv_click', { debug_mode: !!window.__ga_debug, hypothesis: 'ARTICLE_STORY', lp: lpPath, cta_location: link.dataset.location || '', cta_label: (link.textContent || '').trim().slice(0, 60), ...tracking}); });
         });
       })();
     </script>
