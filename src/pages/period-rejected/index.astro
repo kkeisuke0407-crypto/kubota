@@ -4,7 +4,8 @@ import { affiliate } from '../../data/affiliate';
 import { site } from '../../data/site';
 
 type ImageItem = { file: string; width: number; height: number; alt: string; chapter?: boolean };
-type PageItem = { type: 'image'; image: ImageItem } | { type: 'cta'; location: string; label: string; note: string; final?: boolean };
+type ClusterView = 'cl07' | 'cl08' | 'fallback';
+type PageItem = { type: 'image'; image: ImageItem; views?: ClusterView[] } | { type: 'cta'; location: string; label: string; note: string; final?: boolean };
 
 const AFFILIATE_URL = affiliate.clickUrl;
 
@@ -16,11 +17,15 @@ const heroes = {
 
 const specific = {
   result: { file: '/period-rejected/01-one-result.webp', width: 1024, height: 1536, alt: '1社の不採用だけですべての期間工の結果は決まらないという説明' },
+  easyPassAnswer: { file: '/period-rejected/01-first-answer-cl08.webp', width: 1024, height: 1536, alt: '受かりやすさだけで決めず、募集対象・未経験応募・選考前サポートを確認する説明' },
   eligibility: { file: '/period-rejected/02-eligibility.webp', width: 1024, height: 1536, alt: 'クボタ筑波の現在の募集対象と雇入れ健康診断の注意' },
   support: { file: '/period-rejected/03-application-support.webp', width: 1024, height: 1536, alt: '応募サポートの案内と合格保証ではないという注意' },
+  whyKubota: { file: '/period-rejected/04-why-kubota.webp', width: 1024, height: 1536, alt: '次の応募候補としてクボタ筑波を見る4つの理由' },
   checks: { file: '/period-rejected/04-four-checks.webp', width: 980, height: 1605, alt: '受かった後まで考える仕事内容・給与・勤務生活・寮勤務地の4条件', chapter: true },
   faqA: { file: '/period-rejected/10-faq-a.webp', width: 862, height: 1825, alt: '期間工の不採用、受かりやすいメーカー、未経験応募についてのFAQ' },
+  faqEasyPass: { file: '/period-rejected/10-faq-cl08.webp', width: 862, height: 1825, alt: '受かりやすい期間工の選び方、メーカー比較、未経験応募についてのFAQ' },
   faqB: { file: '/period-rejected/11-faq-b.webp', width: 862, height: 1825, alt: 'クボタ筑波の採用、寮費、仕事のきつさについてのFAQ' },
+  candidate: { file: '/period-rejected/09-next-candidate.webp', width: 864, height: 1821, alt: 'クボタ筑波を次の応募候補として確認しやすい人のチェック項目', chapter: true },
   final: { file: '/period-rejected/12-final.webp', width: 1024, height: 1536, alt: '受かるかだけでなく現在の募集条件と続けられる条件で判断するまとめ', chapter: true },
 } satisfies Record<string, ImageItem>;
 
@@ -33,22 +38,21 @@ const common = {
   experience: { file: '/lp-images-v5/05_experience_examples.webp', width: 1008, height: 1561, alt: '仕事に慣れるまでの個人体験例' },
   shifts: { file: '/lp-images-v5/06_shifts_payday.webp', width: 1054, height: 1492, alt: '勤務時間、休日、給料日と社会保険', chapter: true },
   dorm: { file: '/lp-images-v5/07_dorm_confirmed.webp', width: 1019, height: 1544, alt: '寮費0円の条件と確認済みの家電' },
-  fit: { file: '/lp-images-v5/11_fit_career.webp', width: 1024, height: 1536, alt: '候補になりやすい人と1年後の3つの選択肢', chapter: true },
   apply: { file: '/lp-images-v5/12_precheck_apply.webp', width: 1024, height: 1536, alt: '応募前の3つの確認事項と必須6項目' },
 } satisfies Record<string, ImageItem>;
 
-const image = (value: ImageItem): PageItem => ({ type: 'image', image: value });
+const image = (value: ImageItem, views?: ClusterView[]): PageItem => ({ type: 'image', image: value, views });
 const cta = (location: string, label: string, note: string, final = false): PageItem => ({ type: 'cta', location, label, note, final });
 
 const items: PageItem[] = [
   cta('hero', 'クボタ筑波の現在の募集条件を確認する', '応募条件・仕事内容・給与・寮などを確認できます'),
-  image(specific.result), image(specific.eligibility), image(specific.support),
+  image(specific.result, ['cl07']), image(specific.easyPassAnswer, ['cl08', 'fallback']), image(specific.eligibility), image(specific.support), image(specific.whyKubota),
   cta('after_support', '応募条件とサポート内容を確認する', '採用を保証するものではありません。現在の案内をご確認ください'),
   image(specific.checks), image(common.numbers),
   cta('after_pay', '現在の給与・手当条件を確認する', '日給・月収例・満期慰労金・祝儀の最新条件を見る'),
   image(common.jobs), image(common.difficulty), image(common.training), image(common.experience), image(common.shifts), image(common.dorm),
   cta('after_dorm', '寮・勤務条件を含めて募集内容を見る', '入寮条件・勤務形態は応募前にご確認ください'),
-  image(common.fit), image(common.apply), image(specific.faqA), image(specific.faqB), image(specific.final),
+  image(specific.candidate), image(common.apply), image(specific.faqA, ['cl07']), image(specific.faqEasyPass, ['cl08', 'fallback']), image(specific.faqB), image(specific.final),
   cta('final', 'クボタ筑波工場の現在の募集条件を確認する', '募集対象・仕事内容・給与・勤務時間・寮などを確認できます', true),
 ];
 
@@ -64,7 +68,6 @@ const canonical = new URL('/period-rejected/', Astro.site ?? 'https://kubota.hak
     <meta name="description" content="期間工に落ちた人、受かりやすいメーカーを探している人へ。採用を断定せず、クボタ筑波の応募条件・仕事内容・給与・勤務・寮を確認して次の候補を判断します。" />
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <link rel="canonical" href={canonical} />
-    <link rel="preload" as="image" href={heroes.fallback.file} fetchpriority="high" />
     <title>期間工に落ちたら次はどうする？応募条件から確認｜クボタ筑波</title>
     <script is:inline>
       (() => {
@@ -76,7 +79,25 @@ const canonical = new URL('/period-rejected/', Astro.site ?? 'https://kubota.hak
         if (raw === 'CL08' || raw === 'CL08_PERIOD_EASY_PASS') { shown = 'CL08_PERIOD_EASY_PASS'; view = 'cl08'; }
         document.documentElement.dataset.hypothesis = shown;
         document.documentElement.dataset.clusterView = view;
+        const heroByView = {
+          cl07: { file: '/period-rejected/hero-cl07-period-reject.webp', width: 862, height: 1825, alt: '期間工に落ちたあと、応募条件と続けられる条件を確認して次を選ぶ案内' },
+          cl08: { file: '/period-rejected/hero-cl08-easy-pass.webp', width: 928, height: 1694, alt: '受かりやすさを断定せず、応募条件・仕事内容・サポートを確認する案内' },
+          fallback: { file: '/period-rejected/hero-default.webp', width: 1024, height: 1536, alt: '受かりやすさだけで選ぶ前に応募条件と続けられる条件を確認する案内' },
+        };
+        const hero = heroByView[view];
+        const preload = document.createElement('link');
+        preload.rel = 'preload';
+        preload.as = 'image';
+        preload.href = hero.file;
+        preload.fetchPriority = 'high';
+        document.head.appendChild(preload);
+        if (view === 'cl08') document.title = '受かりやすい期間工は？応募条件から比較｜クボタ筑波';
+        if (view === 'fallback') document.title = '期間工の応募条件を確認｜クボタ筑波';
+        window.__periodRejectHero = hero;
         window.__periodRejectShown = shown;
+        window.__periodRejectAfterSupportLabel = view === 'cl07'
+          ? '次の応募先として候補になるか確認する'
+          : '応募条件とサポート内容を確認する';
       })();
     </script>
     <Analytics />
@@ -85,20 +106,30 @@ const canonical = new URL('/period-rejected/', Astro.site ?? 'https://kubota.hak
   <body>
     <main class="rejected-lp" aria-label="クボタ筑波 期間従業員の応募不安記事LP">
       <section class="hero-stack" aria-label="検索内容に合わせた最初の案内">
-        {Object.entries(heroes).map(([key, hero]) => (
-          <img class={`hero-image hero-image--${key}`} src={hero.file} alt={hero.alt} width={hero.width} height={hero.height} loading="eager" fetchpriority={key === 'fallback' ? 'high' : 'auto'} decoding="async" />
-        ))}
+        <img id="cluster-hero" class="hero-image" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="" width={heroes.fallback.width} height={heroes.fallback.height} loading="eager" fetchpriority="high" decoding="async" />
+        <script is:inline>
+          (() => {
+            const image = document.getElementById('cluster-hero');
+            const hero = window.__periodRejectHero;
+            if (!image || !hero) return;
+            image.alt = hero.alt;
+            image.width = hero.width;
+            image.height = hero.height;
+            image.src = hero.file;
+          })();
+        </script>
+        <noscript><img class="hero-image" src={heroes.fallback.file} alt={heroes.fallback.alt} width={heroes.fallback.width} height={heroes.fallback.height} /></noscript>
       </section>
 
       {items.map((item) => item.type === 'image' ? (
-        <section class:list={['rejected-section', 'rejected-image', { 'rejected-image--chapter': item.image.chapter }]} data-image={item.image.file}>
+        <section class:list={['rejected-section', 'rejected-image', { 'rejected-image--chapter': item.image.chapter, 'cluster-conditional': item.views }]} data-image={item.image.file} data-views={item.views?.join(' ')}>
           <img src={item.image.file} alt={item.image.alt} width={item.image.width} height={item.image.height} loading="lazy" decoding="async" />
         </section>
       ) : (
         <section class:list={['rejected-section', 'rejected-cta', { 'rejected-cta--final': item.final }]} aria-label="クボタ筑波の募集内容を確認">
           <p>{item.note}</p>
           <a class="rejected-cta__button" href={AFFILIATE_URL} target="_blank" rel="sponsored nofollow noopener" data-affiliate data-location={item.location}>
-            <span>{item.label}</span><b aria-hidden="true">›</b>
+            <span data-dynamic-label={item.location === 'after_support' ? '' : undefined}>{item.label}</span><b aria-hidden="true">›</b>
           </a>
         </section>
       ))}
@@ -124,6 +155,8 @@ const canonical = new URL('/period-rejected/', Astro.site ?? 'https://kubota.hak
       (() => {
         const params = new URLSearchParams(location.search);
         const shown = window.__periodRejectShown || 'PERIOD_REJECTED_DEFAULT';
+        const dynamicLabel = document.querySelector('[data-dynamic-label]');
+        if (dynamicLabel) dynamicLabel.textContent = window.__periodRejectAfterSupportLabel || dynamicLabel.textContent;
         const incoming = params.get('hypothesis') || '(none)';
         const lpPath = location.pathname;
         const trackedKeys = ['cluster_id', 'keyword', 'matchtype', 'campaignid', 'adgroupid', 'gclid'];
@@ -153,10 +186,11 @@ const canonical = new URL('/period-rejected/', Astro.site ?? 'https://kubota.hak
   :global(body) { background: #eef5f4; color: #1a2725; }
   .rejected-lp { --surface: #eef7f7; --rule: #b9dedd; width: 100%; max-width: 430px; margin: 0 auto; overflow: hidden; background: #fff; box-shadow: 0 0 36px rgb(0 66 71 / 10%); }
   .hero-stack, .rejected-section { position: relative; width: 100%; margin: 0; padding: 0; background: #fff; }
-  .hero-image { display: none; width: 100%; height: auto; border: 0; }
-  :global(html[data-cluster-view='cl07']) .hero-image--cl07,
-  :global(html[data-cluster-view='cl08']) .hero-image--cl08,
-  :global(html[data-cluster-view='fallback']) .hero-image--fallback { display: block; }
+  .hero-image { display: block; width: 100%; height: auto; border: 0; }
+  .cluster-conditional { display: none; }
+  :global(html[data-cluster-view='cl07']) .cluster-conditional[data-views~='cl07'],
+  :global(html[data-cluster-view='cl08']) .cluster-conditional[data-views~='cl08'],
+  :global(html[data-cluster-view='fallback']) .cluster-conditional[data-views~='fallback'] { display: block; }
   .rejected-image { overflow: hidden; font-size: 0; line-height: 0; }
   .rejected-image + .rejected-image { margin-top: -1px; }
   .rejected-image img { display: block; width: 100%; height: auto; margin: 0; border: 0; vertical-align: top; }
