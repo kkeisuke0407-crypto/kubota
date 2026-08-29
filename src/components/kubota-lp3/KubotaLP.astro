@@ -122,13 +122,14 @@ const renderItems: PageItem[] = [
         const tracking = Object.fromEntries(trackedKeys.map((key) => [key, params.get(key) || '']));
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({ event: 'lp_view', hypothesis, lp, ...tracking });
+        if (typeof window.gtag === 'function') window.gtag('event', 'lp_view', { hypothesis, lp, ...tracking});
         document.querySelectorAll('[data-affiliate]').forEach((link) => {
           const destination = new URL(link.href);
           trackedKeys.forEach((key) => { const value = params.get(key); if (value) destination.searchParams.set(key, value); });
           destination.searchParams.set('hypothesis', hypothesis);
           destination.searchParams.set('lp', lp);
           link.href = destination.toString();
-          link.addEventListener('click', () => window.dataLayer.push({ event: 'cta_click', hypothesis, lp, cta_location: link.dataset.location || '', ...tracking }));
+          link.addEventListener('click', () => { window.dataLayer.push({ event: 'cta_click', hypothesis, lp, cta_location: link.dataset.location || '', ...tracking }); if (typeof window.gtag === 'function') window.gtag('event', 'cta_click', { hypothesis, lp, cta_location: link.dataset.location || '', ...tracking}); });
         });
       })();
     </script>
