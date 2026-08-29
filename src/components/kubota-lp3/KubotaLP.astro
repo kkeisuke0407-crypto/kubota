@@ -116,23 +116,25 @@ import Analytics from '../../components/Analytics.astro';
     <script is:inline define:vars={{ hypothesis: cluster.id, lp: cluster.slug }}>
       (() => {
         const params = new URLSearchParams(location.search);
+        // lp は LP1/LP2 と同じくパスで統一する（GA4のディメンションを揃えるため）
+        const lpPath = location.pathname;
         const trackedKeys = ['cluster_id', 'keyword', 'matchtype', 'campaignid', 'adgroupid', 'gclid'];
         const tracking = Object.fromEntries(trackedKeys.map((key) => [key, params.get(key) || '']));
         window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({ event: 'lp_view', hypothesis, lp, ...tracking });
-        if (typeof window.gtag === 'function') window.gtag('event', 'lp_view', { hypothesis, lp, ...tracking});
+        window.dataLayer.push({ event: 'lp_view', hypothesis, lp: lpPath, ...tracking });
+        if (typeof window.gtag === 'function') window.gtag('event', 'lp_view', { hypothesis, lp: lpPath, ...tracking});
         // Clarityにも仮説とLPをタグ付けし、録画を絞り込めるようにする（LP1/LP2と同じ扱い）
         (function tagClarity(tries) {
           if (typeof window.clarity === 'function') {
             window.clarity('set', 'hypothesis', hypothesis);
-            window.clarity('set', 'lp', lp);
+            window.clarity('set', 'lp', lpPath);
             return;
           }
           if (tries < 20) setTimeout(function () { tagClarity(tries + 1); }, 500);
         })(0);
         document.querySelectorAll('[data-affiliate]').forEach((link) => {
           // もしもの計測URLは書き換えない。付与したパラメータが転送を壊す可能性があるため、
-          // 流入情報の紐付けはGA4イベント側（下の cta_click）で行う。
+          // 流入情報の紐付けはGA4イベント側（下の mcv_click）で行う。
           const destination = new URL(link.href);
           const isMoshimo = destination.hostname.endsWith('moshimo.com');
           if (!isMoshimo) {
@@ -143,7 +145,7 @@ import Analytics from '../../components/Analytics.astro';
             destination.searchParams.set('lp', lp);
             link.href = destination.toString();
           }
-          link.addEventListener('click', () => { window.dataLayer.push({ event: 'cta_click', hypothesis, lp, cta_location: link.dataset.location || '', ...tracking }); if (typeof window.gtag === 'function') window.gtag('event', 'cta_click', { hypothesis, lp, cta_location: link.dataset.location || '', ...tracking}); });
+          link.addEventListener('click', () => { window.dataLayer.push({ event: 'mcv_click', hypothesis, lp: lpPath, cta_location: link.dataset.location || '', cta_label: (link.textContent || '').trim().slice(0, 60), ...tracking }); if (typeof window.gtag === 'function') window.gtag('event', 'mcv_click', { hypothesis, lp: lpPath, cta_location: link.dataset.location || '', cta_label: (link.textContent || '').trim().slice(0, 60), ...tracking}); });
         });
       })();
     </script>
