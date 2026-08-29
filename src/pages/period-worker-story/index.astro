@@ -128,15 +128,17 @@ import Analytics from '../../components/Analytics.astro';
         const params = new URLSearchParams(location.search);
         // lp は LP1/LP2 と同じくパスで統一する（GA4のディメンションを揃えるため）
         const lpPath = location.pathname;
-        const trackedKeys = ['keyword', 'matchtype', 'campaignid', 'adgroupid', 'gclid'];
+        const shown = 'ARTICLE_STORY';
+        const incoming = params.get('hypothesis') || '(none)';
+        const trackedKeys = ['cluster_id', 'keyword', 'matchtype', 'campaignid', 'adgroupid', 'gclid'];
         const tracking = Object.fromEntries(trackedKeys.map((key) => [key, params.get(key) || '']));
         window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({ event: 'lp_view', hypothesis: 'ARTICLE_STORY', lp: lpPath, ...tracking });
-        if (typeof window.gtag === 'function') window.gtag('event', 'lp_view', { debug_mode: !!window.__ga_debug, hypothesis: 'ARTICLE_STORY', lp: lpPath, ...tracking});
+        window.dataLayer.push({ event: 'lp_view', hypothesis: incoming, hypothesis_shown: shown, lp: lpPath, ...tracking });
+        if (typeof window.gtag === 'function') window.gtag('event', 'lp_view', { debug_mode: !!window.__ga_debug, hypothesis: incoming, hypothesis_shown: shown, lp: lpPath, ...tracking});
         // Clarityにも仮説とLPをタグ付けし、録画を絞り込めるようにする（LP1/LP2と同じ扱い）
         (function tagClarity(tries) {
           if (typeof window.clarity === 'function') {
-            window.clarity('set', 'hypothesis', 'ARTICLE_STORY');
+            window.clarity('set', 'hypothesis', shown);
             window.clarity('set', 'lp', lpPath);
             return;
           }
@@ -155,7 +157,7 @@ import Analytics from '../../components/Analytics.astro';
             destination.searchParams.set('lp', 'period-worker-story');
             link.href = destination.toString();
           }
-          link.addEventListener('click', () => { window.dataLayer.push({ event: 'mcv_click', hypothesis: 'ARTICLE_STORY', lp: lpPath, cta_location: link.dataset.location || '', cta_label: (link.textContent || '').trim().slice(0, 60), ...tracking }); if (typeof window.gtag === 'function') window.gtag('event', 'mcv_click', { debug_mode: !!window.__ga_debug, hypothesis: 'ARTICLE_STORY', lp: lpPath, cta_location: link.dataset.location || '', cta_label: (link.textContent || '').trim().slice(0, 60), ...tracking}); });
+          link.addEventListener('click', () => { window.dataLayer.push({ event: 'mcv_click', hypothesis: incoming, hypothesis_shown: shown, lp: lpPath, cta_location: link.dataset.location || '', cta_label: (link.textContent || '').trim().slice(0, 60), ...tracking }); if (typeof window.gtag === 'function') window.gtag('event', 'mcv_click', { debug_mode: !!window.__ga_debug, hypothesis: incoming, hypothesis_shown: shown, lp: lpPath, cta_location: link.dataset.location || '', cta_label: (link.textContent || '').trim().slice(0, 60), ...tracking}); });
         });
       })();
     </script>
