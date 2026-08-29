@@ -62,6 +62,7 @@ const renderItems: PageItem[] = [
   cta('hero', '現在の募集条件を見る'),
   ...itemsByCluster[clusterId],
 ];
+import Analytics from '../../components/Analytics.astro';
 ---
 
 <!doctype html>
@@ -75,13 +76,10 @@ const renderItems: PageItem[] = [
     <link rel="canonical" href={canonical} />
     <link rel="preload" as="image" href={heroByCluster[clusterId].file} fetchpriority="high" />
     <title>{cluster.pageTitle}</title>
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-2YLF06DC0E"></script>
+    <Analytics />
     <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-2YLF06DC0E');
-      gtag('config', 'AW-18129603657');
+      // Google広告のコンバージョンタグ。GA4とClarityは Analytics.astro に集約。
+      if (typeof window.gtag === 'function') window.gtag('config', 'AW-18129603657');
     </script>
   </head>
   <body data-hypothesis={cluster.id} data-lp={cluster.slug}>
@@ -123,12 +121,28 @@ const renderItems: PageItem[] = [
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({ event: 'lp_view', hypothesis, lp, ...tracking });
         if (typeof window.gtag === 'function') window.gtag('event', 'lp_view', { hypothesis, lp, ...tracking});
+        // Clarityにも仮説とLPをタグ付けし、録画を絞り込めるようにする（LP1/LP2と同じ扱い）
+        (function tagClarity(tries) {
+          if (typeof window.clarity === 'function') {
+            window.clarity('set', 'hypothesis', hypothesis);
+            window.clarity('set', 'lp', lp);
+            return;
+          }
+          if (tries < 20) setTimeout(function () { tagClarity(tries + 1); }, 500);
+        })(0);
         document.querySelectorAll('[data-affiliate]').forEach((link) => {
+          // もしもの計測URLは書き換えない。付与したパラメータが転送を壊す可能性があるため、
+          // 流入情報の紐付けはGA4イベント側（下の cta_click）で行う。
           const destination = new URL(link.href);
-          trackedKeys.forEach((key) => { const value = params.get(key); if (value) destination.searchParams.set(key, value); });
-          destination.searchParams.set('hypothesis', hypothesis);
-          destination.searchParams.set('lp', lp);
-          link.href = destination.toString();
+          const isMoshimo = destination.hostname.endsWith('moshimo.com');
+          if (!isMoshimo) {
+            trackedKeys.forEach((key) => { const value = params.get(key); if (value) destination.searchParams.set(key, value); });
+          }
+          if (!isMoshimo) {
+            destination.searchParams.set('hypothesis', hypothesis);
+            destination.searchParams.set('lp', lp);
+            link.href = destination.toString();
+          }
           link.addEventListener('click', () => { window.dataLayer.push({ event: 'cta_click', hypothesis, lp, cta_location: link.dataset.location || '', ...tracking }); if (typeof window.gtag === 'function') window.gtag('event', 'cta_click', { hypothesis, lp, cta_location: link.dataset.location || '', ...tracking}); });
         });
       })();

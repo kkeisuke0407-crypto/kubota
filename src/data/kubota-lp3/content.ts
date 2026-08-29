@@ -1,5 +1,7 @@
-export const AFFILIATE_URL =
-  'https://www.3aaa-s.co.jp/kubota-afi2/?cid=c01m0f9d62fj2dn83jy5zf7vmcf&p=pifbkvg6zsvp';
+import { affiliate } from '../affiliate';
+
+// 全LP共通のもしもアフィリエイト計測リンク（src/data/affiliate.ts で一元管理）。
+export const AFFILIATE_URL = affiliate.clickUrl;
 
 export const kubotaFacts = {
   dailyPayInitial: 14_000,
