@@ -65,10 +65,10 @@ const canonical = new URL('/period-rejected/', Astro.site ?? 'https://kubota.hak
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#007b82" />
-    <meta name="description" content="期間工に落ちた人、受かりやすいメーカーを探している人へ。採用を断定せず、クボタ筑波の応募条件・仕事内容・給与・勤務・寮を確認して次の候補を判断します。" />
+    <meta id="page-description" name="description" content="期間工に落ちた人、受かりやすいメーカーを探している人へ。採用を断定せず、クボタ筑波の応募条件・仕事内容・給与・勤務・寮を確認して次の候補を判断します。" />
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <link rel="canonical" href={canonical} />
-    <title>期間工に落ちたら次はどうする？応募条件から確認｜クボタ筑波</title>
+    <title>期間工の応募条件・仕事内容・給与を確認｜クボタ筑波</title>
     <script is:inline>
       (() => {
         let raw = '';
@@ -91,8 +91,9 @@ const canonical = new URL('/period-rejected/', Astro.site ?? 'https://kubota.hak
         preload.href = hero.file;
         preload.fetchPriority = 'high';
         document.head.appendChild(preload);
-        if (view === 'cl08') document.title = '受かりやすい期間工は？応募条件から比較｜クボタ筑波';
-        if (view === 'fallback') document.title = '期間工の応募条件を確認｜クボタ筑波';
+        const description = document.getElementById('page-description');
+        if (view === 'cl07') { document.title = '期間工に落ちたら次はどうする？応募条件から確認｜クボタ筑波'; if (description) description.content = '期間工に落ちた・不採用だった人へ。採用を断定せず、クボタ筑波の応募条件、仕事内容、給与、勤務、寮を確認して次の候補を判断します。'; }
+        if (view === 'cl08') { document.title = '受かりやすい期間工は？応募条件から比較｜クボタ筑波'; if (description) description.content = '受かりやすい期間工を探す人へ。採用率は断定せず、クボタ筑波の応募条件、未経験可否、仕事内容、給与、寮を確認して比較します。'; }
         window.__periodRejectHero = hero;
         window.__periodRejectShown = shown;
         window.__periodRejectAfterSupportLabel = view === 'cl07'
@@ -106,7 +107,7 @@ const canonical = new URL('/period-rejected/', Astro.site ?? 'https://kubota.hak
   <body>
     <main class="rejected-lp" aria-label="クボタ筑波 期間従業員の応募不安記事LP">
       <section class="hero-stack" aria-label="検索内容に合わせた最初の案内">
-        <img id="cluster-hero" class="hero-image" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="" width={heroes.fallback.width} height={heroes.fallback.height} loading="eager" fetchpriority="high" decoding="async" />
+        <img id="cluster-hero" class="hero-image" src={heroes.fallback.file} alt={heroes.fallback.alt} width={heroes.fallback.width} height={heroes.fallback.height} loading="eager" fetchpriority="high" decoding="async" />
         <script is:inline>
           (() => {
             const image = document.getElementById('cluster-hero');
@@ -118,7 +119,6 @@ const canonical = new URL('/period-rejected/', Astro.site ?? 'https://kubota.hak
             image.src = hero.file;
           })();
         </script>
-        <noscript><img class="hero-image" src={heroes.fallback.file} alt={heroes.fallback.alt} width={heroes.fallback.width} height={heroes.fallback.height} /></noscript>
       </section>
 
       {items.map((item) => item.type === 'image' ? (
@@ -133,6 +133,19 @@ const canonical = new URL('/period-rejected/', Astro.site ?? 'https://kubota.hak
           </a>
         </section>
       ))}
+      <section class="text-version" aria-label="このページの内容をテキストで確認">
+        <details>
+          <summary>このページの内容をテキストで確認</summary>
+          <div class="text-version__body">
+            <div id="text-cluster-intro"><h2>応募先を条件から確認する</h2><p>採用結果だけでなく、応募条件、仕事内容、給与、勤務、寮を確認し、入社後に続けられる条件かまで見て判断します。</p></div>
+            <section><h2>応募条件と応募サポート</h2><ul><li>現在の募集対象は、6ヶ月勤務可能な方、満18歳以上の方です。</li><li>雇入れ健康診断があります。健診結果の内容によっては、入職について別途相談となる場合があります。</li><li>現在の募集ページでは「合格に自信のない方でも大丈夫」「専門スタッフが万全サポート」という応募サポートが案内されています。</li></ul><p class="text-note">募集状況・募集条件は変更される場合があります。応募前に必ず公式募集ページの最新情報を確認してください。応募サポートの存在は、採用・合格を保証するものではありません。</p></section>
+            <section><h2>給与・手当・寮</h2><dl><div><dt>最初の日給</dt><dd>14,000円</dd></div><div><dt>月収例</dt><dd>約34万円（20日勤務＋残業25時間＋昼勤のみの例）</dd></div><div><dt>満期慰労金</dt><dd>半年ごとに24万円。出勤率90%以上などの条件があります。</dd></div><div><dt>祝儀</dt><dd>14万円×年2回。支給日などの条件があります。</dd></div><div><dt>寮</dt><dd>入寮条件を満たす場合、家賃無料の案内があります。TV・冷蔵庫・洗濯機・電子レンジの記載があります。</dd></div></dl><p class="text-note">Wi-Fi、バス・トイレ、寝具、エアコン、駐車場、光熱費、通勤時間、門限、来客ルールは公開情報だけでは確認できません。応募前に確認してください。</p></section>
+            <section><h2>仕事内容・大変さ・未経験</h2><p>主な仕事は、組立、塗装、溶接、機械加工、運搬です。立ち作業、繰り返し、重いもの、歩く量、暑さ、工具の振動などは工程で変わります。</p><ul><li>組立：部品を取り付けて製品を組み上げます。</li><li>塗装：製品や部品に色を塗ります。</li><li>溶接：金属のパーツをつなぎます。</li><li>機械加工：機械で部品を削り、できあがりを確認します。</li><li>運搬：部品を使う場所まで運びます。</li></ul><p>未経験者は安全ルール、作業の順番、部品や工具の使い方、異常時の止め方・伝え方を覚えてから配属されます。担当工程や勤務時間を自分で選べるとは案内されていません。</p><p class="text-note">ピッキングは3日〜1週間ほど、バリ取り・溶接は約1.5か月で慣れた本人例があります。いずれも特定の人・工程の体験で、全員に当てはまる内容ではありません。</p></section>
+            <section><h2>勤務時間・休日・応募前の確認</h2><p>日勤8:00〜16:30、早番7:00〜15:30、遅番14:00〜22:30、夜勤20:00〜4:30の案内があります。5勤2休または4勤2休のパターンで、GW・夏・年末年始には長い休みがあります。6か月後、出勤率80%以上なら有給休暇10日。作業服・帽子・安全靴は無料貸与です。</p><p>応募前には、自分は寮に入れるか、勤務時間と担当する仕事はどう決まるか、自分の入社日で満期慰労金や祝儀を受け取れるかを確認します。</p></section>
+            <section><h2>向いている人・FAQ</h2><p>今より給料を上げたい、1年で貯金を増やしたい、家賃の負担を減らしたい、未経験から工場で働きたい、関東で働きたい人は候補にしやすい一方、日勤だけ、軽い作業だけ、土日休みが絶対、担当する仕事を自分で選びたい人は応募前に確認が必要です。</p><h3>寮費は本当に0円？</h3><p>一人用の個室と家族寮について、寮費0円と案内されています。入寮には条件があります。</p><h3>寮の水道光熱費はいくら？</h3><p>募集ページには金額が出ていません。家具家電が標準で付くとは書かれていません。</p><h3>日勤だけで働ける？</h3><p>日勤・早番・遅番・夜勤があります。日勤だけを選べるとは書かれていません。</p><h3>担当する仕事は選べる？</h3><p>組立・塗装・溶接・機械加工・運搬があります。担当の決まり方は公開されていません。</p><h3>有給・社会保険は？</h3><p>6か月働き、出勤率80%以上なら有給休暇10日。社会保険は入社日から加入します。</p><h3>正社員を目指せる？</h3><p>1年以上働いた人を対象に、正社員を目指せる制度があります。</p></section>
+          </div>
+        </details>
+      </section>
     </main>
 
     <footer class="rejected-footer">
@@ -155,6 +168,12 @@ const canonical = new URL('/period-rejected/', Astro.site ?? 'https://kubota.hak
       (() => {
         const params = new URLSearchParams(location.search);
         const shown = window.__periodRejectShown || 'PERIOD_REJECTED_DEFAULT';
+        const intro = document.getElementById('text-cluster-intro');
+        const clusterIntro = {
+          CL07_PERIOD_REJECT: '<h2>期間工に落ちた場合の考え方</h2><p>1社で不採用だったからといって、ほかの期間工まで同じ結果になると決まったわけではありません。メーカーごとに募集時期、募集状況、選考で見られる条件は異なります。</p><p>次の応募先を探すときは、現在の募集条件を確認し、入社後に続けられそうかまで見て判断します。</p>',
+          CL08_PERIOD_EASY_PASS: '<h2>受かりやすい期間工を探す場合の考え方</h2><p>公開情報だけで「このメーカーが一番受かりやすい」と断定することはできません。自分が募集対象に合うか、未経験でも応募できるか、応募前にどんなサポートがあるかを確認して候補を絞ります。</p>',
+        };
+        if (intro && clusterIntro[shown]) intro.innerHTML = clusterIntro[shown];
         const dynamicLabel = document.querySelector('[data-dynamic-label]');
         if (dynamicLabel) dynamicLabel.textContent = window.__periodRejectAfterSupportLabel || dynamicLabel.textContent;
         const incoming = params.get('hypothesis') || '(none)';
@@ -172,7 +191,9 @@ const canonical = new URL('/period-rejected/', Astro.site ?? 'https://kubota.hak
           link.addEventListener('click', () => {
             const payload = { debug_mode: !!window.__ga_debug, hypothesis: incoming, hypothesis_shown: shown, lp: lpPath, cta_location: link.dataset.location || '', cta_label: (link.textContent || '').trim().slice(0, 60), ...tracking };
             window.dataLayer.push({ event: 'mcv_click', ...payload });
+            window.dataLayer.push({ event: 'cta_click', ...payload });
             if (typeof window.gtag === 'function') window.gtag('event', 'mcv_click', payload);
+            if (typeof window.gtag === 'function') window.gtag('event', 'cta_click', payload);
           });
         });
       })();
@@ -207,6 +228,19 @@ const canonical = new URL('/period-rejected/', Astro.site ?? 'https://kubota.hak
   .rejected-cta__button:focus-visible { outline: 4px solid rgb(0 150 136 / 38%); outline-offset: 4px; }
   .rejected-cta--final { padding-block: 30px 38px; background: #0b7177; }
   .rejected-cta--final p { color: #e9ffff; }
+  .text-version { padding: 18px 16px 24px; background: #f3faf9; font-family: 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, system-ui, sans-serif; }
+  .text-version details { overflow: hidden; border: 1px solid #bddfdd; border-radius: 12px; background: #fff; }
+  .text-version summary { display: flex; align-items: center; min-height: 54px; padding: 14px 16px; color: #066a72; font-size: 15px; font-weight: 800; cursor: pointer; }
+  .text-version summary::marker { color: #ff6200; }
+  .text-version__body { padding: 2px 16px 20px; border-top: 1px solid #d9ecea; color: #263b38; }
+  .text-version section, .text-version #text-cluster-intro { padding: 20px 0; border-bottom: 1px solid #e0eeec; }
+  .text-version section:last-child { border-bottom: 0; }
+  .text-version h2 { margin: 0 0 10px; color: #066a72; font-size: 18px; line-height: 1.45; }
+  .text-version h3 { margin: 18px 0 5px; color: #125c61; font-size: 15px; line-height: 1.45; }
+  .text-version p, .text-version li, .text-version dd, .text-version dt { font-size: 14px; line-height: 1.75; }
+  .text-version p { margin: 0 0 10px; }.text-version ul { margin: 0; padding-left: 1.25em; }.text-version li + li { margin-top: 5px; }
+  .text-version dl { display: grid; gap: 8px; margin: 0; }.text-version dl > div { padding: 9px 10px; border-radius: 8px; background: #f3faf9; }.text-version dt { color: #4e6f6b; }.text-version dd { margin: 2px 0 0; color: #143e40; font-weight: 700; }
+  .text-version .text-note { padding: 10px; border-radius: 8px; background: #fff9e9; color: #6d6246; font-size: 12px; line-height: 1.65; }
   .rejected-footer { width: 100%; max-width: 430px; margin: 0 auto; padding: 28px 20px 32px; border-top: 1px solid #d8e7e5; background: #fff; color: #5c6e6b; font-family: 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, system-ui, sans-serif; font-size: 13px; line-height: 1.7; }
   .rejected-footer__info { max-width: 360px; margin: 0 auto; }
   .rejected-footer__info h2 { margin: 0 0 10px; color: #075f68; font-size: 16px; line-height: 1.4; }
